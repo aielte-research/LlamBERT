@@ -1,4 +1,11 @@
 <!-- USAGE EXAMPLES -->
+
+## Downloading weigths
+
+```sh
+bash <(curl -sSL https://g.bodaay.io/hfd) -m TheBloke/Platypus2-70B-Instruct-GPTQ
+```
+
 ## Usage
 
 Full llama-2
