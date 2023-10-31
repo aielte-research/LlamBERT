@@ -1,0 +1,19 @@
+name: DNeurOn
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - pyyaml
+  - tqdm
+  - networkx
+  - graphviz
+  - pygraphviz
+  - pip
+  - pip:
+    - torch>=2.0.1
+    - transformers>=4.31.0
+    - accelerate
+    - optimum
+    - auto-gptq
+    - peft
+    - fire
