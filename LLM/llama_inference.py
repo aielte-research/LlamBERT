@@ -43,6 +43,7 @@ def main(
     quantization: bool=False,
     max_new_tokens: int=100, #The maximum numbers of tokens to generate
     prompt_file: str=None,
+    target_file: str=None,
     seed: int=42, #seed value for reproducibility
     do_sample: bool=True, #Whether or not to use sampling ; use greedy decoding otherwise.
     min_length: int=None, #The minimum length of the sequence to be generated, input prompt + min_new_tokens
@@ -110,6 +111,8 @@ def main(
     
     output_texts=[]
     output_texts_answer_only=[]
+    output_texts_answer_only_cleaned=[]
+    output_texts_answer_only_binary=[]
     # Process prompts in batches
     for i in range(0, len(user_prompts), batch_size):
         batch_prompts = user_prompts[i:i+batch_size]
@@ -145,12 +148,48 @@ def main(
             
             output_texts.append(output_text)
             output_texts_answer_only.append(output_text_answer_only)
+            output_cleaned = output_text_answer_only.strip().strip(".,!?;").strip().strip(".,!?;").lower()
+            output_texts_answer_only_cleaned.append(output_cleaned)
+            if output_cleaned=="no":
+                output_texts_answer_only_binary.append(0)
+            elif output_cleaned=="yes":
+                output_texts_answer_only_binary.append(1)
+            else:
+                output_texts_answer_only_binary.append(2)
 
     output_data={
         "settings": args,
         "outputs_full": output_texts,
-        "outputs": output_texts_answer_only
+        "outputs": output_texts_answer_only,
+        "outputs_cleaned": output_texts_answer_only_cleaned,
+        "outputs_binary": output_texts_answer_only_binary
     }
+
+    if target_file is not None:
+        assert os.path.exists(
+            target_file
+        ), f"Provided target file does not exist {target_file}"
+        extension = os.path.splitext(target_file)[1].strip(".")
+        if extension.lower() in ["json"]:
+            with open(target_file, "r") as f:
+                targets = json.load(f)
+                assert isinstance(targets, list), "JSON content is not a list"
+        else:
+            assert False, f"Error: unrecognized target file erxtension '{extension}'!"
+        
+        assert len(output_texts_answer_only_binary)==len(targets), f"Provided target file is not the sema lenght as the inputs"
+
+        correct=0
+        misclassifed=[]
+        for target, output, output_full in zip(targets, output_texts_answer_only_binary, output_texts):
+            if target == output:
+                correct+=1
+            else:
+                misclassifed.append(output_full)
+        output_data["accuracy"]=int(10000*correct/len(targets))/100
+        print(f"Accuracy: {output_data['accuracy']}%")
+        output_data["misclassifed"]=misclassifed
+
     
     output_fpath = os.path.join("model_outputs",f'{os.path.basename(prompt_file)}_{os.path.basename(model_name.rstrip("/"))}')
     with my_open_w(output_fpath) as file:
