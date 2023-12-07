@@ -15,11 +15,12 @@ import os
         
     
 class BertDataset(Dataset):
-    def __init__(self, tokenizer, max_length, data):
+    def __init__(self, tokenizer, max_length, data, device):
         super(BertDataset, self).__init__()
-        self.data=data
-        self.tokenizer=tokenizer
-        self.max_length=max_length
+        self.data = data
+        self.tokenizer = tokenizer
+        self.max_length = max_length
+        self.device = device
         
     def __len__(self):
         return len(self.data)
@@ -42,9 +43,9 @@ class BertDataset(Dataset):
         mask = inputs["attention_mask"]
 
         return {
-            'ids': torch.tensor(ids, dtype=torch.long),
-            'mask': torch.tensor(mask, dtype=torch.long),
-            'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
+            'ids': torch.tensor(ids, dtype=torch.long).to(self.device),
+            'mask': torch.tensor(mask, dtype=torch.long).to(self.device),
+            'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long).to(self.device),
             'target': self.data[index]["label"]
             }
 
@@ -94,7 +95,7 @@ def finetune(num_epochs, train_dataloader, val_dataloader, model, loss_fn, optim
             
             optimizer.step()
             
-            pred = np.where(output >= 0, 1, 0)
+            pred = np.where(output.to("cpu") >= 0, 1, 0)
 
             num_correct = sum(1 for a, b in zip(pred, label) if a[0] == b[0])
             train_correct += num_correct
@@ -207,6 +208,12 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--data_path', required=True)
     args = parser.parse_args()
 
+    if torch.cuda.is_available():
+        device = "cuda"
+    else:
+        device = "cpu"
+    print(f"Using device={device}")
+
     with open(os.path.join(args.data_path, "train.json"), "r") as file:
         train_data = json.load(file)
     with open(os.path.join(args.data_path, "test.json"), "r") as file:
@@ -219,16 +226,16 @@ if __name__ == '__main__':
     MAX_LEN = 128
     BATCH_SIZE = 512
 
-    train_dataset = BertDataset(tokenizer, max_length=MAX_LEN, data=train_data[:20000])
+    train_dataset = BertDataset(tokenizer, device=device, max_length=MAX_LEN, data=train_data[:20000])
     train_dataloader = DataLoader(dataset=train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 
-    val_dataset = BertDataset(tokenizer, max_length=MAX_LEN, data=train_data[20000:])
+    val_dataset = BertDataset(tokenizer, device=device, max_length=MAX_LEN, data=train_data[20000:])
     val_dataloader = DataLoader(dataset=val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
-    test_dataset = BertDataset(tokenizer, max_length=MAX_LEN, data=test_data)
+    test_dataset = BertDataset(tokenizer, device=device, max_length=MAX_LEN, data=test_data)
     test_dataloader = DataLoader(dataset=val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
-    model=BERT()
+    model=BERT().to(device)
 
     loss_fn = nn.BCEWithLogitsLoss()
 
@@ -251,5 +258,5 @@ if __name__ == '__main__':
     test(
         model=model,
         run=run,
-        test_dataloader=test_dataloader,
+        test_dataloader=test_dataloader
     )
