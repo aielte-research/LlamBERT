@@ -12,28 +12,6 @@ import argparse
 import neptune
 from dotenv import load_dotenv
 import os
-
-
-def load_data_from_json(path):
-    with open(path, "r") as file:
-        data = json.load(file)["outputs_full"]
-
-    formatted_data = []
-    for line in data:
-        line = line.replace("\n", "").split("following meanings")[-1]
-        concepts = re.findall(r"'(.*?)'", line)
-        if len(concepts) == 0:
-            print(line)
-        if "yes" in line.lower()[-5:]:
-            for concept in concepts:
-                formatted_data.append([concept, 1])
-        elif "no" in line.lower()[-5:]:
-            for concept in concepts:
-                formatted_data.append([concept, 0])
-        else:
-            print(f"No answer in: {line}")
-
-    return formatted_data
         
     
 class BertDataset(Dataset):
@@ -48,7 +26,7 @@ class BertDataset(Dataset):
     
     def __getitem__(self, index):
         
-        text = self.data[index][0]
+        text = self.data[index]["txt"]
         
         inputs = self.tokenizer.encode_plus(
             text,
@@ -67,7 +45,7 @@ class BertDataset(Dataset):
             'ids': torch.tensor(ids, dtype=torch.long),
             'mask': torch.tensor(mask, dtype=torch.long),
             'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
-            'target': self.data[index][1]
+            'target': self.data[index]["label"]
             }
 
 
@@ -139,7 +117,7 @@ def finetune(num_epochs, train_dataloader, val_dataloader, model, loss_fn, optim
             val_correct = 0
             val_samples = 0
             
-            loop=tqdm(enumerate(val_dataloader), leave=False, total=len(train_dataloader))
+            loop=tqdm(enumerate(val_dataloader), leave=False, total=len(val_dataloader))
             for _, data in loop:
                 ids = data['ids']
                 token_type_ids = data['token_type_ids']
@@ -178,6 +156,44 @@ def finetune(num_epochs, train_dataloader, val_dataloader, model, loss_fn, optim
     return model
 
 
+def test(test_dataloader, model, run):
+    with torch.no_grad():
+        model.eval()
+        test_correct = 0
+        test_samples = 0
+        
+        loop=tqdm(enumerate(test_dataloader), leave=False, total=len(test_dataloader))
+        for _, data in loop:
+            ids = data['ids']
+            token_type_ids = data['token_type_ids']
+            mask = data['mask']
+            label = data['target']
+            label = label.unsqueeze(1)
+            
+            
+            output=model(
+                ids=ids,
+                mask=mask,
+                token_type_ids=token_type_ids)
+            label = label.type_as(output)
+
+            test_loss=loss_fn(output,label)
+            
+            pred = np.where(output >= 0, 1, 0)
+
+            num_correct = sum(1 for a, b in zip(pred, label) if a[0] == b[0])
+            test_correct += num_correct
+            num_samples = pred.shape[0]
+            test_samples += num_samples
+            test_accuracy = num_correct/num_samples
+            
+            if run is not None:
+                run["test/loss"].append(test_loss.item())
+                run["test/accuracy"].append(test_accuracy)
+        
+    print(f'Test:\t got {test_correct} / {test_samples} with accuracy {float(test_correct)/float(test_samples)*100:.2f}%')
+
+
 if __name__ == '__main__':
     
     load_dotenv()
@@ -188,18 +204,29 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
                     prog='Bert finetuning',
                     description='This program finetunes a BERT model')
-    parser.add_argument('-d', '--data_path', default="/home/mlajos/DeepNeurOntology/LLM/model_outputs/cui_formatted_llama.json_meta-llama_Llama-2-70b-chat-hf")
+    parser.add_argument('-d', '--data_path', required=True)
     args = parser.parse_args()
 
-    data = load_data_from_json(path=args.data_path)
-    print(f"Numver of labeled concepts: {len(data)}")
+    with open(os.path.join(args.data_path, "train.json"), "r") as file:
+        train_data = json.load(file)
+    with open(os.path.join(args.data_path, "test.json"), "r") as file:
+        test_data = json.load(file)
+    print(f"Number of train examples loaded: {len(train_data)}")
+    print(f"Number of test examples loaded: {len(test_data)}")
 
     tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 
-    train_dataset= BertDataset(tokenizer, max_length=100, data=data[:-50])
-    train_dataloader=DataLoader(dataset=train_dataset, batch_size=32, shuffle=True)
-    val_dataset= BertDataset(tokenizer, max_length=100, data=data[-50:])
-    val_dataloader=DataLoader(dataset=val_dataset, batch_size=32, shuffle=False)
+    MAX_LEN = 128
+    BATCH_SIZE = 512
+
+    train_dataset = BertDataset(tokenizer, max_length=MAX_LEN, data=train_data[:20000])
+    train_dataloader = DataLoader(dataset=train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+
+    val_dataset = BertDataset(tokenizer, max_length=MAX_LEN, data=train_data[20000:])
+    val_dataloader = DataLoader(dataset=val_dataset, batch_size=BATCH_SIZE, shuffle=False)
+
+    test_dataset = BertDataset(tokenizer, max_length=MAX_LEN, data=test_data)
+    test_dataloader = DataLoader(dataset=val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
     model=BERT()
 
@@ -212,11 +239,17 @@ if __name__ == '__main__':
         param.requires_grad = False
 
     model = finetune(
-        num_epochs=5, 
+        num_epochs=10, 
         train_dataloader=train_dataloader, 
         val_dataloader=val_dataloader, 
         model=model, 
         loss_fn=loss_fn, 
         optimizer=optimizer,
         run=run
+    )
+
+    test(
+        model=model,
+        run=run,
+        test_dataloader=test_dataloader,
     )
