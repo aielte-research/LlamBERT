@@ -135,7 +135,7 @@ def finetune(num_epochs, train_dataloader, val_dataloader, model, loss_fn, optim
 
                 val_loss=loss_fn(output,label)
                 
-                pred = np.where(output >= 0, 1, 0)
+                pred = np.where(output.to("cpu") >= 0, 1, 0)
 
                 num_correct = sum(1 for a, b in zip(pred, label) if a[0] == b[0])
                 val_correct += num_correct
@@ -180,7 +180,7 @@ def test(test_dataloader, model, run):
 
             test_loss=loss_fn(output,label)
             
-            pred = np.where(output >= 0, 1, 0)
+            pred = np.where(output.to("cpu") >= 0, 1, 0)
 
             num_correct = sum(1 for a, b in zip(pred, label) if a[0] == b[0])
             test_correct += num_correct
