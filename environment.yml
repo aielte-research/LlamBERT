@@ -10,6 +10,7 @@ dependencies:
   - pygraphviz
   - pip
   - pip:
+    - neptune
     - torch>=2.0.1
     - transformers>=4.31.0
     - accelerate
@@ -17,3 +18,4 @@ dependencies:
     - auto-gptq
     - peft
     - fire
+    - python-dotenv
