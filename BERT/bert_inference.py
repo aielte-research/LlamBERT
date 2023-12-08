@@ -188,12 +188,10 @@ def test(test_dataloader, model, run, loss_fn):
             test_samples += num_samples
             test_accuracy = num_correct/num_samples
             
-            if run is not None:
-                run["test/loss"].append(test_loss.item())
-                run["test/accuracy"].append(test_accuracy)
         
     print(f'Test:\t got {test_correct} / {test_samples} with accuracy {float(test_correct)/float(test_samples)*100:.2f}%')
-
+    if run is not None:
+        run["test/accuracy"] = float(test_correct)/float(test_samples)
 
 def main(cfg):
     if cfg["neptune_logging"]:
