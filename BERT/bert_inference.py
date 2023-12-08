@@ -12,6 +12,7 @@ import argparse
 import neptune
 from dotenv import load_dotenv
 import os
+from cfg_parser import parse
         
     
 class BertDataset(Dataset):
@@ -51,10 +52,10 @@ class BertDataset(Dataset):
 
 
 class BERT(nn.Module):
-    def __init__(self):
+    def __init__(self, model_name, embed_dim):
         super(BERT, self).__init__()
-        self.bert_model = BertModel.from_pretrained("bert-base-uncased")
-        self.out = nn.Linear(768, 1)
+        self.bert_model = BertModel.from_pretrained(model_name)
+        self.out = nn.Linear(embed_dim, 1)
         
     def forward(self,ids,mask,token_type_ids):
         _,o2= self.bert_model(ids,attention_mask=mask,token_type_ids=token_type_ids, return_dict=False)
@@ -111,7 +112,7 @@ def finetune(num_epochs, train_dataloader, val_dataloader, model, loss_fn, optim
                 run["train/loss"].append(loss.item())
                 run["train/accuracy"].append(train_accuracy)
             
-        print(f'Epoch={epoch}/{num_epochs}, Train:\t got {train_correct} / {train_samples} with accuracy {float(train_correct)/float(train_samples)*100:.2f}%')
+        print(f'Epoch={epoch+1}/{num_epochs}, Train:\t got {train_correct} / {train_samples} with accuracy {float(train_correct)/float(train_samples)*100:.2f}%')
 
         with torch.no_grad():
             model.eval()
@@ -144,20 +145,19 @@ def finetune(num_epochs, train_dataloader, val_dataloader, model, loss_fn, optim
                 val_accuracy = num_correct/num_samples
                 
                 # Show progress while training
-                loop.set_description(f'Epoch={epoch}/{num_epochs}')
+                loop.set_description(f'Epoch={epoch+1}/{num_epochs}')
                 loop.set_postfix(loss=val_loss.item(),acc=val_accuracy)
                 if run is not None:
                     run["val/loss"].append(val_loss.item())
                     run["val/accuracy"].append(val_accuracy)
             
-        print(f'Epoch={epoch}/{num_epochs}, Validation:\t got {val_correct} / {val_samples} with accuracy {float(val_correct)/float(val_samples)*100:.2f}%')
-    
+        print(f'{epoch+1}/{num_epochs}, Validation:\t got {val_correct} / {val_samples} with accuracy {float(val_correct)/float(val_samples)*100:.2f}%')
     # plot train_batch_accuracies
 
     return model
 
 
-def test(test_dataloader, model, run):
+def test(test_dataloader, model, run, loss_fn):
     with torch.no_grad():
         model.eval()
         test_correct = 0
@@ -195,36 +195,35 @@ def test(test_dataloader, model, run):
     print(f'Test:\t got {test_correct} / {test_samples} with accuracy {float(test_correct)/float(test_samples)*100:.2f}%')
 
 
-if __name__ == '__main__':
-    
-    load_dotenv()
-    run = neptune.init_run(
-        project="aielte/DNeurOn",
-        api_token=os.getenv("NEPTUNE_API_TOKEN"),
-    )
-    parser = argparse.ArgumentParser(
-                    prog='Bert finetuning',
-                    description='This program finetunes a BERT model')
-    parser.add_argument('-d', '--data_path', required=True)
-    args = parser.parse_args()
+def main(cfg):
+    if cfg["neptune_logging"]:
+        run = neptune.init_run(
+            project="aielte/DNeurOn",
+            api_token=os.getenv("NEPTUNE_API_TOKEN"),
+        )
+        run["cfg"] = cfg
 
     if torch.cuda.is_available():
         device = "cuda"
     else:
         device = "cpu"
+    if run is not None:
+        run["device"] = device
     print(f"Using device={device}")
 
-    with open(os.path.join(args.data_path, "train.json"), "r") as file:
+    with open(os.path.join(cfg['data_path'], "train.json"), "r") as file:
         train_data = json.load(file)
-    with open(os.path.join(args.data_path, "test.json"), "r") as file:
+    with open(os.path.join(cfg['data_path'], "test.json"), "r") as file:
         test_data = json.load(file)
     print(f"Number of train examples loaded: {len(train_data)}")
     print(f"Number of test examples loaded: {len(test_data)}")
 
-    tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+    tokenizer = BertTokenizer.from_pretrained(cfg["model_name"])
 
-    MAX_LEN = 128
-    BATCH_SIZE = 512
+    MAX_LEN = cfg["max_len"]
+    BATCH_SIZE = cfg["batch_size"]
+    LEARNING_RATE = cfg["lr"]
+    NUM_EPOCHS = cfg["num_epochs"]
 
     train_dataset = BertDataset(tokenizer, device=device, max_length=MAX_LEN, data=train_data[:20000])
     train_dataloader = DataLoader(dataset=train_dataset, batch_size=BATCH_SIZE, shuffle=True)
@@ -235,18 +234,26 @@ if __name__ == '__main__':
     test_dataset = BertDataset(tokenizer, device=device, max_length=MAX_LEN, data=test_data)
     test_dataloader = DataLoader(dataset=val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
-    model=BERT().to(device)
+    model=BERT(model_name=cfg["model_name"], embed_dim=cfg["embed_dim"]).to(device)
 
     loss_fn = nn.BCEWithLogitsLoss()
 
-    optimizer= optim.Adam(model.parameters(),lr= 0.001)
+    # Freeze BERT parameters
+    for param in model.parameters():
+        param.requires_grad = False
+
+    # Unfreeze the parameters of the classification head
+    for param in model.out.parameters():
+        param.requires_grad = True
+
+    optimizer= optim.AdamW(model.parameters(), lr=LEARNING_RATE)
 
     
     for param in model.bert_model.parameters():
         param.requires_grad = False
 
     model = finetune(
-        num_epochs=10, 
+        num_epochs= NUM_EPOCHS, 
         train_dataloader=train_dataloader, 
         val_dataloader=val_dataloader, 
         model=model, 
@@ -258,5 +265,24 @@ if __name__ == '__main__':
     test(
         model=model,
         run=run,
-        test_dataloader=test_dataloader
+        test_dataloader=test_dataloader,
+        loss_fn=loss_fn
     )
+
+    run.stop()
+
+
+if __name__ == '__main__':
+    
+    load_dotenv()
+    parser = argparse.ArgumentParser(
+                    prog='Bert finetuning',
+                    description='This program finetunes a BERT model')
+    parser.add_argument('-c', '--config_path', required=True)
+    args = parser.parse_args()
+
+    cfg, _ = parse(args.config_path)
+    for c in cfg:
+        main(c)
+
+    
