@@ -232,7 +232,7 @@ def main(cfg):
     val_dataloader = DataLoader(dataset=val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
     test_dataset = BertDataset(tokenizer, device=device, max_length=MAX_LEN, data=test_data)
-    test_dataloader = DataLoader(dataset=val_dataset, batch_size=BATCH_SIZE, shuffle=False)
+    test_dataloader = DataLoader(dataset=test_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
     model=BERT(model_name=cfg["model_name"], embed_dim=cfg["embed_dim"]).to(device)
 
