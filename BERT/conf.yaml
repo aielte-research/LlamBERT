@@ -1,11 +1,8 @@
-name: yaml_test_run
+name: Large BERT smart training
 neptune_logging: True
 data_path: /home/projects/DeepNeurOntology/IMDB_data/
 model_name: bert-large-uncased
-embed_dim: 1024
-batch_size: 
-  - 512
-  - 1024
-num_epochs: 1
-lr: 0.001
-max_len: 128
+batch_size: 16
+num_epochs: 50
+max_len: 512
+train_lines: 20000 # out of 25k

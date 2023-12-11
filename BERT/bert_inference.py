@@ -1,198 +1,37 @@
-from transformers import BertTokenizer, BertModel
+from transformers import BertForSequenceClassification, TrainingArguments, Trainer, BertTokenizerFast
+from transformers.integrations import NeptuneCallback
 import torch
 import json
-from pprint import pprint
-import re
-from torch.utils.data import Dataset, DataLoader
-from torch import nn
-import torch.optim as optim
-from tqdm import tqdm
-import numpy as np
 import argparse
 import neptune
 from dotenv import load_dotenv
 import os
 from cfg_parser import parse
-        
-    
-class BertDataset(Dataset):
-    def __init__(self, tokenizer, max_length, data, device):
-        super(BertDataset, self).__init__()
-        self.data = data
-        self.tokenizer = tokenizer
-        self.max_length = max_length
-        self.device = device
-        
+from sklearn.metrics import accuracy_score
+
+
+def compute_metrics(pred):
+  labels = pred.label_ids
+  preds = pred.predictions.argmax(-1)
+  # calculate accuracy using sklearn's function
+  acc = accuracy_score(labels, preds)
+  return {
+      'accuracy': acc,
+  }
+
+
+class SentimentDataset(torch.utils.data.Dataset):
+    def __init__(self, encodings, labels):
+        self.encodings = encodings
+        self.labels = labels
+
+    def __getitem__(self, idx):
+        item = {k: torch.tensor(v[idx]) for k, v in self.encodings.items()}
+        item["labels"] = torch.tensor([self.labels[idx]])
+        return item
+
     def __len__(self):
-        return len(self.data)
-    
-    def __getitem__(self, index):
-        
-        text = self.data[index]["txt"]
-        
-        inputs = self.tokenizer.encode_plus(
-            text,
-            None,
-            padding='max_length',
-            add_special_tokens=True,
-            return_attention_mask=True,
-            max_length=self.max_length,
-            truncation=True,
-        )
-        ids = inputs["input_ids"]
-        token_type_ids = inputs["token_type_ids"]
-        mask = inputs["attention_mask"]
-
-        return {
-            'ids': torch.tensor(ids, dtype=torch.long).to(self.device),
-            'mask': torch.tensor(mask, dtype=torch.long).to(self.device),
-            'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long).to(self.device),
-            'target': self.data[index]["label"]
-            }
-
-
-class BERT(nn.Module):
-    def __init__(self, model_name, embed_dim):
-        super(BERT, self).__init__()
-        self.bert_model = BertModel.from_pretrained(model_name)
-        self.out = nn.Linear(embed_dim, 1)
-        
-    def forward(self,ids,mask,token_type_ids):
-        _,o2= self.bert_model(ids,attention_mask=mask,token_type_ids=token_type_ids, return_dict=False)
-        
-        out= self.out(o2)
-        
-        return out
-
-
-def finetune(num_epochs, train_dataloader, val_dataloader, model, loss_fn, optimizer, run):
-    
-    for epoch in range(num_epochs):
-        
-        # train loop
-        model.train()
-        train_correct = 0
-        train_samples = 0
-        train_batch_accuracies = []
-        
-        loop=tqdm(enumerate(train_dataloader), leave=False, total=len(train_dataloader))
-        for _, data in loop:
-            ids = data['ids']
-            token_type_ids = data['token_type_ids']
-            mask = data['mask']
-            label = data['target']
-            label = label.unsqueeze(1)
-            
-            optimizer.zero_grad()
-            
-            output=model(
-                ids=ids,
-                mask=mask,
-                token_type_ids=token_type_ids)
-            label = label.type_as(output)
-
-            loss=loss_fn(output,label)
-            loss.backward()
-            
-            optimizer.step()
-            
-            pred = np.where(output.to("cpu") >= 0, 1, 0)
-
-            num_correct = sum(1 for a, b in zip(pred, label) if a[0] == b[0])
-            train_correct += num_correct
-            num_samples = pred.shape[0]
-            train_samples += num_samples
-            train_accuracy = num_correct/num_samples
-            train_batch_accuracies.append(train_accuracy)
-            
-            # Show progress while training
-            loop.set_description(f'Epoch={epoch}/{num_epochs}')
-            loop.set_postfix(loss=loss.item(),acc=train_accuracy)
-            if run is not None:
-                run["train/loss"].append(loss.item())
-                run["train/accuracy"].append(train_accuracy)
-            
-        print(f'Epoch={epoch+1}/{num_epochs}, Train:\t got {train_correct} / {train_samples} with accuracy {float(train_correct)/float(train_samples)*100:.2f}%')
-
-        with torch.no_grad():
-            model.eval()
-            val_correct = 0
-            val_samples = 0
-            
-            loop=tqdm(enumerate(val_dataloader), leave=False, total=len(val_dataloader))
-            for _, data in loop:
-                ids = data['ids']
-                token_type_ids = data['token_type_ids']
-                mask = data['mask']
-                label = data['target']
-                label = label.unsqueeze(1)
-                
-                
-                output=model(
-                    ids=ids,
-                    mask=mask,
-                    token_type_ids=token_type_ids)
-                label = label.type_as(output)
-
-                val_loss=loss_fn(output,label)
-                
-                pred = np.where(output.to("cpu") >= 0, 1, 0)
-
-                num_correct = sum(1 for a, b in zip(pred, label) if a[0] == b[0])
-                val_correct += num_correct
-                num_samples = pred.shape[0]
-                val_samples += num_samples
-                val_accuracy = num_correct/num_samples
-                
-                # Show progress while training
-                loop.set_description(f'Epoch={epoch+1}/{num_epochs}')
-                loop.set_postfix(loss=val_loss.item(),acc=val_accuracy)
-                if run is not None:
-                    run["val/loss"].append(val_loss.item())
-                    run["val/accuracy"].append(val_accuracy)
-            
-        print(f'{epoch+1}/{num_epochs}, Validation:\t got {val_correct} / {val_samples} with accuracy {float(val_correct)/float(val_samples)*100:.2f}%')
-    # plot train_batch_accuracies
-
-    return model
-
-
-def test(test_dataloader, model, run, loss_fn):
-    with torch.no_grad():
-        model.eval()
-        test_correct = 0
-        test_samples = 0
-        
-        loop=tqdm(enumerate(test_dataloader), leave=False, total=len(test_dataloader))
-        for _, data in loop:
-            ids = data['ids']
-            token_type_ids = data['token_type_ids']
-            mask = data['mask']
-            label = data['target']
-            label = label.unsqueeze(1)
-            
-            
-            output=model(
-                ids=ids,
-                mask=mask,
-                token_type_ids=token_type_ids)
-            label = label.type_as(output)
-
-            test_loss=loss_fn(output,label)
-            
-            pred = np.where(output.to("cpu") >= 0, 1, 0)
-
-            num_correct = sum(1 for a, b in zip(pred, label) if a[0] == b[0])
-            test_correct += num_correct
-            num_samples = pred.shape[0]
-            test_samples += num_samples
-            test_accuracy = num_correct/num_samples
-            
-            if run is not None:
-                run["test/loss"].append(test_loss.item())
-                run["test/accuracy"].append(test_accuracy)
-        
-    print(f'Test:\t got {test_correct} / {test_samples} with accuracy {float(test_correct)/float(test_samples)*100:.2f}%')
+        return len(self.labels)
 
 
 def main(cfg):
@@ -201,6 +40,8 @@ def main(cfg):
             project="aielte/DNeurOn",
             api_token=os.getenv("NEPTUNE_API_TOKEN"),
         )
+        run_id = run["sys/id"].fetch()
+        print(run_id)
         run["cfg"] = cfg
 
     if torch.cuda.is_available():
@@ -218,56 +59,60 @@ def main(cfg):
     print(f"Number of train examples loaded: {len(train_data)}")
     print(f"Number of test examples loaded: {len(test_data)}")
 
-    tokenizer = BertTokenizer.from_pretrained(cfg["model_name"])
+    tokenizer = BertTokenizerFast.from_pretrained(cfg["model_name"])
 
     MAX_LEN = cfg["max_len"]
     BATCH_SIZE = cfg["batch_size"]
-    LEARNING_RATE = cfg["lr"]
     NUM_EPOCHS = cfg["num_epochs"]
+    TRAIN_LEN = cfg["train_lines"]
 
-    train_dataset = BertDataset(tokenizer, device=device, max_length=MAX_LEN, data=train_data[:20000])
-    train_dataloader = DataLoader(dataset=train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+    train_encodings = tokenizer([d["txt"] for d in train_data[:TRAIN_LEN]], truncation=True, padding=True, max_length=MAX_LEN)
+    train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data[:TRAIN_LEN]])
 
-    val_dataset = BertDataset(tokenizer, device=device, max_length=MAX_LEN, data=train_data[20000:])
-    val_dataloader = DataLoader(dataset=val_dataset, batch_size=BATCH_SIZE, shuffle=False)
+    val_encodings = tokenizer([d["txt"] for d in train_data[TRAIN_LEN:]], truncation=True, padding=True, max_length=MAX_LEN)
+    val_dataset = SentimentDataset(encodings=val_encodings, labels=[d["label"] for d in train_data[TRAIN_LEN:]])
 
-    test_dataset = BertDataset(tokenizer, device=device, max_length=MAX_LEN, data=test_data)
-    test_dataloader = DataLoader(dataset=test_dataset, batch_size=BATCH_SIZE, shuffle=False)
+    test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=MAX_LEN)
+    test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
 
-    model=BERT(model_name=cfg["model_name"], embed_dim=cfg["embed_dim"]).to(device)
+    model = BertForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2).to(device)
 
-    loss_fn = nn.BCEWithLogitsLoss()
-
-    # Freeze BERT parameters
-    for param in model.parameters():
-        param.requires_grad = False
-
-    # Unfreeze the parameters of the classification head
-    for param in model.out.parameters():
-        param.requires_grad = True
-
-    optimizer= optim.AdamW(model.parameters(), lr=LEARNING_RATE)
-
-    
-    for param in model.bert_model.parameters():
-        param.requires_grad = False
-
-    model = finetune(
-        num_epochs= NUM_EPOCHS, 
-        train_dataloader=train_dataloader, 
-        val_dataloader=val_dataloader, 
-        model=model, 
-        loss_fn=loss_fn, 
-        optimizer=optimizer,
-        run=run
+    training_args = TrainingArguments(
+        output_dir='./results',          # output directory
+        num_train_epochs=NUM_EPOCHS,              # total number of training epochs
+        per_device_train_batch_size=BATCH_SIZE,  # batch size per device during training
+        per_device_eval_batch_size=1024,   # batch size for evaluation
+        warmup_steps=500,                # number of warmup steps for learning rate scheduler
+        weight_decay=0.01,               # strength of weight decay
+        logging_dir='./logs',            # directory for storing logs
+        load_best_model_at_end=True,     # load the best model when finished training (default metric is loss)
+        # but you can specify `metric_for_best_model` argument to change to accuracy or other metric
+        logging_steps=500,               # log & save weights each logging_steps
+        save_steps=10000,
+        evaluation_strategy="steps",     # evaluate each `logging_steps`
+        report_to="none",
     )
 
-    test(
-        model=model,
-        run=run,
-        test_dataloader=test_dataloader,
-        loss_fn=loss_fn
+    neptune_callback = NeptuneCallback(run=run)
+
+    trainer = Trainer(
+        model=model,                         # the instantiated Transformers model to be trained
+        args=training_args,                  # training arguments, defined above
+        train_dataset=train_dataset,         # training dataset
+        eval_dataset=val_dataset,          # evaluation dataset
+        compute_metrics=compute_metrics,     # the callback that computes metrics of interest
+        callbacks=[neptune_callback],
     )
+
+    trainer.train()
+
+    test_results = trainer.evaluate(
+        eval_dataset=test_dataset,
+    )
+
+    #the trainer stops the neptune run, so we reopen it
+    run = neptune.Run(with_id=run_id)
+    run["test"] = test_results
 
     run.stop()
 
