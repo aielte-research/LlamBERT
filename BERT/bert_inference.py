@@ -88,7 +88,7 @@ def main(cfg):
         load_best_model_at_end=True,     # load the best model when finished training (default metric is loss)
         # but you can specify `metric_for_best_model` argument to change to accuracy or other metric
         logging_steps=int(5000/BATCH_SIZE),               # log & save weights each logging_steps
-        save_steps=int(100000/BATCH_SIZE),
+        save_steps=int(5000/BATCH_SIZE),
         evaluation_strategy="steps",     # evaluate each `logging_steps`
         report_to="none",
     )
