@@ -65,6 +65,7 @@ def main(cfg):
     BATCH_SIZE = cfg["batch_size"]
     NUM_EPOCHS = cfg["num_epochs"]
     TRAIN_LEN = cfg["train_lines"]
+    LEARNING_RATE = cfg["lr"]
 
     train_encodings = tokenizer([d["txt"] for d in train_data[:TRAIN_LEN]], truncation=True, padding=True, max_length=MAX_LEN)
     train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data[:TRAIN_LEN]])
@@ -85,10 +86,11 @@ def main(cfg):
         warmup_steps=int(1000/BATCH_SIZE),                # number of warmup steps for learning rate scheduler
         weight_decay=0.01,               # strength of weight decay
         logging_dir='./logs',            # directory for storing logs
-        load_best_model_at_end=True,     # load the best model when finished training (default metric is loss)
+        load_best_model_at_end=False,  # Too muxh space   # load the best model when finished training (default metric is loss)
+        learning_rate=LEARNING_RATE,
         # but you can specify `metric_for_best_model` argument to change to accuracy or other metric
         logging_steps=int(5000/BATCH_SIZE),               # log & save weights each logging_steps
-        save_steps=int(5000/BATCH_SIZE),
+        save_strategy='no',
         evaluation_strategy="steps",     # evaluate each `logging_steps`
         report_to="none",
     )

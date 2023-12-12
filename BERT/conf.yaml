@@ -6,3 +6,4 @@ batch_size: 16
 num_epochs: 50
 max_len: 512
 train_lines: 20000 # out of 25k
+lr: 0.00001
