@@ -52,26 +52,33 @@ def main(cfg):
         run["device"] = device
     print(f"Using device={device}")
 
+    MAX_LEN = cfg["max_len"]
+    BATCH_SIZE = cfg["batch_size"]
+    NUM_EPOCHS = cfg["num_epochs"]
+    TRAIN_RATIO = cfg["train_ratio"]
+    LEARNING_RATE = cfg["lr"]
+
     with open(os.path.join(cfg['data_path'], "train.json"), "r") as file:
         train_data = json.load(file)
     with open(os.path.join(cfg['data_path'], "test.json"), "r") as file:
         test_data = json.load(file)
-    print(f"Number of train examples loaded: {len(train_data)}")
-    print(f"Number of test examples loaded: {len(test_data)}")
+    
+    if cfg["reduce_lines_for_testing"]:
+        print("WARNING: Keeping only 100 sentences for test and train for tesing!")
+        train_data = train_data[:100]
+        test_data = test_data[:100]
+
+    print(f"Number of train samples loaded: {len(train_data[:int(TRAIN_RATIO*len(train_data))])}")
+    print(f"Number of validation samples loaded: {len(train_data[int(TRAIN_RATIO*len(train_data)):])}")
+    print(f"Number of test samples loaded: {len(test_data)}")
 
     tokenizer = BertTokenizerFast.from_pretrained(cfg["model_name"])
 
-    MAX_LEN = cfg["max_len"]
-    BATCH_SIZE = cfg["batch_size"]
-    NUM_EPOCHS = cfg["num_epochs"]
-    TRAIN_LEN = cfg["train_lines"]
-    LEARNING_RATE = cfg["lr"]
+    train_encodings = tokenizer([d["txt"] for d in train_data[:int(TRAIN_RATIO*len(train_data))]], truncation=True, padding=True, max_length=MAX_LEN)
+    train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data[:int(TRAIN_RATIO*len(train_data))]])
 
-    train_encodings = tokenizer([d["txt"] for d in train_data[:TRAIN_LEN]], truncation=True, padding=True, max_length=MAX_LEN)
-    train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data[:TRAIN_LEN]])
-
-    val_encodings = tokenizer([d["txt"] for d in train_data[TRAIN_LEN:]], truncation=True, padding=True, max_length=MAX_LEN)
-    val_dataset = SentimentDataset(encodings=val_encodings, labels=[d["label"] for d in train_data[TRAIN_LEN:]])
+    val_encodings = tokenizer([d["txt"] for d in train_data[int(TRAIN_RATIO*len(train_data)):]], truncation=True, padding=True, max_length=MAX_LEN)
+    val_dataset = SentimentDataset(encodings=val_encodings, labels=[d["label"] for d in train_data[int(TRAIN_RATIO*len(train_data)):]])
 
     test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=MAX_LEN)
     test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
@@ -79,19 +86,18 @@ def main(cfg):
     model = BertForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2).to(device)
 
     training_args = TrainingArguments(
-        output_dir='./results',          # output directory
-        num_train_epochs=NUM_EPOCHS,              # total number of training epochs
-        per_device_train_batch_size=BATCH_SIZE,  # batch size per device during training
-        per_device_eval_batch_size=1024,   # batch size for evaluation
-        warmup_steps=int(1000/BATCH_SIZE),                # number of warmup steps for learning rate scheduler
-        weight_decay=0.01,               # strength of weight decay
-        logging_dir='./logs',            # directory for storing logs
-        load_best_model_at_end=False,  # Too muxh space   # load the best model when finished training (default metric is loss)
+        output_dir='./results',         
+        num_train_epochs=NUM_EPOCHS,             
+        per_device_train_batch_size=BATCH_SIZE, 
+        per_device_eval_batch_size=1024,   # 1024 70 GB uses VRAM 
+        warmup_steps=int(1000/BATCH_SIZE),                
+        weight_decay=0.01,            
+        logging_dir='./logs',           
+        load_best_model_at_end=False,  # Too muxh space  
         learning_rate=LEARNING_RATE,
-        # but you can specify `metric_for_best_model` argument to change to accuracy or other metric
-        logging_steps=int(5000/BATCH_SIZE),               # log & save weights each logging_steps
+        logging_steps=int(min(5000, len(train_dataset))/BATCH_SIZE),   #  This is complicated for the testing with 100 samples    
         save_strategy='no',
-        evaluation_strategy="steps",     # evaluate each `logging_steps`
+        evaluation_strategy="steps",    
         report_to="none",
     )
 
@@ -107,6 +113,8 @@ def main(cfg):
     )
 
     trainer.train()
+
+    # trainer.callbacks = [] the test accuracy gets logged to the val too
 
     test_results = trainer.evaluate(
         eval_dataset=test_dataset,
