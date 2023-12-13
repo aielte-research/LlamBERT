@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import os
 from cfg_parser import parse
 from sklearn.metrics import accuracy_score
+import random
 
 
 def compute_metrics(pred):
@@ -32,6 +33,14 @@ class SentimentDataset(torch.utils.data.Dataset):
 
     def __len__(self):
         return len(self.labels)
+
+
+def mislabel_data(data, percent):
+    print(f"WARNING: Mislabeling {percent}% of data ({int(len(data)*(percent/100))} lines)!")
+    indices_to_change = random.sample(range(len(data)), int(len(data)*(percent/100)))
+    print(indices_to_change)
+    for idx in indices_to_change:
+        data[idx]["label"] = 1 if data[idx] == 0 else 0
 
 
 def main(cfg):
@@ -59,26 +68,32 @@ def main(cfg):
     LEARNING_RATE = cfg["lr"]
 
     with open(os.path.join(cfg['data_path'], "train.json"), "r") as file:
-        train_data = json.load(file)
+        data = json.load(file)
+        train_data = data[:int(TRAIN_RATIO*len(data))]
+        val_data = data[int(TRAIN_RATIO*len(data)):]
     with open(os.path.join(cfg['data_path'], "test.json"), "r") as file:
         test_data = json.load(file)
     
     if cfg["reduce_lines_for_testing"]:
         print("WARNING: Keeping only 100 sentences for test and train for tesing!")
         train_data = train_data[:100]
+        val_data = val_data[:100]
         test_data = test_data[:100]
 
-    print(f"Number of train samples loaded: {len(train_data[:int(TRAIN_RATIO*len(train_data))])}")
-    print(f"Number of validation samples loaded: {len(train_data[int(TRAIN_RATIO*len(train_data)):])}")
+    if int(cfg["mislabel_percent"]) != 0:
+        mislabel_data(train_data, cfg["mislabel_percent"])
+
+    print(f"Number of train samples loaded: {len(train_data)}")
+    print(f"Number of validation samples loaded: {len(val_data)}")
     print(f"Number of test samples loaded: {len(test_data)}")
 
     tokenizer = BertTokenizerFast.from_pretrained(cfg["model_name"])
 
-    train_encodings = tokenizer([d["txt"] for d in train_data[:int(TRAIN_RATIO*len(train_data))]], truncation=True, padding=True, max_length=MAX_LEN)
-    train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data[:int(TRAIN_RATIO*len(train_data))]])
+    train_encodings = tokenizer([d["txt"] for d in train_data], truncation=True, padding=True, max_length=MAX_LEN)
+    train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data])
 
-    val_encodings = tokenizer([d["txt"] for d in train_data[int(TRAIN_RATIO*len(train_data)):]], truncation=True, padding=True, max_length=MAX_LEN)
-    val_dataset = SentimentDataset(encodings=val_encodings, labels=[d["label"] for d in train_data[int(TRAIN_RATIO*len(train_data)):]])
+    val_encodings = tokenizer([d["txt"] for d in val_data], truncation=True, padding=True, max_length=MAX_LEN)
+    val_dataset = SentimentDataset(encodings=val_encodings, labels=[d["label"] for d in val_data])
 
     test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=MAX_LEN)
     test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
