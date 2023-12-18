@@ -150,9 +150,9 @@ def main(
             output_texts_answer_only.append(output_text_answer_only)
             output_cleaned = output_text_answer_only.strip().strip(".,!?;").strip().strip(".,!?;").lower()
             output_texts_answer_only_cleaned.append(output_cleaned)
-            if output_cleaned=="no":
+            if output_cleaned in ["no", "negative"]:
                 output_texts_answer_only_binary.append(0)
-            elif output_cleaned=="yes":
+            elif output_cleaned in ["yes", "positive"]:
                 output_texts_answer_only_binary.append(1)
             else:
                 output_texts_answer_only_binary.append(2)
