@@ -10,7 +10,19 @@ def my_open(fpath,mode="w"):
       os.makedirs(dirname)
    return open(fpath, mode)
 
-def main(META_path, output_fpath):
+def export(cuis, MRCONSO, output_fpath):
+   MRCONSO_sampled = MRCONSO[MRCONSO['CUI'].isin(cuis)].copy()
+   abv_tty = ['AA', 'AB', 'ACR', 'AM', 'CA2', 'CA3', 'CDA', 'CS', 'DEV', 'DS', 'DSV', 'ES', 'HS', 'ID', 'MTH_ACR', 'NS', 'OAM', 'OA', 'OSN', 'PS', 'QAB', 'QEV', 'QSV', 'RAB', 'SSN', 'SS', 'VAB']
+   MRCONSO_sampled = MRCONSO_sampled[~MRCONSO_sampled['TTY'].isin(abv_tty)]
+   ret = {}
+   for cui in tqdm(cuis):
+      synonyms = [x.replace("&#x7C;", "|") for x in set(MRCONSO_sampled.loc[MRCONSO_sampled['CUI'] == cui]["STR"].str.lower().tolist())]
+      ret[cui] = synonyms
+
+   with open(output_fpath,mode="w") as f:
+      f.write(json.dumps(ret))
+
+def main(META_path):
    ### MRCONSO ###
    MRCONSO_fpath = os.path.join(META_path, "MRCONSO.RRF")
    print(f"Reading '{MRCONSO_fpath}'...")
@@ -59,6 +71,8 @@ def main(META_path, output_fpath):
    ### Samplig Data ###
    with open('1000_regions_test_cui_list.txt') as f:
       test_cuis = f.read().splitlines()
+   
+   export(test_cuis, MRCONSO, "test_concepts.json")
 
    print("Discarding test CUIs...")
    cui_list_non_test = list(set(cui_list_all)-set(test_cuis))
@@ -67,21 +81,11 @@ def main(META_path, output_fpath):
    print("Sampling CUIs...")
    sampled_cuis = random.sample(cui_list_non_test, 10000)
 
-   MRCONSO_sampled = MRCONSO[MRCONSO['CUI'].isin(sampled_cuis)].copy()
-   abv_tty = ['AA', 'AB', 'ACR', 'AM', 'CA2', 'CA3', 'CDA', 'CS', 'DEV', 'DS', 'DSV', 'ES', 'HS', 'ID', 'MTH_ACR', 'NS', 'OAM', 'OA', 'OSN', 'PS', 'QAB', 'QEV', 'QSV', 'RAB', 'SSN', 'SS', 'VAB']
-   MRCONSO_sampled = MRCONSO_sampled[~MRCONSO_sampled['TTY'].isin(abv_tty)]
-   ret = {}
-   for cui in tqdm(sampled_cuis):
-      synonyms = [x.replace("&#x7C;", "|") for x in set(MRCONSO_sampled.loc[MRCONSO_sampled['CUI'] == cui]["STR"].str.lower().tolist())]
-      ret[cui] = synonyms
-
-   with open(output_fpath,mode="w") as f:
-      f.write(json.dumps(ret))
+   export(sampled_cuis, MRCONSO, "train_concepts.json")
  
 if __name__ == '__main__':
    parser = argparse.ArgumentParser(prog='Sentiment promt maker', description='This script prepares a promts for sentiment analysis for Llama 2')
-   parser.add_argument('-i', '--META_path', required=False, default="/home/projects/DeepNeurOntology/UMLS/2022AB/META/")
-   parser.add_argument('-f', '--output_fpath', required=False, default="train_concepts.json")
+   parser.add_argument('-i', '--META_path', required=False, default="/home/projects/DeepNeurOntology/UMLS/2023AA/META/")
    args = parser.parse_args()
 
-   main(META_path=args.META_path, output_fpath = args.output_fpath)
+   main(META_path=args.META_path)
