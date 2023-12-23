@@ -16,11 +16,17 @@ def export(cuis, MRCONSO, output_fpath):
    MRCONSO_sampled = MRCONSO_sampled[~MRCONSO_sampled['TTY'].isin(abv_tty)]
    ret = {}
    for cui in tqdm(cuis):
-      synonyms = sorted(list(set(MRCONSO_sampled.loc[MRCONSO_sampled['CUI'] == cui]["STR"].str.lower().tolist())), key=len)
+      synonyms = sorted(sorted(list(set(MRCONSO_sampled.loc[MRCONSO_sampled['CUI'] == cui]["STR"].str.lower().tolist()))), key=len)
       ret[cui] = synonyms
 
-   with open(output_fpath,mode="w") as f:
-      f.write(json.dumps(ret, indent=3).replace("&#x7C;", "|"))
+   with my_open(output_fpath,mode="w") as f:
+      f.write(json.dumps(ret, indent=3))
+
+   with my_open(output_fpath,mode="r") as f:
+      data = f.read().replace("&#x7C;", "|")
+
+   with my_open(output_fpath,mode="w") as f:
+      f.write(data)
 
 def main(META_path):
    ### MRCONSO ###

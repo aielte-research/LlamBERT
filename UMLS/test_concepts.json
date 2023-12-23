@@ -65,8 +65,8 @@
       "entire nervous system ganglion (body structure)"
    ],
    "C1184627": [
-      "paraventricular fibres",
       "paraventricular fibers",
+      "paraventricular fibres",
       "paraventricular fibers set",
       "set of paraventricular fibers",
       "fibrae paraventriculohypophysiales"
@@ -120,14 +120,14 @@
    ],
    "C0004781": [
       "basal nuclei",
+      "nuclei, basal",
       "basal ganglia",
       "basal nucleus",
-      "nuclei, basal",
-      "basal ganglion",
       "nuclei basales",
+      "basal ganglion",
       "ganglia, basal",
-      "ganglion, basal",
       "ganglia basales",
+      "ganglion, basal",
       "basal ganglia set",
       "basal ganglia, nos",
       "set of basal nuclei",
@@ -138,8 +138,8 @@
       "basal ganglia structure",
       "basal nucleus structure",
       "basal nuclear complices",
-      "basal ganglion structure",
       "basal ganglia (anatomic)",
+      "basal ganglion structure",
       "corpus striatum (savel'ev)",
       "basal ganglion structure (body structure)"
    ],
@@ -174,8 +174,8 @@
    ],
    "C0027792": [
       "neural pathway",
-      "pathway, neural",
       "neural pathways",
+      "pathway, neural",
       "pathways, neural"
    ],
    "C2329947": [
@@ -198,14 +198,14 @@
       "gray matter layer of cerebellum"
    ],
    "C0039729": [
-      "thalamic",
       "thalamus",
+      "thalamic",
       "thalamus, nos",
       "dorsal thalamus",
-      "thalamencephalon",
       "thalamus opticus",
-      "thalamencephalons",
+      "thalamencephalon",
       "thalamus dorsalis",
+      "thalamencephalons",
       "thalamic structure",
       "dorsal thalamus (anthoney)",
       "thalamic structure (body structure)"
@@ -252,8 +252,8 @@
    "C1870051": [
       "s2r",
       "tmem97",
-      "sigma2-receptor",
       "sigma2 receptor",
+      "sigma2-receptor",
       "sigma-2 receptor",
       "mac30 protein, human",
       "tmem97 protein, human",
@@ -277,8 +277,8 @@
       "ephb6 receptor",
       "receptor, ephb6",
       "ephrin receptor ephb6",
-      "receptor ephb6, ephrin",
-      "ephb6, ephrin receptor"
+      "ephb6, ephrin receptor",
+      "receptor ephb6, ephrin"
    ],
    "C2338707": [
       "left external laryngeal neural trunk",
@@ -392,26 +392,26 @@
    ],
    "C0026610": [
       "fusimotor neuron",
-      "gamma motorneuron",
       "fusimotor neurons",
       "neuron, fusimotor",
-      "gamma motor neuron",
-      "gamma motorneurons",
-      "motorneuron, gamma",
+      "gamma motorneuron",
       "neurons, fusimotor",
+      "gamma motor neuron",
+      "motorneuron, gamma",
+      "gamma motorneurons",
+      "motorneurons, gamma",
       "motor neuron, gamma",
       "neuron, gamma motor",
-      "motorneurons, gamma",
       "gamma motor neurons",
-      "motor neurons, gamma",
       "neurons, gamma motor",
+      "motor neurons, gamma",
       "gamma-efferent motor neuron",
-      "motor neuron, gamma-efferent",
       "neuron, gamma-efferent motor",
       "gamma-efferent motor neurons",
+      "motor neuron, gamma-efferent",
       "neurons, gamma-efferent motor",
-      "motor neurons, gamma efferent",
-      "motor neurons, gamma-efferent"
+      "motor neurons, gamma-efferent",
+      "motor neurons, gamma efferent"
    ],
    "C1184641": [
       "caudal vertical occipital fibers",
@@ -529,23 +529,23 @@
    "C0010090": [
       "corpus callosum",
       "callosum corpus",
-      "callosum, corpus",
-      "corpus callosums",
       "commissura magna",
+      "corpus callosums",
+      "callosum, corpus",
       "callosums, corpus",
-      "cc - corpus callosum",
       "corpus callosum, nos",
+      "cc - corpus callosum",
       "neocortical commissure",
-      "commissure, neocortical",
       "corpus callosum (galen)",
       "neocortical commissures",
-      "commissures, neocortical",
+      "commissure, neocortical",
       "intercerebral commissure",
+      "commissures, neocortical",
       "corpus callosum structure",
       "interhemispheric commissure",
+      "interhemispheric commissures",
       "commissure, interhemispheric",
       "structure of corpus callosum",
-      "interhemispheric commissures",
       "commissures, interhemispheric",
       "corpus callosum structure (body structure)"
    ],
@@ -707,8 +707,8 @@
       "brodmann area 23 in left cerebral cortex"
    ],
    "C4241699": [
-      "c8 nerve component of right medial antebrachial cutaneous nerve",
-      "medial antebrachial cutaneous nerve component of right c8 nerve"
+      "medial antebrachial cutaneous nerve component of right c8 nerve",
+      "c8 nerve component of right medial antebrachial cutaneous nerve"
    ],
    "C2325864": [
       "right vestibular labyrinth wall",
@@ -739,22 +739,22 @@
       "camp receptors",
       "receptors, camp",
       "cyclic amp receptor",
-      "receptor, cyclic amp",
       "cyclic amp receptors",
+      "receptor, cyclic amp",
       "receptors, cyclic amp",
       "cyclic amp receptor site",
       "cyclic adenosine monophosphate receptor",
       "cyclic adenosine monophosphate receptor (substance)"
    ],
    "C0230618": [
-      "adhesion specialization in functionally specialized tissue",
       "adhesion specialisation in functionally specialised tissue",
+      "adhesion specialization in functionally specialized tissue",
       "adhesion specialization in functionally specialized tissue, nos",
       "adhesion specialization in functionally specialized tissue (cell structure)"
    ],
    "C3271850": [
-      "egfr-erbb4 complex",
       "erbb4-egfr complex",
+      "egfr-erbb4 complex",
       "erbb4:egfr heterodimer",
       "egfr-erbb4 complex location",
       "erbb4-egfr complex location"
@@ -803,8 +803,8 @@
    ],
    "C2325118": [
       "dorsal part of lateral parabrachial nucleus",
-      "posterior part of lateral parabrachial nucleus",
       "pars posterior nuclei parabrachialis lateralis",
+      "posterior part of lateral parabrachial nucleus",
       "dorsal subnucleus of lateral parabrachial nucleus",
       "posterior subnucleus of lateral parabrachial nucleus"
    ],
@@ -863,13 +863,13 @@
    ],
    "C1517714": [
       "prl cell",
-      "mammotroph",
       "lactotroph",
       "mammotrope",
+      "mammotroph",
       "lactotrophs",
       "prolactin cell",
-      "lactotrope cell",
       "lactotroph cell",
+      "lactotrope cell",
       "pituitary prolactin cell",
       "prolactin secreting cell",
       "prolactin cell, pituitary",
@@ -878,9 +878,9 @@
       "prolactin cells, pituitary",
       "pituitary mammotropic cell (cell)",
       "pituitary prolactin-secreting cell",
-      "prolactin-secreting cell, pituitary",
-      "pituitary prolactin-secreting cells",
       "pituitary prolactin secreting cells",
+      "pituitary prolactin-secreting cells",
+      "prolactin-secreting cell, pituitary",
       "prolactin-secreting cells, pituitary"
    ],
    "C2336311": [
@@ -888,8 +888,8 @@
       "trunk of common fibular nerve"
    ],
    "C0805744": [
-      "corticotropin.big fragment",
       "corticotropin big fragment",
+      "corticotropin.big fragment",
       "corticotropin, big fragment",
       "corticotropin, big fragment (substance)"
    ],
@@ -944,10 +944,10 @@
       "rarb protein, human",
       "hbv-activated protein",
       "retinoic acid receptor beta",
-      "retinoic acid receptor beta 2",
       "retinoic acid receptor beta 4",
-      "retinoic acid receptor, beta, human",
+      "retinoic acid receptor beta 2",
       "hepatitis b virus activated protein",
+      "retinoic acid receptor, beta, human",
       "nuclear receptor subfamily 1 group b member 2"
    ],
    "C1325635": [
@@ -1010,10 +1010,10 @@
       "receptors, cytosol and nuclear",
       "cytosolic and nuclear receptors",
       "receptors, cytosolic and nuclear",
-      "cytoplasmic and nuclear receptors",
       "nuclear and cytoplasmic receptors",
-      "receptors, nuclear and cytoplasmic",
-      "receptors, cytoplasmic and nuclear"
+      "cytoplasmic and nuclear receptors",
+      "receptors, cytoplasmic and nuclear",
+      "receptors, nuclear and cytoplasmic"
    ],
    "C4543527": [
       "left breast part",
@@ -1227,8 +1227,8 @@
       "left superior minor calyx"
    ],
    "C0505046": [
-      "left tenth anterior thoracic radicular vein",
-      "left anterior tenth thoracic radicular vein"
+      "left anterior tenth thoracic radicular vein",
+      "left tenth anterior thoracic radicular vein"
    ],
    "C1280278": [
       "entire subcostal muscle",
@@ -1318,14 +1318,14 @@
    ],
    "C0024947": [
       "maxilla",
-      "maxillas",
       "maxillae",
+      "maxillas",
       "maxillary",
       "upper jaw",
-      "head>maxilla",
       "maxilla, nos",
-      "upper jaw bone",
+      "head>maxilla",
       "maxillary bone",
+      "upper jaw bone",
       "bone, maxillary",
       "maxillary bones",
       "bones, maxillary",
@@ -1462,8 +1462,8 @@
       "extremity vessels - bilateral &#x7c; ultrasound.doppler &#x7c; radiology"
    ],
    "C0501204": [
-      "tenth right posterior intercostal vein",
       "right tenth posterior intercostal vein",
+      "tenth right posterior intercostal vein",
       "structure of tenth right posterior intercostal vein",
       "structure of tenth right posterior intercostal vein (body structure)"
    ],
@@ -1538,8 +1538,8 @@
       "entire sarcolemma (cell structure)"
    ],
    "C0735887": [
-      "subdivision of muscle layer of jejunum",
-      "muscle layer of subdivision of jejunum"
+      "muscle layer of subdivision of jejunum",
+      "subdivision of muscle layer of jejunum"
    ],
    "C1284279": [
       "entire right vocal cord",
@@ -1594,8 +1594,8 @@
    "C0227000": [
       "contact zone of tooth",
       "area contingens dentis",
-      "contact surface of tooth",
       "area contingens (dentis)",
+      "contact surface of tooth",
       "contact surface layer of tooth",
       "structure of contact surface of tooth",
       "structure of contact surface of tooth (body structure)"
@@ -1668,8 +1668,8 @@
       "vasculature of endosteum of left clavicle"
    ],
    "C4696004": [
-      "cells.cd3+cd8+cd27+cd62l+",
-      "cd3+cd8+cd27+cd62l+ cells"
+      "cd3+cd8+cd27+cd62l+ cells",
+      "cells.cd3+cd8+cd27+cd62l+"
    ],
    "C0739453": [
       "right vestibular bulb vein"
@@ -1783,8 +1783,8 @@
       "ulnar bursa",
       "common flexor tendon sheath",
       "common flexor sheath of hand",
-      "common synovial tendon sheath of hand",
       "common tendon sheath of flexor muscle",
+      "common synovial tendon sheath of hand",
       "common synovial tendon sheath of wrist",
       "common flexor digitorum synovial tendon sheath",
       "vagina communis tendinum musculorum flexorum manus",
@@ -1835,8 +1835,8 @@
    ],
    "C0226129": [
       "posterior auricular artery, occipital branch",
-      "occipital branch of posterior auricular artery",
       "r. occipitalis (arteria articularis posterior)",
+      "occipital branch of posterior auricular artery",
       "ramus occipitalis (arteria auricularis posterioris)",
       "structure of occipital branch of posterior auricular artery",
       "structure of occipital branch of posterior auricular artery (body structure)"
@@ -1901,15 +1901,15 @@
       "mesothelin-specific car-t cells",
       "autologous anti-mesothelin car-cd3zeta-4-1-bb-expressing t-cells",
       "autologous anti-mesothelin car-cd3zeta-4-1-bb-expressing t cells",
-      "autologous anti-mesothelin car-cd3zeta-4-1-bb-expressing t lymphocytes",
-      "autologous anti-mesothelin car-cd3zeta-4-1-bb-expressing t-lymphocytes"
+      "autologous anti-mesothelin car-cd3zeta-4-1-bb-expressing t-lymphocytes",
+      "autologous anti-mesothelin car-cd3zeta-4-1-bb-expressing t lymphocytes"
    ],
    "C0928529": [
       "internal surface proper of right parietal bone"
    ],
    "C2359895": [
-      "platelets.reticulated",
-      "platelets reticulated"
+      "platelets reticulated",
+      "platelets.reticulated"
    ],
    "C1181558": [
       "fifth posterior intercostal arterial trunk",
@@ -1956,18 +1956,18 @@
       "entire epiphyseal plate of metatarsal bone (body structure)"
    ],
    "C0229598": [
-      "pancreatic d-cell",
       "pancreatic d cell",
+      "pancreatic d-cell",
       "pancreatic d cells",
-      "delta cell of islet",
-      "pancreas delta cell",
       "d cells, pancreatic",
+      "pancreas delta cell",
+      "delta cell of islet",
       "pancreatic delta cell",
       "delta cell, pancreatic",
       "pancreatic delta cells",
       "delta cells, pancreatic",
-      "d-cell of pancreatic islet",
       "delta cell of the pancreas",
+      "d-cell of pancreatic islet",
       "pancreatic somatostatin cell",
       "delta cell of pancreatic islet",
       "type d cell of pancreatic islet",
@@ -1980,8 +1980,8 @@
    ],
    "C1267282": [
       "head artery",
-      "head arteries",
       "arteries head",
+      "head arteries",
       "artery of head",
       "head>head arteries",
       "arterial structure of head",
@@ -2141,16 +2141,16 @@
       "argiprestocine",
       "arginine oxytocin",
       "oxytocin, arginine",
-      "arginine vasotocin",
       "8-arginineoxytocin",
+      "arginine vasotocin",
       "vasotocin, arginine",
+      "(8-arginine)oxytocin",
       "8-l-arginineoxytocin",
       "8-arginine vasotocin",
-      "(8-arginine)oxytocin",
       "isoleucyl vasopressin",
       "vasopressin, isoleucyl",
-      "3-isoleucyl vasopressin",
       "3 isoleucyl vasopressin",
+      "3-isoleucyl vasopressin",
       "vasopressin, 3-isoleucyl",
       "non-mammalian vasopressin",
       "vasopressin, non-mammalian",
@@ -2161,8 +2161,8 @@
       "femoral artery and popliteal artery &#x7c; radio fluoroscopy angiography &#x7c; radiology"
    ],
    "C2328547": [
-      "set of right lateral inferior deep cervical lymph nodes",
-      "set of right inferior deep lateral cervical lymph nodes"
+      "set of right inferior deep lateral cervical lymph nodes",
+      "set of right lateral inferior deep cervical lymph nodes"
    ],
    "C4253505": [
       "cementum layer of right second lower molar tooth"
@@ -2320,8 +2320,8 @@
       "lamina visceralis (epicardium)",
       "structure of visceral pericardium",
       "visceral serous pericardium proper",
-      "visceral layer of serous pericardium",
       "visceral serous pericardium of heart",
+      "visceral layer of serous pericardium",
       "structure of visceral pericardium (body structure)"
    ],
    "C0829016": [
@@ -2509,8 +2509,8 @@
       "neoplastic perineurial cell"
    ],
    "C0817752": [
-      "bone atlas",
       "atlas bone",
+      "bone atlas",
       "atlas bones",
       "bone of atlas",
       "atlas of bone"
@@ -2631,8 +2631,8 @@
    "C0927924": [
       "distal surface of tooth 3",
       "distal surface layer of tooth 3",
-      "distal surface of right upper first molar tooth",
       "distal surface of right first upper molar tooth",
+      "distal surface of right upper first molar tooth",
       "distal surface of right maxillary first molar tooth",
       "distal surface layer of right first upper molar tooth",
       "distal surface layer of right maxillary first molar tooth"
@@ -2707,8 +2707,8 @@
    "C1261045": [
       "sacral segment",
       "sacral vertebra",
-      "vertebra, sacral",
       "sacral vertebrae",
+      "vertebra, sacral",
       "segment of sacrum",
       "vertebrae, sacral",
       "sacral vertebra, nos",
@@ -2725,9 +2725,9 @@
       "entire inferior surface of pancreas (body structure)"
    ],
    "C0226429": [
+      "left ulnar artery",
       "ulnar artery left",
       "ulnar artery.left",
-      "left ulnar artery",
       "structure of left ulnar artery",
       "structure of left ulnar artery (body structure)"
    ],
@@ -2772,9 +2772,9 @@
       "perimysium of left omohyoid"
    ],
    "C0333121": [
-      "hyaline cast",
-      "protein cast",
       "protein plug",
+      "protein cast",
+      "hyaline cast",
       "protein casts",
       "hyaline casts",
       "cast, protein",
@@ -2799,8 +2799,8 @@
       "gut granule lumen"
    ],
    "C0945923": [
-      "cells.cd21",
-      "cd21 cells"
+      "cd21 cells",
+      "cells.cd21"
    ],
    "C0827964": [
       "bony part of distal metaphysis of left first metacarpal bone"
@@ -2810,8 +2810,8 @@
    ],
    "C5446633": [
       "clbr001",
-      "clbr 001",
       "clbr-001",
+      "clbr 001",
       "autologous alpha-pne car t-cells clbr001",
       "autologous alpha-pne scar-t cells clbr001",
       "autologous alpha-pne car t-lymphocytes clbr001",
@@ -2825,8 +2825,8 @@
       "clp",
       "cfu-l",
       "lymphoid stem cell",
-      "cell, lymphoid stem",
       "stem cell, lymphoid",
+      "cell, lymphoid stem",
       "lymphoid stem cells",
       "cells, lymphoid stem",
       "stem cells, lymphoid",
@@ -2835,12 +2835,12 @@
       "cell, lymphoid progenitor",
       "lymphoid progenitor cells",
       "progenitor cells, lymphoid",
-      "cells, lymphoid progenitor",
       "common lymphoid progenitor",
+      "cells, lymphoid progenitor",
       "lymphoid blood-forming cell",
       "lymphoid blood-forming cells",
-      "colony forming units - lymphoid",
-      "common lymphoid progenitor cell"
+      "common lymphoid progenitor cell",
+      "colony forming units - lymphoid"
    ],
    "C0831126": [
       "trabecular bone of left capitate"
@@ -2995,8 +2995,8 @@
       "trunk of perirectal part of inferior gluteal artery"
    ],
    "C0226316": [
-      "rami splenici (arteria splenica)",
       "rami lienales (arteria splenica)",
+      "rami splenici (arteria splenica)",
       "splenic branch of splenic artery",
       "splenic branches of splenic artery",
       "set of splenic branches of splenic artery",
@@ -3034,8 +3034,8 @@
       "musculature of left hand proper"
    ],
    "C0450641": [
-      "bl47 - t9",
       "bl42 - l2",
+      "bl47 - t9",
       "bl47 - t9 (body structure)"
    ],
    "C1278614": [
@@ -3043,14 +3043,14 @@
       "entire intervertebral disc space of cervical vertebra (body structure)"
    ],
    "C0228035": [
-      "coni epididymidis",
       "epididymis lobule",
+      "coni epididymidis",
       "lobuli epididymidis",
       "lobule of epididymis",
       "lobules of epididymis",
       "lobuli coni epididymis",
-      "conical lobules of epidiymis",
       "set of lobules of epididymis",
+      "conical lobules of epidiymis",
       "convoluted ductule of epididymis",
       "structure of lobule of epididymis",
       "structure of lobule of epididymis (body structure)"
@@ -3060,15 +3060,15 @@
       "achilles tendon",
       "tendo calcaneus",
       "calcaneal tendon",
-      "tendon, achilles",
       "calcaneus tendon",
-      "achilles tendons",
       "calcanean tendon",
-      "calcaneal tendons",
+      "achilles tendons",
+      "tendon, achilles",
       "tendon, calcaneal",
+      "calcaneal tendons",
       "tendons, calcaneal",
-      "common calcanean tendon",
       "common calcaneal tendon",
+      "common calcanean tendon",
       "structure of achilles tendon",
       "structure of achilles tendon (body structure)"
    ],
@@ -3127,8 +3127,8 @@
       "cortisone acetate",
       "cortisone 21-acetate",
       "compound e preparation",
-      "cortisone acetate (substance)",
       "cortisone acetate preparation",
+      "cortisone acetate (substance)",
       "cortisone acetate (medication)",
       "17-hydroxy-3,11,20-trioxopregn-4-en-21-yl acetate",
       "21-(acetyloxy)-17-hydroxypregn-4-ene-3,11,20-trione",
@@ -3159,8 +3159,8 @@
       "pulmonary arteries - bilateral and lower extremity veins - bilateral &#x7c; computed tomography angio &#x7c; radiology"
    ],
    "C4517126": [
-      "entire ossification center of base of first metatarsal",
       "entire ossification centre of base of first metatarsal",
+      "entire ossification center of base of first metatarsal",
       "entire ossification center of base of first metatarsal (body structure)"
    ],
    "C4254372": [
@@ -3256,8 +3256,8 @@
       "posterior branch of lateral cutaneous branch of left posterior intercostal artery"
    ],
    "C0227151": [
-      "lateral wall of pharynx",
       "lateral pharyngeal wall",
+      "lateral wall of pharynx",
       "lateral wall of the pharynx",
       "structure of lateral pharyngeal wall",
       "structure of lateral pharyngeal wall (body structure)"
@@ -3337,8 +3337,8 @@
       "lateral interchondral ligament of interchondral joint of left 8th and 9th ribs"
    ],
    "C0227175": [
-      "junctional region of epiglottis",
       "junctional region of oropharynx",
+      "junctional region of epiglottis",
       "junctional region with oropharynx",
       "structure of junctional region with oropharynx",
       "structure of junctional region of epiglottis with oropharynx",
@@ -3469,8 +3469,8 @@
       "entire hair of skin region (body structure)"
    ],
    "C0222193": [
-      "penis skin",
       "skin penis",
+      "penis skin",
       "penile skin",
       "skin of penis",
       "skin of penis, nos",
@@ -3604,8 +3604,8 @@
    ],
    "C0446455": [
       "cervix",
-      "neck front",
       "front neck",
+      "neck front",
       "front of neck",
       "anterior part of neck",
       "anterior cervical region",
@@ -3673,8 +3673,8 @@
       "both upper and lower extremities (combined site) (body structure)"
    ],
    "C4761329": [
-      "gcgr",
       "gl-r",
+      "gcgr",
       "glucagon receptor",
       "glucagon receptor, human"
    ],
@@ -3684,27 +3684,27 @@
    "C4039583": [
       "car",
       "chimeric t-cell receptor",
-      "chimeric immunoreceptors",
       "chimeric t cell receptor",
-      "chimeric t-cell receptors",
-      "chimeric antigen receptor",
+      "chimeric immunoreceptors",
       "immunoreceptors, chimeric",
-      "receptor, chimeric t-cell",
-      "t-cell receptor, chimeric",
       "chimeric t cell receptors",
+      "chimeric antigen receptor",
+      "t-cell receptor, chimeric",
+      "chimeric t-cell receptors",
+      "receptor, chimeric t-cell",
+      "receptor, chimeric antigen",
+      "antigen receptor, chimeric",
       "chimeric antigen receptors",
       "t-cell receptors, chimeric",
       "receptors, chimeric t-cell",
-      "receptor, chimeric antigen",
-      "antigen receptor, chimeric",
-      "non-native antigen receptor",
-      "antigen receptors, chimeric",
-      "receptors, chimeric antigen",
-      "artificial t-cell receptors",
       "artificial antigen receptor",
       "artificial t cell receptors",
-      "receptors, artificial t-cell",
+      "artificial t-cell receptors",
+      "antigen receptors, chimeric",
+      "receptors, chimeric antigen",
+      "non-native antigen receptor",
       "t-cell receptors, artificial",
+      "receptors, artificial t-cell",
       "car - chimeric antigen receptor",
       "chimeric antigen receptor (substance)"
    ],
@@ -3751,8 +3751,8 @@
       "dental alveoli",
       "alveoli dentales",
       "gomphosis structure",
-      "peg-and-socket joint",
       "dento-alveolar joint",
+      "peg-and-socket joint",
       "dento-alveolar joints",
       "dento-alveolar joints set",
       "dento-alveolar syndesmosis",
@@ -3951,8 +3951,8 @@
    ],
    "C0489802": [
       "capillary bed",
-      "beds capillary",
-      "capillary beds"
+      "capillary beds",
+      "beds capillary"
    ],
    "C2336058": [
       "superior diaphragmatic lymphatic vessel"
@@ -4066,8 +4066,8 @@
       "vitreous cavity structure (body structure)"
    ],
    "C0934017": [
-      "tendon of first dorsal interosseous of left foot",
-      "tendon of left first dorsal interosseous of foot"
+      "tendon of left first dorsal interosseous of foot",
+      "tendon of first dorsal interosseous of left foot"
    ],
    "C0229703": [
       "lymph node hilum",
@@ -4132,8 +4132,8 @@
    ],
    "C0042219": [
       "vacuole",
-      "vacuoles",
       "vacuolar",
+      "vacuoles",
       "cell vacuole"
    ],
    "C4482278": [
@@ -4187,15 +4187,15 @@
       "trunk of branch of maxillary artery"
    ],
    "C3499304": [
-      "area 29d",
       "area 29m",
+      "area 29d",
       "medial area 29d",
       "area 29d of vogt",
       "area 29m (macaque)"
    ],
    "C3656575": [
-      "cd158e cells",
-      "cells.cd158e"
+      "cells.cd158e",
+      "cd158e cells"
    ],
    "C4240076": [
       "muscle body of left anterior deltoid",
@@ -4262,8 +4262,8 @@
       "nasal vestibule proper"
    ],
    "C0504603": [
-      "cavity of joint of head of rib",
-      "cavity of joint of costal head"
+      "cavity of joint of costal head",
+      "cavity of joint of head of rib"
    ],
    "C2331412": [
       "wall of trunk of coronary artery"
@@ -4354,8 +4354,8 @@
       "fshr",
       "fsh-r",
       "fsh receptor",
-      "fshr protein, human",
       "lgr1 protein, human",
+      "fshr protein, human",
       "fshro protein, human",
       "follitropin receptor",
       "follicle stimulating hormone receptor",
