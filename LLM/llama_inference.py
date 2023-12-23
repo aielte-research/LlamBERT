@@ -16,6 +16,8 @@ import json
 from peft import PeftModel
 from transformers import LlamaForCausalLM
 
+from tqdm import trange
+
 # Function to load the main model for text generation
 def load_model(model_name, quantization):
     model = LlamaForCausalLM.from_pretrained(
@@ -114,7 +116,7 @@ def main(
     output_texts_answer_only_cleaned=[]
     output_texts_answer_only_binary=[]
     # Process prompts in batches
-    for i in range(0, len(user_prompts), batch_size):
+    for i in trange(0, len(user_prompts), batch_size):
         batch_prompts = user_prompts[i:i+batch_size]
 
         # Tokenize the batch
@@ -139,8 +141,8 @@ def main(
                 length_penalty=length_penalty,
                 **kwargs 
             )
-        e2e_inference_time = (time.perf_counter()-start)*1000
-        print(f"the inference time is {e2e_inference_time} ms")
+        #e2e_inference_time = (time.perf_counter()-start)*1000
+        #print(f"the inference time is {e2e_inference_time} ms")
 
         for inpt, output in zip(batch_prompts,outputs):
             output_text = tokenizer.decode(output, skip_special_tokens=True)
