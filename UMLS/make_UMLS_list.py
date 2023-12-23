@@ -20,13 +20,7 @@ def export(cuis, MRCONSO, output_fpath):
       ret[cui] = synonyms
 
    with my_open(output_fpath,mode="w") as f:
-      f.write(json.dumps(ret, indent=3))
-
-   with my_open(output_fpath,mode="r") as f:
-      data = f.read().replace("&#x7C;", "|")
-
-   with my_open(output_fpath,mode="w") as f:
-      f.write(data)
+      f.write(json.dumps(ret, indent=3).replace("&#x7c;", "|"))
 
 def main(META_path):
    ### MRCONSO ###
