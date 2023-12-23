@@ -16,7 +16,7 @@ def export(cuis, MRCONSO, output_fpath):
    MRCONSO_sampled = MRCONSO_sampled[~MRCONSO_sampled['TTY'].isin(abv_tty)]
    ret = {}
    for cui in tqdm(cuis):
-      synonyms = list(set(MRCONSO_sampled.loc[MRCONSO_sampled['CUI'] == cui]["STR"].str.lower().tolist()))
+      synonyms = sorted(list(set(MRCONSO_sampled.loc[MRCONSO_sampled['CUI'] == cui]["STR"].str.lower().tolist())), key=len)
       ret[cui] = synonyms
 
    with open(output_fpath,mode="w") as f:
