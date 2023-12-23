@@ -16,17 +16,19 @@ def export(cuis, MRCONSO, output_fpath):
    MRCONSO_sampled = MRCONSO_sampled[~MRCONSO_sampled['TTY'].isin(abv_tty)]
    ret = {}
    for cui in tqdm(cuis):
-      synonyms = [x.replace("&#x7C;", "|") for x in set(MRCONSO_sampled.loc[MRCONSO_sampled['CUI'] == cui]["STR"].str.lower().tolist())]
+      synonyms = list(set(MRCONSO_sampled.loc[MRCONSO_sampled['CUI'] == cui]["STR"].str.lower().tolist()))
       ret[cui] = synonyms
 
    with open(output_fpath,mode="w") as f:
-      f.write(json.dumps(ret))
+      f.write(json.dumps(ret, indent=3).replace("&#x7C;", "|"))
 
 def main(META_path):
    ### MRCONSO ###
    MRCONSO_fpath = os.path.join(META_path, "MRCONSO.RRF")
    print(f"Reading '{MRCONSO_fpath}'...")
-   MRCONSO = pd.read_csv(MRCONSO_fpath, sep="|", names=["CUI","LAT","TS","LUI","STT","SUI","ISPREF","AUI","SAUI","SCUI","SDUI","SAB","TTY","CODE","STR","SRL","SUPPRESS","CVF"], index_col=False)
+   cols=["CUI","LAT","TS","LUI","STT","SUI","ISPREF","AUI","SAUI","SCUI","SDUI","SAB","TTY","CODE","STR","SRL","SUPPRESS","CVF"]
+   dtypes={col_nam:"string" for col_nam in cols}
+   MRCONSO = pd.read_csv(MRCONSO_fpath, sep="|", names=cols, dtype=dtypes, index_col=False)
    MRCONSO = MRCONSO[MRCONSO["LAT"] == 'ENG']
    print(MRCONSO)
 
@@ -58,7 +60,9 @@ def main(META_path):
    ### MRREL ###
    MRREL_fpath = os.path.join(META_path, "MRREL.RRF")
    print(f"Reading '{MRREL_fpath}'...")
-   MRREL = pd.read_csv(MRREL_fpath, sep="|", index_col=False, names=["CUI1","AUI1","STYPE1","REL","CUI2","AUI2","STYPE2","RELA","RUI","SRUI","SAB","SL","RG","DIR","SUPPRESS","CVF"])
+   cols=["CUI1","AUI1","STYPE1","REL","CUI2","AUI2","STYPE2","RELA","RUI","SRUI","SAB","SL","RG","DIR","SUPPRESS","CVF"]
+   dtypes={col_nam:"string" for col_nam in cols}
+   MRREL = pd.read_csv(MRREL_fpath, sep="|", names=cols, dtype=dtypes, index_col=False)
    MRREL = MRREL[MRREL['CUI1'].isin(cui_tui_list) & MRREL['CUI2'].isin(cui_tui_list)]
    MRREL = MRREL[MRREL["REL"] == 'CHD']
    MRREL = MRREL[MRREL["CUI1"] != MRREL["CUI2"]]
