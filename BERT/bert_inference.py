@@ -92,14 +92,21 @@ def main(cfg):
     train_encodings = tokenizer([d["txt"] for d in train_data], truncation=True, padding=True, max_length=MAX_LEN)
     train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data])
 
-    val_encodings = tokenizer([d["txt"] for d in val_data], truncation=True, padding=True, max_length=MAX_LEN)
-    val_dataset = SentimentDataset(encodings=val_encodings, labels=[d["label"] for d in val_data])
+    if TRAIN_RATIO < 1:
+        evaluation_strategy = "steps"
+        val_encodings = tokenizer([d["txt"] for d in val_data], truncation=True, padding=True, max_length=MAX_LEN)
+        val_dataset = SentimentDataset(encodings=val_encodings, labels=[d["label"] for d in val_data])
+    else:
+        evaluation_strategy = "no"
+        val_dataset = None
 
     test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=MAX_LEN)
     test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
 
     model = BertForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2).to(device)
 
+
+    
     training_args = TrainingArguments(
         output_dir='./results',         
         num_train_epochs=NUM_EPOCHS,             
@@ -112,7 +119,7 @@ def main(cfg):
         learning_rate=LEARNING_RATE,
         logging_steps=int(min(5000, len(train_dataset))/BATCH_SIZE),   #  This is complicated for the testing with 100 samples    
         save_strategy='no',
-        evaluation_strategy="steps",    
+        evaluation_strategy=evaluation_strategy,    
         report_to="none",
     )
 
