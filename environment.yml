@@ -8,6 +8,7 @@ dependencies:
   - networkx
   - graphviz
   - pygraphviz
+  - scikit-learn
   - pip
   - pip:
     - neptune
