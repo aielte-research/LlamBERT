@@ -7,17 +7,22 @@ import neptune
 from dotenv import load_dotenv
 import os
 from cfg_parser import parse
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 import random
+import numpy as np
+from neptune.types import File
 
 
 def compute_metrics(pred):
   labels = pred.label_ids
   preds = pred.predictions.argmax(-1)
-  # calculate accuracy using sklearn's function
   acc = accuracy_score(labels, preds)
+  precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, zero_division=0.0, average="binary", pos_label=1)
   return {
       'accuracy': acc,
+      'precision': precision,
+      'recall': recall,
+      'f1': f1,
   }
 
 
@@ -41,6 +46,16 @@ def mislabel_data(data, percent):
     print(indices_to_change)
     for idx in indices_to_change:
         data[idx]["label"] = 1 if data[idx] == 0 else 0
+
+
+def log_mispredicted(data, prediction_results, run, log_name="mislabeled/test"):
+    print(f"Calculating and logging mispredicted datapoint into {log_name} neptune path...")
+    prediction_results = prediction_results._asdict()
+    mislabeled = []
+    for i in range(len(data)):
+        if np.argmax(prediction_results["predictions"][i]) != int(data[i]["label"]):
+            mislabeled.append(f'{data[i]["txt"]} | True: {int(data[i]["label"])}, Predicted: {np.argmax(prediction_results["predictions"][i])} ({prediction_results["predictions"][i]})' )
+    run[log_name].upload(File.from_content("\n".join(mislabeled)))
 
 
 def main(cfg):
@@ -136,8 +151,6 @@ def main(cfg):
 
     trainer.train()
 
-    # trainer.callbacks = [] the test accuracy gets logged to the val too
-
     test_results = trainer.evaluate(
         eval_dataset=test_dataset,
     )
@@ -145,6 +158,17 @@ def main(cfg):
     #the trainer stops the neptune run, so we reopen it
     run = neptune.Run(with_id=run_id)
     run["test"] = test_results
+
+    test_predict_results = trainer.predict(
+        test_dataset=test_dataset,
+    )
+    log_mispredicted(data=test_data, prediction_results=test_predict_results, log_name="mislabeled/test", run=run)
+
+    if TRAIN_RATIO < 1:
+        val_predict_results = trainer.predict(
+            test_dataset=val_dataset,
+        )
+        log_mispredicted(data=val_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
 
     run.stop()
 
