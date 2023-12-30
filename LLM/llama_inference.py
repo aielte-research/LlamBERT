@@ -43,6 +43,7 @@ def main(
     model_name,
     peft_model: str=None,
     quantization: bool=False,
+    include_full_outputs: bool=False,
     max_new_tokens: int=100, #The maximum numbers of tokens to generate
     prompt_file: str=None,
     target_file: str=None,
@@ -161,11 +162,17 @@ def main(
 
     output_data={
         "settings": args,
-        "outputs_full": output_texts,
         "outputs": output_texts_answer_only,
         "outputs_cleaned": output_texts_answer_only_cleaned,
-        "outputs_binary": output_texts_answer_only_binary
+        "outputs_binary": output_texts_answer_only_binary,
+        "output_stats": {
+            "negative": len([x for x in output_texts_answer_only_binary if x==0]),
+            "positive": len([x for x in output_texts_answer_only_binary if x==1]),
+            "other": len([x for x in output_texts_answer_only_binary if x==2])
+        }
     }
+    if include_full_outputs:
+        output_data["outputs_full"] = output_texts
 
     if target_file is not None:
         assert os.path.exists(
@@ -191,6 +198,7 @@ def main(
         output_data["accuracy"]=int(10000*correct/len(targets))/100
         print(f"Accuracy: {output_data['accuracy']}%")
         output_data["misclassifed"]=misclassifed
+
 
     
     output_fpath = os.path.join("model_outputs",f'{os.path.basename(prompt_file)}_{os.path.basename(model_name.rstrip("/"))}')
