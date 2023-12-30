@@ -43,9 +43,12 @@ class SentimentDataset(torch.utils.data.Dataset):
 def mislabel_data(data, percent):
     print(f"WARNING: Mislabeling {percent}% of data ({int(len(data)*(percent/100))} lines)!")
     indices_to_change = random.sample(range(len(data)), int(len(data)*(percent/100)))
-    print(indices_to_change)
+    #print(indices_to_change)
     for idx in indices_to_change:
-        data[idx]["label"] = 1 if data[idx] == 0 else 0
+        if data[idx]["label"] == 0:
+            data[idx]["label"] = 1  
+        else:
+            data[idx]["label"] = 0
 
 
 def log_mispredicted(data, prediction_results, run, log_name="mislabeled/test"):
@@ -169,6 +172,10 @@ def main(cfg):
             test_dataset=val_dataset,
         )
         log_mispredicted(data=val_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
+
+    if cfg["save_model"]:
+        print(f"Saving model to results/NEPTUNE_{run_id}")
+        trainer.save_model(f"results/NEPTUNE_{run_id}")
 
     run.stop()
 
