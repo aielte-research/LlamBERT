@@ -14,7 +14,8 @@ def main(reiviews_fpath, output_folder, output_fname):
    prompts=[]
    labels=[]
    for rev in reviews:
-      prompts.append(f"[INST] <<SYS>>\nPlease answer with 'positive' or 'negative' only!\n<</SYS>>\n Does the following movie review have a positive sentiment? If the movie review is positive please answer 'positive', if movie review is negative please anwer 'negative'! Make your decision based on th whole text! \n{rev['txt']}[/INST]\n")
+      #prompts.append(f"[INST] <<SYS>>\nPlease answer with 'positive' or 'negative' only!\n<</SYS>>\n Does the following movie review have a positive sentiment? If the movie review is positive please answer 'positive', if movie review is negative please anwer 'negative'! Make your decision based on th whole text! \n{rev['txt']}[/INST]\n")
+      prompts.append(f"[INST] <<SYS>>\nPlease answer with 'positive' or 'negative' only!\n<</SYS>>\n Decide if the following movie review is positive or negative: \n{rev['txt']}\n If the movie review is positive please answer 'positive', if the movie review is negative please answer 'negative'. Make your decision based on the whole text. [/INST]\n")
       if "label" in rev:
          labels.append(rev["label"])
    
