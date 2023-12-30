@@ -198,10 +198,8 @@ def main(
         output_data["accuracy"]=int(10000*correct/len(targets))/100
         print(f"Accuracy: {output_data['accuracy']}%")
         output_data["misclassifed"]=misclassifed
-
-
     
-    output_fpath = os.path.join("model_outputs",f'{os.path.basename(prompt_file)}_{os.path.basename(model_name.rstrip("/"))}')
+    output_fpath = os.path.join("model_outputs",f'{os.path.splitext(os.path.basename(prompt_file))[0].strip(".")}_{os.path.basename(model_name.rstrip("/"))}.json')
     with my_open_w(output_fpath) as file:
         json.dump(output_data, file, indent=4)
              
