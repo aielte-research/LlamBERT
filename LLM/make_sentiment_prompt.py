@@ -19,11 +19,11 @@ def main(reiviews_fpath, output_folder, output_fname):
          labels.append(rev["label"])
    
    with my_open(os.path.join(output_folder, f"{output_fname}_prompts.json"), 'w') as outfile:
-      json.dump(prompts, outfile)#, indent=4)
+      json.dump(prompts, outfile, indent=3)
 
    if labels!=[]:
       with my_open(os.path.join(output_folder, f"{output_fname}_labels.json"), 'w') as outfile:
-         json.dump(labels, outfile)#, indent=4)
+         json.dump(labels, outfile, indent=3)
 
 if __name__ == '__main__':
    parser = argparse.ArgumentParser(prog='Sentiment promt maker', description='This script prepares a promts for sentiment analysis for Llama 2')
