@@ -9,4 +9,4 @@ train_ratio: 0.8 # 0.8 is 20k out of 25k
 reduce_lines_for_testing: true # uses only 100 sentences to train model
 lr: 0.000001
 mislabel_percent: 5  # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on
-save_model: true
+model_save_location: /home/projects/DeepNeurOntology/saved_models/ # /home/projects/DeepNeurOntology/saved_models/

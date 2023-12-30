@@ -173,9 +173,10 @@ def main(cfg):
         )
         log_mispredicted(data=val_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
 
-    if cfg["save_model"]:
-        print(f"Saving model to results/NEPTUNE_{run_id}")
-        trainer.save_model(f"results/NEPTUNE_{run_id}")
+    if cfg["model_save_location"] is not None:
+        print(f"Saving model to {cfg['model_save_location']}")
+        os.makedirs(cfg["model_save_location"])
+        trainer.save_model(cfg["model_save_location"])
 
     run.stop()
 
