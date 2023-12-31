@@ -151,11 +151,15 @@ def main(
             
             output_texts.append(output_text)
             output_texts_answer_only.append(output_text_answer_only)
-            output_cleaned = output_text_answer_only.strip().strip(".,!?;").strip().strip(".,!?;").lower()
+            output_cleaned = output_text_answer_only.strip().strip(".,!?;'\"").strip().strip(".,!?;'\"").lower()
             output_texts_answer_only_cleaned.append(output_cleaned)
-            if output_cleaned in ["no", "negative"]:
+            if output_cleaned == "no":
                 output_texts_answer_only_binary.append(0)
-            elif output_cleaned in ["yes", "positive"]:
+            elif output_cleaned == "yes":
+                output_texts_answer_only_binary.append(1)
+            elif "negative" in output_cleaned and "positive" not in output_cleaned:
+                output_texts_answer_only_binary.append(0)
+            elif "positive" in output_cleaned and "negative" not in output_cleaned:
                 output_texts_answer_only_binary.append(1)
             else:
                 output_texts_answer_only_binary.append(2)
