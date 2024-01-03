@@ -69,7 +69,7 @@ def main(cfg):
         )
         run_id = run["sys/id"].fetch()
         print(run_id)
-        run["cfg"] = cfg
+        run["cfg"] = neptune.utils.stringify_unsupported(cfg)
 
     if torch.cuda.is_available():
         device = "cuda"

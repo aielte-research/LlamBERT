@@ -21,5 +21,11 @@ def parse(fname):
         else:
             print("Config extension unknown:", extension)
             assert(False)
+
+    ret = dict_parser(orig)
+    for c in ret:
+        if "name_fields" in c and "name" in c:
+            for name_field in c["name_fields"]:
+                c["name"] = f'{c["name"]}_{name_field}-{c[name_field]}'
             
-    return dict_parser(orig), orig
+    return ret, orig
