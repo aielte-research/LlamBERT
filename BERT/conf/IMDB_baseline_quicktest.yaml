@@ -5,9 +5,13 @@ data_path: /home/projects/DeepNeurOntology/IMDB_data/ # It looks for a train.jso
 model_name: 
   - bert-large-uncased
   - bert-base-uncased
+  - distilbert-base-uncased
   - roberta-base
   - roberta-large
   - xlm-roberta-large
+  - xlnet-large-cased 
+  - xlnet-base-cased 
+  - facebook/xlm-v-base
 batch_size: 16
 num_epochs: 10
 max_len: 512
