@@ -1,4 +1,5 @@
-from transformers import BertForSequenceClassification, TrainingArguments, Trainer, BertTokenizerFast
+from transformers import TrainingArguments, Trainer, AutoTokenizer, AutoModelForSequenceClassification
+# from transformers import BertForSequenceClassification, BertTokenizerFast
 from transformers.integrations import NeptuneCallback
 import torch
 import json
@@ -105,7 +106,8 @@ def main(cfg):
     print(f"Number of validation samples loaded: {len(val_data)}")
     print(f"Number of test samples loaded: {len(test_data)}")
 
-    tokenizer = BertTokenizerFast.from_pretrained(cfg["model_name"])
+    tokenizer = AutoTokenizer.from_pretrained(cfg["model_name"])
+    #tokenizer = BertTokenizerFast.from_pretrained(cfg["model_name"])
 
     train_encodings = tokenizer([d["txt"] for d in train_data], truncation=True, padding=True, max_length=MAX_LEN)
     train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data])
@@ -121,9 +123,8 @@ def main(cfg):
     test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=MAX_LEN)
     test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
 
-    model = BertForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2).to(device)
-
-
+    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2).to(device)
+    #model = BertForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2).to(device)
     
     training_args = TrainingArguments(
         output_dir='./results',         
@@ -180,7 +181,6 @@ def main(cfg):
 
     run.stop()
 
-
 if __name__ == '__main__':
     
     load_dotenv()
@@ -193,5 +193,3 @@ if __name__ == '__main__':
     cfg, _ = parse(args.config_path)
     for c in cfg:
         main(c)
-
-    
