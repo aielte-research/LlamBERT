@@ -1,5 +1,6 @@
 import argparse, os
 import json
+import random
 
 def my_open(fpath,mode="w"):
    dirname=os.path.dirname(fpath)
@@ -7,7 +8,7 @@ def my_open(fpath,mode="w"):
       os.makedirs(dirname)
    return open(fpath, mode)
 
-def main(prompt_fpath, LLM_output_fpath, target_labels_fpath, output_fpath, a_pos, b_pos):
+def main(prompt_fpath, LLM_output_fpath, target_labels_fpath, output_fpath, a_pos, b_pos, shuffle=True):
    with open(prompt_fpath) as f:
       prompts = json.loads(f.read())
 
@@ -21,6 +22,9 @@ def main(prompt_fpath, LLM_output_fpath, target_labels_fpath, output_fpath, a_po
    data=[]
    for prompt, label in zip(prompts, labels):
       data.append({"txt": prompt[a_pos:b_pos], "label": label})
+   
+   if shuffle:
+      random.shuffle(data)
 
    with my_open(output_fpath, 'w') as outfile:
       json.dump(data, outfile, indent=3)
@@ -34,6 +38,7 @@ if __name__ == '__main__':
    parser.add_argument('-f', '--output_fname', required=False, default="train.json")
    parser.add_argument('-a', '--a_pos', required=False, default=None) #451
    parser.add_argument('-b', '--b_pos', required=False, default=None) #-8
+   parser.add_argument('-s', '--shuffle', type=bool, required=False, default=True)
    args = parser.parse_args()
       
    output_fpath = os.path.join(args.output_folder, args.output_fname)
@@ -52,5 +57,6 @@ if __name__ == '__main__':
       target_labels_fpath = args.target_labels_fpath,
       output_fpath = output_fpath,
       a_pos = a_pos,
-      b_pos = b_pos
+      b_pos = b_pos,
+      shuffle = args.shuffle
    )
