@@ -73,13 +73,18 @@ def main(META_path):
    print(f"{len(cui_list_all)} uniquie CUIs found.")
 
    ### Samplig Data ###
-   with open('1000_regions_test_cui_list.txt') as f:
+   with open('test_regions_cui_list.txt') as f:
       test_cuis = f.read().splitlines()
    
    export(test_cuis, MRCONSO, "test_concepts.json")
 
-   print("Discarding test CUIs...")
-   cui_list_non_test = list(set(cui_list_all)-set(test_cuis))
+   with open('train_gold_regions_cui_list.txt') as f:
+      train_gold_cuis = f.read().splitlines()
+   
+   export(train_gold_cuis, MRCONSO, "train_gold_concepts.json")
+
+   print("Discarding test and train_gold CUIs...")
+   cui_list_non_test = list(set(cui_list_all)-set(test_cuis)-set(train_gold_cuis))
    print(f"{len(cui_list_non_test)} CUIs left.")
 
    print("Sampling CUIs...")
@@ -90,6 +95,9 @@ def main(META_path):
 if __name__ == '__main__':
    parser = argparse.ArgumentParser(prog='Sentiment promt maker', description='This script prepares a promts for sentiment analysis for Llama 2')
    parser.add_argument('-i', '--META_path', required=False, default="/home/projects/DeepNeurOntology/UMLS/2023AA/META/")
+   parser.add_argument('-s', '--seed', required=False, type=int, default=42)
    args = parser.parse_args()
+
+   random.seed(args.seed)
 
    main(META_path=args.META_path)
