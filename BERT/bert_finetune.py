@@ -130,7 +130,7 @@ def main(cfg):
         output_dir='./results',         
         num_train_epochs=NUM_EPOCHS,             
         per_device_train_batch_size=BATCH_SIZE, 
-        per_device_eval_batch_size=1024,   # 1024 70 GB uses VRAM 
+        per_device_eval_batch_size=BATCH_SIZE,   # 1024 70 GB uses VRAM 
         warmup_steps=int(1000/BATCH_SIZE),                
         weight_decay=0.01,            
         logging_dir='./logs',           
