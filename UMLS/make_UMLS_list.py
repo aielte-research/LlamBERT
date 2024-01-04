@@ -88,7 +88,8 @@ def main(META_path):
    print(f"{len(cui_list_non_test)} CUIs left.")
 
    print("Sampling CUIs...")
-   sampled_cuis = random.sample(cui_list_non_test, 10000)
+   random.shuffle(cui_list_non_test)
+   sampled_cuis = cui_list_non_test[:10000]
 
    export(sampled_cuis, MRCONSO, "train_concepts.json")
  
