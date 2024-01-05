@@ -1,0 +1,13 @@
+name: IMDB_train_LlamBert
+name_fields: !!python/tuple [model_name]
+neptune_logging: True
+data_path: /home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/Llama_output_25k/ # It looks for a train.json and test.json in the folder  
+model_name: roberta-large
+batch_size: 16
+num_epochs: 10
+max_len: 512
+model_save_location: null
+train_ratio: 0.9 # 0.8 is 20k out of 25k
+reduce_lines_for_testing: false # uses only 100 sentences to train model
+lr: 0.000001
+mislabel_percent: 0  # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on
