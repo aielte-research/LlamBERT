@@ -7,6 +7,7 @@ model_name:
   - bert-base-uncased
   - xlnet-large-cased 
   - xlnet-base-cased 
+  - cardiffnlp/twitter-roberta-large-topic-sentiment-latest
 batch_size: 16
 num_epochs: 10
 max_len: 512
