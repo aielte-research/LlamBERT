@@ -15,16 +15,16 @@ from neptune.types import File
 
 
 def compute_metrics(pred):
-  labels = pred.label_ids
-  preds = pred.predictions.argmax(-1)
-  acc = accuracy_score(labels, preds)
-  precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, zero_division=0.0, average="binary", pos_label=1)
-  return {
-      'accuracy': acc,
-      'precision': precision,
-      'recall': recall,
-      'f1': f1,
-  }
+    labels = pred.label_ids
+    preds = pred.predictions.argmax(-1)
+    acc = accuracy_score(labels, preds)
+    precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, zero_division=0.0, average="binary", pos_label=1)
+    return {
+        'accuracy': acc,
+        'precision': precision,
+        'recall': recall,
+        'f1': f1,
+    }
 
 
 class SentimentDataset(torch.utils.data.Dataset):
