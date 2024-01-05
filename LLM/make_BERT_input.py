@@ -11,6 +11,8 @@ def my_open(fpath,mode="w"):
 def main(prompt_fpath, LLM_output_fpath, target_labels_fpath, output_fpath, a_pos, b_pos, shuffle=True):
    with open(prompt_fpath) as f:
       prompts = json.loads(f.read())
+   if isinstance(prompts[0], dict):
+      prompts = [x["txt"] for x in prompts]
 
    if target_labels_fpath is not None:
       with open(target_labels_fpath) as f:
@@ -21,7 +23,8 @@ def main(prompt_fpath, LLM_output_fpath, target_labels_fpath, output_fpath, a_po
    
    data=[]
    for prompt, label in zip(prompts, labels):
-      data.append({"txt": prompt[a_pos:b_pos], "label": label})
+      if label in [0,1]:
+         data.append({"txt": prompt[a_pos:b_pos], "label": label})
    
    if shuffle:
       random.shuffle(data)
@@ -36,9 +39,9 @@ if __name__ == '__main__':
    parser.add_argument('-t', '--target_labels_fpath', required=False, default=None)
    parser.add_argument('-o', '--output_folder', required=False, default="../BERT/data/UMLS_regions_10k/short_prompt")
    parser.add_argument('-f', '--output_fname', required=False, default="train.json")
-   parser.add_argument('-a', '--a_pos', required=False, default=None) #451
-   parser.add_argument('-b', '--b_pos', required=False, default=None) #-8
-   parser.add_argument('-s', '--shuffle', type=bool, required=False, default=True)
+   parser.add_argument('-a', '--a_pos', required=False, default=None) #451 for UMLS
+   parser.add_argument('-b', '--b_pos', required=False, default=None) #-8 for UMLS
+   parser.add_argument('-s', '--shuffle', action=argparse.BooleanOptionalAction)
    args = parser.parse_args()
       
    output_fpath = os.path.join(args.output_folder, args.output_fname)
