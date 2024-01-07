@@ -174,10 +174,13 @@ def main(cfg):
         )
         log_mispredicted(data=val_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
 
-    if cfg["model_save_location"] is not None:
-        print(f"Saving model to {cfg['model_save_location']}")
-        os.makedirs(cfg["model_save_location"])
-        trainer.save_model(cfg["model_save_location"])
+    if "model_save_location" in cfg:
+        dirname = cfg["model_save_location"]
+        if dirname is not None:
+            print(f"Saving model to {dirname}")
+            if not os.path.exists(dirname):
+                os.makedirs(dirname)
+            trainer.save_model(dirname)
 
     run.stop()
 
