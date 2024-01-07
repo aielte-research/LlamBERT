@@ -85,6 +85,10 @@ def main(cfg):
     NUM_EPOCHS = cfg["num_epochs"]
     TRAIN_RATIO = cfg["train_ratio"]
     LEARNING_RATE = cfg["lr"]
+    if "log_test_outputs" in cfg:
+        LOG_TEST_OUTPUTS = cfg["log_test_outputs"]
+    else:
+        LOG_TEST_OUTPUTS = False
 
     with open(os.path.join(cfg['data_path'], "train.json"), "r") as file:
         data = json.load(file)
@@ -173,6 +177,11 @@ def main(cfg):
             test_dataset=val_dataset,
         )
         log_mispredicted(data=val_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
+
+    if LOG_TEST_OUTPUTS:
+        print(f"Logging all test outputs...")
+        prediction_results = test_predict_results._asdict()
+        run["test/test_outputs"].upload(File.from_content("\n".join([str(np.argmax(x)) for x in prediction_results["predictions"]])))
 
     if "model_save_location" in cfg:
         dirname = cfg["model_save_location"]
