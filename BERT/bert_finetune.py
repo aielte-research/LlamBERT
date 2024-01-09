@@ -13,6 +13,16 @@ import random
 import numpy as np
 from neptune.types import File
 
+if torch.cuda.is_available():
+    DEVICE = "cuda"
+else:
+    DEVICE = "cpu"
+print(f"Using device={DEVICE}")
+
+def to_cuda(var):
+    if DEVICE=="cuda":
+        return var.cuda()
+    return var
 
 def compute_metrics(pred):
     labels = pred.label_ids
@@ -72,28 +82,25 @@ def main(cfg):
         print(run_id)
         run["cfg"] = neptune.utils.stringify_unsupported(cfg)
 
-    if torch.cuda.is_available():
-        device = "cuda"
-    else:
-        device = "cpu"
-    if run is not None:
-        run["device"] = device
-    print(f"Using device={device}")
+    default_params={
+        "num_epochs": 5,
+        "batch_size": 16,
+        "max_len": 512,
+        "model_save_location": None,
+        "freeze_encoder": False,
+        "log_test_outputs": False,
+        "train_ratio": 0.9
+    }
+    for key in default_params:
+        cfg[key] = cfg.get(key, default_params[key])
 
-    MAX_LEN = cfg["max_len"]
-    BATCH_SIZE = cfg["batch_size"]
-    NUM_EPOCHS = cfg["num_epochs"]
-    TRAIN_RATIO = cfg["train_ratio"]
-    LEARNING_RATE = cfg["lr"]
-    if "log_test_outputs" in cfg:
-        LOG_TEST_OUTPUTS = cfg["log_test_outputs"]
-    else:
-        LOG_TEST_OUTPUTS = False
+    if run is not None:
+        run["device"] = DEVICE
 
     with open(os.path.join(cfg['data_path'], "train.json"), "r") as file:
         data = json.load(file)
-        train_data = data[:int(TRAIN_RATIO*len(data))]
-        val_data = data[int(TRAIN_RATIO*len(data)):]
+        train_data = data[:int(cfg["train_ratio"]*len(data))]
+        val_data = data[int(cfg["train_ratio"]*len(data)):]
     with open(os.path.join(cfg['data_path'], "test.json"), "r") as file:
         test_data = json.load(file)
     
@@ -113,34 +120,38 @@ def main(cfg):
     tokenizer = AutoTokenizer.from_pretrained(cfg["model_name"])
     #tokenizer = BertTokenizerFast.from_pretrained(cfg["model_name"])
 
-    train_encodings = tokenizer([d["txt"] for d in train_data], truncation=True, padding=True, max_length=MAX_LEN)
+    train_encodings = tokenizer([d["txt"] for d in train_data], truncation=True, padding=True, max_length=cfg["max_len"])
     train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data])
 
-    if TRAIN_RATIO < 1:
+    if cfg["train_ratio"] < 1:
         evaluation_strategy = "steps"
-        val_encodings = tokenizer([d["txt"] for d in val_data], truncation=True, padding=True, max_length=MAX_LEN)
+        val_encodings = tokenizer([d["txt"] for d in val_data], truncation=True, padding=True, max_length=cfg["max_len"])
         val_dataset = SentimentDataset(encodings=val_encodings, labels=[d["label"] for d in val_data])
     else:
         evaluation_strategy = "no"
         val_dataset = None
 
-    test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=MAX_LEN)
+    test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=cfg["max_len"])
     test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
 
-    model = AutoModelForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2).to(device)
-    #model = BertForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2).to(device)
+    model = to_cuda(AutoModelForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2))
+
+    if cfg["freeze_encoder"]:
+        for name, param in model.named_parameters():
+            if "embedding" in name or "encoder" in name:
+                param.requires_grad = False
     
     training_args = TrainingArguments(
         output_dir='./results',         
-        num_train_epochs=NUM_EPOCHS,             
-        per_device_train_batch_size=BATCH_SIZE, 
-        per_device_eval_batch_size=BATCH_SIZE,   # 1024 70 GB uses VRAM 
-        warmup_steps=int(1000/BATCH_SIZE),                
+        num_train_epochs=cfg["num_epochs"],             
+        per_device_train_batch_size=cfg["batch_size"], 
+        per_device_eval_batch_size=cfg["batch_size"],   # 1024 70 GB uses VRAM 
+        warmup_steps=int(1000/cfg["batch_size"]),                
         weight_decay=0.01,            
         logging_dir='./logs',           
         load_best_model_at_end=False,  # Too muxh space  
-        learning_rate=LEARNING_RATE,
-        logging_steps=int(min(5000, len(train_dataset))/BATCH_SIZE),   #  This is complicated for the testing with 100 samples    
+        learning_rate=cfg["lr"],
+        logging_steps=int(min(5000, len(train_dataset))/cfg["batch_size"]),   #  This is complicated for the testing with 100 samples    
         save_strategy='no',
         evaluation_strategy=evaluation_strategy,    
         report_to="none",
@@ -172,13 +183,13 @@ def main(cfg):
     )
     log_mispredicted(data=test_data, prediction_results=test_predict_results, log_name="mislabeled/test", run=run)
 
-    if TRAIN_RATIO < 1:
+    if cfg["train_ratio"] < 1:
         val_predict_results = trainer.predict(
             test_dataset=val_dataset,
         )
         log_mispredicted(data=val_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
 
-    if LOG_TEST_OUTPUTS:
+    if cfg["log_test_outputs"]:
         print(f"Logging all test outputs...")
         prediction_results = test_predict_results._asdict()
         run["test/test_outputs"].upload(File.from_content("\n".join([str(np.argmax(x)) for x in prediction_results["predictions"]])))
@@ -193,8 +204,7 @@ def main(cfg):
 
     run.stop()
 
-if __name__ == '__main__':
-    
+if __name__ == '__main__':    
     load_dotenv()
     parser = argparse.ArgumentParser(
                     prog='Bert finetuning',
