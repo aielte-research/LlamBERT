@@ -214,16 +214,17 @@ def main(cfg):
         )
         log_mispredicted(data=test_data, prediction_results=test_predict_results, log_name="mislabeled/test", run=run)
 
+        if cfg["log_test_outputs"]:
+            print(f"Logging all test outputs...")
+            prediction_results = test_predict_results._asdict()
+            run["test/test_outputs"].upload(File.from_content("\n".join([str(np.argmax(x)) for x in prediction_results["predictions"]])))
+
     if cfg["dev_fpath"]:
         val_predict_results = trainer.predict(
             test_dataset=dev_dataset,
         )
         log_mispredicted(data=dev_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
 
-    if cfg["log_test_outputs"]:
-        print(f"Logging all test outputs...")
-        prediction_results = test_predict_results._asdict()
-        run["test/test_outputs"].upload(File.from_content("\n".join([str(np.argmax(x)) for x in prediction_results["predictions"]])))
 
     if "model_save_location" in cfg:
         dirname = cfg["model_save_location"]
