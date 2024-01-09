@@ -89,7 +89,9 @@ def main(cfg):
         "model_save_location": None,
         "freeze_encoder": False,
         "log_test_outputs": False,
-        "train_ratio": 0.9
+        "train_fpath": "/home/projects/DeepNeurOntology/IMDB_data/train.json",
+        "dev_fpath": None,
+        "test_fpath": None,
     }
     for key in default_params:
         cfg[key] = cfg.get(key, default_params[key])
@@ -97,42 +99,55 @@ def main(cfg):
     if run is not None:
         run["device"] = DEVICE
 
-    with open(os.path.join(cfg['data_path'], "train.json"), "r") as file:
-        data = json.load(file)
-        train_data = data[:int(cfg["train_ratio"]*len(data))]
-        val_data = data[int(cfg["train_ratio"]*len(data)):]
-    with open(os.path.join(cfg['data_path'], "test.json"), "r") as file:
-        test_data = json.load(file)
+    with open(cfg["train_fpath"], "r") as file:
+        train_data = json.load(file)
+    if cfg["dev_fpath"]:
+        with open(cfg["dev_fpath"], "r") as file:
+            dev_data = json.load(file)
+    if cfg["test_fpath"]:
+        with open(cfg["test_fpath"], "r") as file:
+            test_data = json.load(file)
     
     if cfg["reduce_lines_for_testing"]:
         print("WARNING: Keeping only 100 sentences for test and train for tesing!")
         train_data = train_data[:100]
-        val_data = val_data[:100]
-        test_data = test_data[:100]
+        if cfg["dev_fpath"]:
+            dev_data = dev_data[:100]
+        if cfg["test_fpath"]:
+            test_data = test_data[:100]
 
     if int(cfg["mislabel_percent"]) != 0:
         mislabel_data(train_data, cfg["mislabel_percent"])
 
     print(f"Number of train samples loaded: {len(train_data)}")
-    print(f"Number of validation samples loaded: {len(val_data)}")
-    print(f"Number of test samples loaded: {len(test_data)}")
+    if cfg["dev_fpath"]:
+        print(f"Number of validation samples loaded: {len(dev_data)}")
+    if cfg["test_fpath"]:
+        print(f"Number of test samples loaded: {len(test_data)}")
 
     tokenizer = AutoTokenizer.from_pretrained(cfg["model_name"])
-    #tokenizer = BertTokenizerFast.from_pretrained(cfg["model_name"])
 
     train_encodings = tokenizer([d["txt"] for d in train_data], truncation=True, padding=True, max_length=cfg["max_len"])
     train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data])
 
-    if cfg["train_ratio"] < 1:
+
+    if cfg["dev_fpath"] or cfg["test_fpath"]:
         evaluation_strategy = "steps"
-        val_encodings = tokenizer([d["txt"] for d in val_data], truncation=True, padding=True, max_length=cfg["max_len"])
-        val_dataset = SentimentDataset(encodings=val_encodings, labels=[d["label"] for d in val_data])
     else:
         evaluation_strategy = "no"
-        val_dataset = None
+    print(f"Using evaluation strategy {evaluation_strategy}")
 
-    test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=cfg["max_len"])
-    test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
+    if cfg["dev_fpath"]:
+        dev_encodings = tokenizer([d["txt"] for d in dev_data], truncation=True, padding=True, max_length=cfg["max_len"])
+        dev_dataset = SentimentDataset(encodings=dev_encodings, labels=[d["label"] for d in dev_data])
+    else:
+        dev_dataset = None
+
+    if cfg["test_fpath"]:
+        test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=cfg["max_len"])
+        test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
+    else:
+        test_dataset = None
 
     model = to_cuda(AutoModelForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2))
 
@@ -141,17 +156,24 @@ def main(cfg):
             if "embedding" in name or "encoder" in name:
                 param.requires_grad = False
     
+    if cfg["reduce_lines_for_testing"]:
+        warmup_steps = 1
+        logging_steps = 1
+    else:
+        warmup_steps = int(1000/cfg["batch_size"])
+        logging_steps = int(len(train_dataset)/cfg["batch_size"]) # OR it was min(5000, this line)
+        
     training_args = TrainingArguments(
         output_dir='./results',         
         num_train_epochs=cfg["num_epochs"],             
         per_device_train_batch_size=cfg["batch_size"], 
         per_device_eval_batch_size=cfg["batch_size"],   # 1024 70 GB uses VRAM 
-        warmup_steps=int(1000/cfg["batch_size"]),                
+        warmup_steps=warmup_steps,                
         weight_decay=0.01,            
         logging_dir='./logs',           
         load_best_model_at_end=False,  # Too muxh space  
         learning_rate=cfg["lr"],
-        logging_steps=int(min(5000, len(train_dataset))/cfg["batch_size"]),   #  This is complicated for the testing with 100 samples    
+        logging_steps=logging_steps,   #  This is complicated for the testing with 100 samples    
         save_strategy='no',
         evaluation_strategy=evaluation_strategy,    
         report_to="none",
@@ -159,35 +181,44 @@ def main(cfg):
 
     neptune_callback = NeptuneCallback(run=run)
 
+    eval_datasets = { }
+
+    if cfg["dev_fpath"]:
+        eval_datasets["dev"] = dev_dataset
+    if cfg["test_fpath"]:
+        eval_datasets["test"] = test_dataset
+
     trainer = Trainer(
         model=model,                         # the instantiated Transformers model to be trained
         args=training_args,                  # training arguments, defined above
         train_dataset=train_dataset,         # training dataset
-        eval_dataset=val_dataset,          # evaluation dataset
+        eval_dataset=eval_datasets,          # evaluation dataset
         compute_metrics=compute_metrics,     # the callback that computes metrics of interest
         callbacks=[neptune_callback],
     )
 
     trainer.train()
 
-    test_results = trainer.evaluate(
-        eval_dataset=test_dataset,
-    )
+    # No need for this if you track performance during training
+    #test_results = trainer.evaluate(
+    #    eval_dataset=test_dataset,
+    #)
 
     #the trainer stops the neptune run, so we reopen it
     run = neptune.Run(with_id=run_id)
-    run["test"] = test_results
+    #run["test"] = test_results
 
-    test_predict_results = trainer.predict(
-        test_dataset=test_dataset,
-    )
-    log_mispredicted(data=test_data, prediction_results=test_predict_results, log_name="mislabeled/test", run=run)
-
-    if cfg["train_ratio"] < 1:
-        val_predict_results = trainer.predict(
-            test_dataset=val_dataset,
+    if cfg["test_fpath"]:
+        test_predict_results = trainer.predict(
+            test_dataset=test_dataset,
         )
-        log_mispredicted(data=val_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
+        log_mispredicted(data=test_data, prediction_results=test_predict_results, log_name="mislabeled/test", run=run)
+
+    if cfg["dev_fpath"]:
+        val_predict_results = trainer.predict(
+            test_dataset=dev_dataset,
+        )
+        log_mispredicted(data=dev_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
 
     if cfg["log_test_outputs"]:
         print(f"Logging all test outputs...")

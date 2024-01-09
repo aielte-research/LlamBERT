@@ -1,9 +1,11 @@
 name: test
 neptune_logging: True
-data_path: /home/projects/DeepNeurOntology/IMDB_data/  # It looks for a train.json and test.json in the folder  
+train_fpath: /home/projects/DeepNeurOntology/IMDB_data/train.json
+dev_fpath: null #/home/projects/DeepNeurOntology/IMDB_data/train.json
+test_fpath: null #/home/projects/DeepNeurOntology/IMDB_data/test.json 
 model_name: bert-large-uncased
 batch_size: 16
-num_epochs: 2
+num_epochs: 12
 max_len: 512
 train_ratio: 0.8 # 0.8 is 20k out of 25k
 reduce_lines_for_testing: true # uses only 100 sentences to train model
