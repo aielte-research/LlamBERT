@@ -89,7 +89,7 @@ def main(cfg):
         "model_save_location": None,
         "freeze_encoder": False,
         "log_test_outputs": False,
-        "train_fpath": "/home/projects/DeepNeurOntology/IMDB_data/train.json",
+        "train_fpath": None,
         "dev_fpath": None,
         "test_fpath": None,
     }
@@ -101,28 +101,28 @@ def main(cfg):
 
     with open(cfg["train_fpath"], "r") as file:
         train_data = json.load(file)
-    if cfg["dev_fpath"]:
+    if not cfg["dev_fpath"] is None:
         with open(cfg["dev_fpath"], "r") as file:
             dev_data = json.load(file)
-    if cfg["test_fpath"]:
+    if not cfg["test_fpath"] is None:
         with open(cfg["test_fpath"], "r") as file:
             test_data = json.load(file)
     
     if cfg["reduce_lines_for_testing"]:
         print("WARNING: Keeping only 100 sentences for test and train for tesing!")
         train_data = train_data[:100]
-        if cfg["dev_fpath"]:
+        if not cfg["dev_fpath"] is None:
             dev_data = dev_data[:100]
-        if cfg["test_fpath"]:
+        if not cfg["test_fpath"] is None:
             test_data = test_data[:100]
 
     if int(cfg["mislabel_percent"]) != 0:
         mislabel_data(train_data, cfg["mislabel_percent"])
 
     print(f"Number of train samples loaded: {len(train_data)}")
-    if cfg["dev_fpath"]:
+    if not cfg["dev_fpath"] is None:
         print(f"Number of validation samples loaded: {len(dev_data)}")
-    if cfg["test_fpath"]:
+    if not cfg["test_fpath"] is None:
         print(f"Number of test samples loaded: {len(test_data)}")
 
     tokenizer = AutoTokenizer.from_pretrained(cfg["model_name"])
@@ -137,13 +137,13 @@ def main(cfg):
         evaluation_strategy = "no"
     print(f"Using evaluation strategy {evaluation_strategy}")
 
-    if cfg["dev_fpath"]:
+    if not cfg["dev_fpath"] is None:
         dev_encodings = tokenizer([d["txt"] for d in dev_data], truncation=True, padding=True, max_length=cfg["max_len"])
         dev_dataset = SentimentDataset(encodings=dev_encodings, labels=[d["label"] for d in dev_data])
     else:
         dev_dataset = None
 
-    if cfg["test_fpath"]:
+    if not cfg["test_fpath"] is None:
         test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=cfg["max_len"])
         test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
     else:
@@ -183,9 +183,9 @@ def main(cfg):
 
     eval_datasets = { }
 
-    if cfg["dev_fpath"]:
+    if not cfg["dev_fpath"] is None:
         eval_datasets["dev"] = dev_dataset
-    if cfg["test_fpath"]:
+    if not cfg["test_fpath"] is None:
         eval_datasets["test"] = test_dataset
 
     trainer = Trainer(
@@ -208,7 +208,7 @@ def main(cfg):
     run = neptune.Run(with_id=run_id)
     #run["test"] = test_results
 
-    if cfg["test_fpath"]:
+    if not cfg["test_fpath"] is None:
         test_predict_results = trainer.predict(
             test_dataset=test_dataset,
         )
@@ -219,7 +219,7 @@ def main(cfg):
             prediction_results = test_predict_results._asdict()
             run["test/test_outputs"].upload(File.from_content("\n".join([str(np.argmax(x)) for x in prediction_results["predictions"]])))
 
-    if cfg["dev_fpath"]:
+    if not cfg["dev_fpath"] is None:
         val_predict_results = trainer.predict(
             test_dataset=dev_dataset,
         )
