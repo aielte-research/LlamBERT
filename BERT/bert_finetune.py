@@ -8,7 +8,7 @@ import neptune
 from dotenv import load_dotenv
 import os
 from cfg_parser import parse
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix
 import random
 import numpy as np
 from neptune.types import File
@@ -29,11 +29,16 @@ def compute_metrics(pred):
     preds = pred.predictions.argmax(-1)
     acc = accuracy_score(labels, preds)
     precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, zero_division=0.0, average="binary", pos_label=1)
+    tn, fp, fn, tp = confusion_matrix(labels, preds).ravel()
     return {
         'accuracy': acc,
         'precision': precision,
         'recall': recall,
         'f1': f1,
+        'tp': tp,
+        'tn': tn,
+        'fp': fp,
+        'fn': fn
     }
 
 
@@ -161,7 +166,7 @@ def main(cfg):
         logging_steps = 1
     else:
         warmup_steps = int(1000/cfg["batch_size"])
-        logging_steps = int(len(train_dataset)/cfg["batch_size"]) # OR it was min(5000, this line)
+        logging_steps = int(min(2500, 0.1*len(train_dataset))/cfg["batch_size"]) # OR it was min(5000, this line)
         
     training_args = TrainingArguments(
         output_dir='./results',         

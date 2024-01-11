@@ -56,7 +56,7 @@ def make_data(name="train", makelarge=False, balanced=True):
 def main():
    make_data("train", balanced=False)
    make_data("dev")
-   make_data("test")
+   make_data("test", balanced=False)
 
 if __name__ == '__main__':
    main()
