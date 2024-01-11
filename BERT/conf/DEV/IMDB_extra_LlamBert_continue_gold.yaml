@@ -1,12 +1,12 @@
-name: IMDB_DEV_baseline
+name: IMDB_DEV_extra_LlamBert_continue_gold
 name_fields: !!python/tuple [model_name]
 neptune_logging: True
 train_fpath: /home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/DEV/Gold/train.json
 dev_fpath: /home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/DEV/Gold/dev.json
 test_fpath: /home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/DEV/Gold/test.json
-model_name: roberta-large
+model_name: /home/projects/DeepNeurOntology/model_checkpoints/Extra_llama/
 batch_size: 16
-num_epochs: 10
+num_epochs: 5
 max_len: 512
 model_save_location: null
 reduce_lines_for_testing: false # uses only 100 sentences to train model

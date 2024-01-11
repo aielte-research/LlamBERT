@@ -1,4 +1,4 @@
-name: IMDB_baseline
+name: IMDB_TEST_baseline
 name_fields: !!python/tuple [model_name]
 neptune_logging: True
 train_fpath: /home/projects/DeepNeurOntology/IMDB_data/train.json
@@ -7,14 +7,9 @@ test_fpath: /home/projects/DeepNeurOntology/IMDB_data/test.json
 model_name: 
   - distilbert-base-uncased
   - roberta-base
-  - roberta-large
-  - xlm-roberta-large
-  - facebook/xlm-v-base
+  #- roberta-large
   - bert-large-uncased
   - bert-base-uncased
-  - xlnet-large-cased 
-  - xlnet-base-cased 
-  - cardiffnlp/twitter-roberta-large-topic-sentiment-latest
 batch_size: 16
 num_epochs: 5
 max_len: 512
