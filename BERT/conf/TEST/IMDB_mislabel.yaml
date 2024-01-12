@@ -1,0 +1,27 @@
+name: IMDB_TEST_mislabel
+name_fields: !!python/tuple [model_name, mislabel_percent]
+neptune_logging: True
+train_fpath: /home/projects/DeepNeurOntology/IMDB_data/train.json
+dev_fpath: null
+test_fpath: /home/projects/DeepNeurOntology/IMDB_data/test.json
+model_name: roberta-large
+batch_size: 16
+num_epochs: 5
+max_len: 512
+model_save_location: null
+reduce_lines_for_testing: false # uses only 100 sentences to train model
+lr: 0.000001
+mislabel_percent: # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on
+  - 1
+  - 2
+  - 5
+  - 10
+  - 20
+  - 30
+  - 40
+  - 45
+  - 48
+  - 48.5
+  - 48.8
+  - 49
+  - 50 
