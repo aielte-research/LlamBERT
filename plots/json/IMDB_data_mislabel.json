@@ -1,0 +1,45 @@
+{
+    "Ys": [[96.54,96.5,96.47,96.35,96.23,95.9,95.76,94.82,92.99,75.67,70.92,66.86,65.52,47.13],[76.27,77.84,78.93,78.27,78.14,77.04,74.29,68.12,60.36,54.72,54.16,53.72,53.57,51.96]],
+    "x": [0,1,2,5,10,20,30,40,45,48,48.5,48.8,49,50],
+    "xlabel": "Mislabel %",
+    "ylabel": "Accuracy %",
+    "title": "",
+    "fname": "IMDB_data_mislabel",
+    "dirname": "./",
+    "markers": null,
+    "legend": {
+        "location": "bottom_left",
+        "labels": ["finetuned","frozen"]
+    },
+    "matplotlib": {
+        "calc_xtics": false,
+        "width": 9,
+        "height": 9,
+        "style": "seaborn-poster",
+        "png_dpi": 240
+    },
+    "colors": ["#1f77b4","#ff7f0e"],
+    "dashes": ["solid","solid"],
+    "line45_color": null,
+    "baselines": {
+        "labels": [],
+        "values": [],
+        "colors": ["grey"],
+        "dashes": ["dotted"]
+    },
+    "histogram": {
+        "labels": [],
+        "Xs": [],
+        "colors": null,
+        "bins": 100,
+        "density": true,
+        "alpha": 0.5
+    },
+    "bokeh": {
+        "width": null,
+        "height": null
+    },
+    "Xs": null,
+    "xscale": "linear",
+    "yscale": "linear"
+}
