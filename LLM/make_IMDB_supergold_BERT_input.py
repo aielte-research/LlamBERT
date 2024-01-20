@@ -39,6 +39,6 @@ if __name__ == '__main__':
    main(
       prompt_fpath = "/home/projects/DeepNeurOntology/IMDB_data/train.json",
       LLM_output_fpath = "model_outputs/IMDB/train_prompts_meta-llama_Llama-2-70b-chat-hf.json",
-      output_fpath = "/home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/SuperGold/train.json",
+      output_fpath = "/home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/TEST/SuperGold/train.json",
       shuffle = args.shuffle
    )

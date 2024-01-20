@@ -1,8 +1,8 @@
-name: IMDB_TEST_freeze
-name_fields: !!python/tuple [mislabel_percent, model_name]
+name: IMDB_TEST_mislabel_supergold
+name_fields: !!python/tuple [model_name, mislabel_percent]
 neptune_logging: True
-train_fpath: /home/projects/DeepNeurOntology/IMDB_data/train.json
-dev_fpath: null
+train_fpath: /home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/TEST/SuperGold/train.json
+dev_fpath: /home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/TEST/SuperGold/test.json
 test_fpath: /home/projects/DeepNeurOntology/IMDB_data/test.json
 model_name: roberta-large
 batch_size: 16
@@ -11,12 +11,8 @@ max_len: 512
 model_save_location: null
 reduce_lines_for_testing: false # uses only 100 sentences to train model
 lr: 0.000001
-freeze_encoder: true
 mislabel_percent: # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on
-  - 0
-  - 50
-  - 49
-  - 48.8
+  # - 0
   # - 1
   # - 2
   # - 5
@@ -26,7 +22,7 @@ mislabel_percent: # 0 if you don't want mislabeled data in the train set (not in
   # - 40
   # - 45
   # - 48
-  # - 48.5
-  # - 48.8
-  # - 49
-  # - 50 
+  - 48.5
+  - 48.8
+  - 49
+  - 50 

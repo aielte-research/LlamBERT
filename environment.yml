@@ -9,6 +9,10 @@ dependencies:
   - graphviz
   - pygraphviz
   - scikit-learn
+  - bokeh
+  - matplotlib=3.5.1
+  - plotly
+  - colorcet
   - pip
   - pip:
     - neptune
