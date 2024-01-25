@@ -12,6 +12,7 @@ from sklearn.metrics import accuracy_score, precision_recall_fscore_support, con
 import random
 import numpy as np
 from neptune.types import File
+from datetime import datetime
 
 if torch.cuda.is_available():
     DEVICE = "cuda"
@@ -163,6 +164,7 @@ def main(cfg):
     else:
         warmup_steps = int(1000/cfg["batch_size"])
         logging_steps = int(max(10,min(500, 0.25*len(train_dataset))/cfg["batch_size"])) # OR it was min(5000, this line)
+        print(f"logging_steps: {logging_steps}")
         
     training_args = TrainingArguments(
         output_dir='./results',         
@@ -178,6 +180,7 @@ def main(cfg):
         save_strategy='no',
         evaluation_strategy=evaluation_strategy,    
         report_to="none",
+        seed=datetime.now().timestamp()
     )
 
     neptune_callback = NeptuneCallback(run=run)
@@ -236,4 +239,7 @@ if __name__ == '__main__':
 
     cfg, _ = parse(args.config_path)
     for c in cfg:
+        random.seed(datetime.now().timestamp())
+        torch.manual_seed(datetime.now().timestamp())
+        np.random.seed(datetime.now().timestamp())
         main(c)
