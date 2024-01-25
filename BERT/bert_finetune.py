@@ -180,7 +180,7 @@ def main(cfg):
         save_strategy='no',
         evaluation_strategy=evaluation_strategy,    
         report_to="none",
-        seed=datetime.now().timestamp()
+        seed=int(datetime.now().timestamp())
     )
 
     neptune_callback = NeptuneCallback(run=run)
@@ -239,7 +239,7 @@ if __name__ == '__main__':
 
     cfg, _ = parse(args.config_path)
     for c in cfg:
-        random.seed(datetime.now().timestamp())
-        torch.manual_seed(datetime.now().timestamp())
-        np.random.seed(datetime.now().timestamp())
+        random.seed(int(datetime.now().timestamp()))
+        torch.manual_seed(int(datetime.now().timestamp()))
+        np.random.seed(int(datetime.now().timestamp()))
         main(c)
