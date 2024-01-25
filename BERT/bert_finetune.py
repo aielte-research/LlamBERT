@@ -41,7 +41,6 @@ def compute_metrics(pred):
         'fn': fn
     }
 
-
 class SentimentDataset(torch.utils.data.Dataset):
     def __init__(self, encodings, labels):
         self.encodings = encodings
@@ -76,6 +75,13 @@ def log_mispredicted(data, prediction_results, run, log_name="mislabeled/test"):
             mislabeled.append(f'{data[i]["txt"]} | True: {int(data[i]["label"])}, Predicted: {np.argmax(prediction_results["predictions"][i])} ({prediction_results["predictions"][i]})' )
     run[log_name].upload(File.from_content("\n".join(mislabeled)))
 
+def load_dataset_from_file(fpath, tokenizer, cfg):
+    with open(fpath, "r") as file:
+        data = json.load(file)
+    if cfg["reduce_lines_for_testing"]:
+        data = data[:100]
+    encodings = tokenizer([d["txt"] for d in data], truncation=True, padding=True, max_length=cfg["max_len"])
+    return data, SentimentDataset(encodings=encodings, labels=[d["label"] for d in data])
 
 def main(cfg):
     if cfg["neptune_logging"]:
@@ -97,6 +103,7 @@ def main(cfg):
         "train_fpath": None,
         "dev_fpath": None,
         "test_fpath": None,
+        "final_test_fpath": None,
     }
     for key in default_params:
         cfg[key] = cfg.get(key, default_params[key])
@@ -104,55 +111,44 @@ def main(cfg):
     if run is not None:
         run["device"] = DEVICE
 
-    with open(cfg["train_fpath"], "r") as file:
-        train_data = json.load(file)
-    if not cfg["dev_fpath"] is None:
-        with open(cfg["dev_fpath"], "r") as file:
-            dev_data = json.load(file)
-    if not cfg["test_fpath"] is None:
-        with open(cfg["test_fpath"], "r") as file:
-            test_data = json.load(file)
-    
+    tokenizer = AutoTokenizer.from_pretrained(cfg["model_name"])
+
     if cfg["reduce_lines_for_testing"]:
         print("WARNING: Keeping only 100 sentences for test and train for tesing!")
-        train_data = train_data[:100]
-        if not cfg["dev_fpath"] is None:
-            dev_data = dev_data[:100]
-        if not cfg["test_fpath"] is None:
-            test_data = test_data[:100]
+
+    train_data, train_dataset = load_dataset_from_file(cfg["train_fpath"], tokenizer, cfg)
+
+    eval_datasets = {}
+
+    if not cfg["dev_fpath"] is None:
+        dev_data, eval_datasets["dev"] = load_dataset_from_file(cfg["dev_fpath"], tokenizer, cfg)
+        
+    if not cfg["test_fpath"] is None:
+        test_data, eval_datasets["test"] = load_dataset_from_file(cfg["test_fpath"], tokenizer, cfg)
+    
+    final_test_dataset = None
+    if (cfg["final_test_fpath"] is None) and (not cfg["test_fpath"] is None):
+        final_test_data = test_data
+        final_test_dataset = eval_datasets["test"]
+    elif not cfg["final_test_fpath"] is None:
+        final_test_data, final_test_dataset = load_dataset_from_file(cfg["final_test_fpath"], tokenizer, cfg)
 
     if int(cfg["mislabel_percent"]) != 0:
         mislabel_data(train_data, cfg["mislabel_percent"])
 
     print(f"Number of train samples loaded: {len(train_data)}")
     if not cfg["dev_fpath"] is None:
-        print(f"Number of validation samples loaded: {len(dev_data)}")
+        print(f"Number of dev samples loaded: {len(eval_datasets['dev'])}")
     if not cfg["test_fpath"] is None:
-        print(f"Number of test samples loaded: {len(test_data)}")
-
-    tokenizer = AutoTokenizer.from_pretrained(cfg["model_name"])
-
-    train_encodings = tokenizer([d["txt"] for d in train_data], truncation=True, padding=True, max_length=cfg["max_len"])
-    train_dataset = SentimentDataset(encodings=train_encodings, labels=[d["label"] for d in train_data])
-
+        print(f"Number of test samples loaded: {len(eval_datasets['test'])}")
+    if not cfg["final_test_fpath"] is None:
+        print(f"Number of final test samples loaded: {len(final_test_dataset)}")
 
     if cfg["dev_fpath"] or cfg["test_fpath"]:
         evaluation_strategy = "steps"
     else:
         evaluation_strategy = "no"
     print(f"Using evaluation strategy {evaluation_strategy}")
-
-    if not cfg["dev_fpath"] is None:
-        dev_encodings = tokenizer([d["txt"] for d in dev_data], truncation=True, padding=True, max_length=cfg["max_len"])
-        dev_dataset = SentimentDataset(encodings=dev_encodings, labels=[d["label"] for d in dev_data])
-    else:
-        dev_dataset = None
-
-    if not cfg["test_fpath"] is None:
-        test_encodings = tokenizer([d["txt"] for d in test_data], truncation=True, padding=True, max_length=cfg["max_len"])
-        test_dataset = SentimentDataset(encodings=test_encodings, labels=[d["label"] for d in test_data])
-    else:
-        test_dataset = None
 
     model = to_cuda(AutoModelForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2))
 
@@ -166,7 +162,7 @@ def main(cfg):
         logging_steps = 1
     else:
         warmup_steps = int(1000/cfg["batch_size"])
-        logging_steps = int(min(10000, 0.25*len(train_dataset))/cfg["batch_size"]) # OR it was min(5000, this line)
+        logging_steps = int(max(10,min(500, 0.25*len(train_dataset))/cfg["batch_size"])) # OR it was min(5000, this line)
         
     training_args = TrainingArguments(
         output_dir='./results',         
@@ -186,13 +182,6 @@ def main(cfg):
 
     neptune_callback = NeptuneCallback(run=run)
 
-    eval_datasets = { }
-
-    if not cfg["dev_fpath"] is None:
-        eval_datasets["dev"] = dev_dataset
-    if not cfg["test_fpath"] is None:
-        eval_datasets["test"] = test_dataset
-
     trainer = Trainer(
         model=model,                         # the instantiated Transformers model to be trained
         args=training_args,                  # training arguments, defined above
@@ -204,32 +193,28 @@ def main(cfg):
 
     trainer.train()
 
-    # No need for this if you track performance during training
-    #test_results = trainer.evaluate(
-    #    eval_dataset=test_dataset,
-    #)
-
     #the trainer stops the neptune run, so we reopen it
     run = neptune.Run(with_id=run_id)
-    #run["test"] = test_results
 
-    if not cfg["test_fpath"] is None:
-        test_predict_results = trainer.predict(
-            test_dataset=test_dataset,
+    if "dev" in eval_datasets:
+        val_predict_results = trainer.predict(
+            test_dataset=eval_datasets["dev"],
         )
-        log_mispredicted(data=test_data, prediction_results=test_predict_results, log_name="mislabeled/test", run=run)
+        log_mispredicted(data=dev_data, prediction_results=val_predict_results, log_name="mislabeled/dev", run=run)
+
+    if not final_test_dataset is None:
+        test_predict_results = trainer.predict(
+            test_dataset=final_test_dataset,
+        )
+        test_metrics = compute_metrics(test_predict_results)
+        for key, val in test_metrics.items():
+            run[f"final_test/{key}"] = val
+        log_mispredicted(data=final_test_data, prediction_results=test_predict_results, log_name="mislabeled/final_test", run=run)
 
         if cfg["log_test_outputs"]:
             print(f"Logging all test outputs...")
             prediction_results = test_predict_results._asdict()
-            run["test/test_outputs"].upload(File.from_content("\n".join([str(np.argmax(x)) for x in prediction_results["predictions"]])))
-
-    if not cfg["dev_fpath"] is None:
-        val_predict_results = trainer.predict(
-            test_dataset=dev_dataset,
-        )
-        log_mispredicted(data=dev_data, prediction_results=val_predict_results, log_name="mislabeled/validation", run=run)
-
+            run["test/final_test_outputs"].upload(File.from_content("\n".join([str(np.argmax(x)) for x in prediction_results["predictions"]])))
 
     if "model_save_location" in cfg:
         dirname = cfg["model_save_location"]
