@@ -1,0 +1,21 @@
+name: UMLS_regions_10k
+name_fields: !!python/tuple [model_name]
+neptune_logging: True
+train_fpath: data/UMLS_regions_10k/short_prompt/train.json
+dev_fpath: null
+test_fpath: data/UMLS_regions_10k/short_prompt/test.json 
+model_name: 
+  - bert-large-uncased
+  - roberta-large
+  - GanjinZero/UMLSBert_ENG
+  - bionlp/bluebert_pubmed_mimic_uncased_L-12_H-768_A-12
+  - NeuML/pubmedbert-base-embeddings
+  - microsoft/BiomedNLP-BiomedBERT-large-uncased-abstract
+  - microsoft/BiomedNLP-KRISSBERT-PubMed-UMLS-EL
+batch_size: 16
+num_epochs: 10
+max_len: 512
+reduce_lines_for_testing: false # uses only 100 sentences to train model
+model_save_location: null
+lr: 0.000005
+mislabel_percent: 0  # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on

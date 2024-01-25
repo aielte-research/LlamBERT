@@ -1,0 +1,28 @@
+- name: UMLS_regions_10k_save
+  name_fields: !!python/tuple [model_name]
+  neptune_logging: True
+  train_fpath: data/UMLS_regions_10k/short_prompt/train.json
+  dev_fpath: null
+  test_fpath: data/UMLS_regions_10k/short_prompt/test.json 
+  model_name: microsoft/BiomedNLP-BiomedBERT-large-uncased-abstract
+  batch_size: 16
+  num_epochs: 10
+  max_len: 512
+  reduce_lines_for_testing: false # uses only 100 sentences to train model
+  model_save_location: /home/projects/DeepNeurOntology/model_checkpoints/UMLS/Llama-10k-microsoft-BiomedBERT/
+  lr: 0.000005
+  mislabel_percent: 0  # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on
+- name: UMLS_regions_gold_1k_continue_Llama
+  name_fields: !!python/tuple [model_name]
+  neptune_logging: True
+  train_fpath: data/UMLS_regions_gold/train.json
+  dev_fpath: null
+  test_fpath: data/UMLS_regions_gold/test.json 
+  model_name: /home/projects/DeepNeurOntology/model_checkpoints/UMLS/Llama-10k-microsoft-BiomedBERT/
+  batch_size: 16
+  num_epochs: 10
+  max_len: 512
+  reduce_lines_for_testing: false # uses only 100 sentences to train model
+  model_save_location: null
+  lr: 0.000005
+  mislabel_percent: 0  # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on

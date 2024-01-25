@@ -1,20 +1,20 @@
 name: UMLS_regions_gold_1k
 name_fields: !!python/tuple [model_name]
 neptune_logging: True
-data_path: data/UMLS_regions_gold  # It looks for a train.json and test.json in the folder  
+train_fpath: data/UMLS_regions_gold/train.json
+dev_fpath: null
+test_fpath: data/UMLS_regions_gold/test.json 
 model_name: 
-  - bert-large-uncased
-  - roberta-large
-  - GanjinZero/UMLSBert_ENG
-  - bionlp/bluebert_pubmed_mimic_uncased_L-12_H-768_A-12
-  - NeuML/pubmedbert-base-embeddings
+  #- bert-large-uncased
+  #- roberta-large
+  #- GanjinZero/UMLSBert_ENG
+  #- NeuML/pubmedbert-base-embeddings
   - microsoft/BiomedNLP-BiomedBERT-large-uncased-abstract
-  - microsoft/BiomedNLP-KRISSBERT-PubMed-UMLS-EL
+  #- microsoft/BiomedNLP-KRISSBERT-PubMed-UMLS-EL
 batch_size: 16
-num_epochs: 20
+num_epochs: 10
 max_len: 512
-train_ratio: 1 # 0.8 is 20k out of 25k
 reduce_lines_for_testing: false # uses only 100 sentences to train model
 model_save_location: null
-lr: 0.000001
+lr: 0.000005
 mislabel_percent: 0  # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on
