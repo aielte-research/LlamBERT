@@ -231,6 +231,7 @@ class GeneralPlotter(Plotter):
             #Ys <-- no default, list of lists
             "x": [], # defaults to 1,2,3,4,...
             "Xs": None,
+            "errorbars": None,
             "xlabel": "",
             "ylabel": "",
             "xscale": "linear",
@@ -365,7 +366,34 @@ class GeneralPlotter(Plotter):
             else:
                 p.line('x', 'y', color=c, line_width=2, source=source, line_dash = dash)
             if marker==".":
-                p.circle('x', 'y', color=c, source=source)           
+                p.circle('x', 'y', color=c, source=source)
+
+        if self.errorbars is not None:
+            for x,y,yerr,c in zip(self.Xs,self.Ys,self.errorbars,self.colors):
+                err_source = ColumnDataSource(data=dict(
+                    error_low=[val - e for val, e in zip(selet_not_None(y,y), selet_not_None(yerr,yerr))],
+                    error_high=[val + e for val, e in zip(selet_not_None(y,y), selet_not_None(yerr,yerr))],
+                    x=selet_not_None(x[:len(y)],y)
+                ))
+                
+                p.segment(
+                    source=err_source,
+                    x0='x',
+                    y0='error_low',
+                    x1='x',
+                    y1='error_high',
+                    line_width=2,
+                    color=c
+                )
+
+            for x,y,yerr in zip(self.Xs,self.Ys,self.errorbars):
+                plt.errorbar(x, y, yerr=yerr, alpha=.5, fmt=':', capsize=3, capthick=1)
+                data = {
+                    'x': x,
+                    'y1': [val - e for val, e in zip(y, yerr)],
+                    'y2': [val + e for val, e in zip(y, yerr)]
+                }
+                plt.fill_between(**data, alpha=.2)       
         
         if len(self.histogram["Xs"]) > 0:
             for y, color, label in zip(*[self.histogram[k] for k in ["Xs","colors","labels"]]):
@@ -433,6 +461,8 @@ class GeneralPlotter(Plotter):
             
             if self.line45_color!=None:
                 plt.plot([self.min_x,self.max_x],[self.min_x,self.max_x], color = self.line45_color, zorder=10)
+            
+            
 
             if len(self.baselines["values"]) > 0:
                 for label, value, color, dash in zip(*[self.baselines[k] for k in ["labels","values","colors","dashes"]]):
@@ -442,6 +472,16 @@ class GeneralPlotter(Plotter):
             for x,y,dash,color,label,marker in zip(self.Xs,self.Ys,self.dashes,self.colors,self.legend["labels"],self.markers):
                 plt.plot(x[:len(y)], y, matplotlib_dashes[dash], marker=marker, color=color, label=label, zorder=30)
             
+            if self.errorbars is not None:
+                for x,y,yerr in zip(self.Xs,self.Ys,self.errorbars):
+                    plt.errorbar(x, y, yerr=yerr, alpha=.5, fmt=':', capsize=3, capthick=1)
+                    data = {
+                        'x': x,
+                        'y1': [val - e for val, e in zip(y, yerr)],
+                        'y2': [val + e for val, e in zip(y, yerr)]
+                    }
+                    plt.fill_between(**data, alpha=.2)
+
             if len(self.histogram["Xs"]) > 0:
                 for y, color, label in zip(*[self.histogram[k] for k in ["Xs","colors","labels"]]):
                     if self.xscale=="log":
