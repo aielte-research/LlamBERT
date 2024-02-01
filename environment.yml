@@ -24,3 +24,4 @@ dependencies:
     - peft
     - fire
     - python-dotenv
+    - openai
