@@ -163,7 +163,8 @@ def main(cfg):
         logging_steps = 1
     else:
         warmup_steps = int(1000/cfg["batch_size"])
-        logging_steps = int(max(10,min(500, 0.25*len(train_dataset))/cfg["batch_size"])) # OR it was min(5000, this line)
+        #logging_steps = int(max(10,min(500, 0.25*len(train_dataset))/cfg["batch_size"])) # OR it was min(5000, this line)
+        logging_steps = int((cfg["num_epochs"]*len(train_dataset))/(cfg["batch_size"]*30)) # OR it was min(5000, this line)
         print(f"logging_steps: {logging_steps}")
         
     training_args = TrainingArguments(

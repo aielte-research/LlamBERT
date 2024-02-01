@@ -384,16 +384,7 @@ class GeneralPlotter(Plotter):
                     y1='error_high',
                     line_width=2,
                     color=c
-                )
-
-            for x,y,yerr in zip(self.Xs,self.Ys,self.errorbars):
-                plt.errorbar(x, y, yerr=yerr, alpha=.5, fmt=':', capsize=3, capthick=1)
-                data = {
-                    'x': x,
-                    'y1': [val - e for val, e in zip(y, yerr)],
-                    'y2': [val + e for val, e in zip(y, yerr)]
-                }
-                plt.fill_between(**data, alpha=.2)       
+                )     
         
         if len(self.histogram["Xs"]) > 0:
             for y, color, label in zip(*[self.histogram[k] for k in ["Xs","colors","labels"]]):

@@ -1,0 +1,20 @@
+name: IMDB_TEST_LlamBert_subset_800
+name_fields: !!python/tuple [model_name]
+neptune_logging: True
+train_fpath: /home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/TEST/Llama_output_subsets/train_subset_800.json
+dev_fpath: null
+test_fpath: /home/projects/DeepNeurOntology/IMDB_data/test_1000.json
+final_test_fpath: /home/projects/DeepNeurOntology/IMDB_data/test.json
+model_name: roberta-large
+batch_size: 16
+num_epochs: 10
+max_len: 512
+model_save_location: 
+ - null
+ - null
+ - null
+ - null
+ - null
+reduce_lines_for_testing: false # uses only 100 sentences to train model
+lr: 0.000001
+mislabel_percent: 0  # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on
