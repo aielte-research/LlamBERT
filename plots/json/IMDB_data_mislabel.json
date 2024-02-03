@@ -14,7 +14,7 @@
     "matplotlib": {
         "calc_xtics": false,
         "width": 9,
-        "height": 9,
+        "height": 6,
         "style": "seaborn-poster",
         "png_dpi": 240
     },

@@ -21,7 +21,7 @@ gp_params={
     "matplotlib": {
         "calc_xtics": False,
         "width": 9,
-        "height": 9,
+        "height": 6,
         "style": "seaborn-poster",
         "png_dpi": 240
     },
