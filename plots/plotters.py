@@ -266,7 +266,9 @@ class GeneralPlotter(Plotter):
                 "height": 9,
                 "style": "seaborn-poster", #"seaborn-poster", "seaborn-talk"
                 "png_dpi": 240, #use 240 for 4k resolution on 16x9 image
-                "calc_xtics": True
+                "calc_xtics": True,
+                "xtics": [],
+                "ytics": []
             },
             "bokeh":{
                 "width": None, #set this to force bokeh plot to fixed dimensions (not recommended)
@@ -496,6 +498,10 @@ class GeneralPlotter(Plotter):
             if self.matplotlib["calc_xtics"]:
                 x_max=max([len(str(x)) for x in self.x[:self.x_len]])
                 plt.xticks([float(str(self.x[:self.x_len][i])[:6]) for i in range(self.x_len) if i % max(int(min(x_max,6) * self.x_len / (4*self.matplotlib["width"])),1)==0])
+            if self.matplotlib["xtics"]!=[]:
+                plt.xticks(self.matplotlib["xtics"])
+            if self.matplotlib["ytics"]!=[]:
+                plt.yticks(self.matplotlib["ytics"])
 
             super().save_matplotlib_figure(color_settings["suffix"],color_settings["bg_transparent"])
 

@@ -11,15 +11,16 @@ gp_params={
     "xlabel": "Mislabel %",
     "ylabel": "Accuracy %",
     "title": "",
-    "fname": "IMDB_data_mislabel",
+    "fname": "IMDb_data_mislabel",
     "dirname": "./",
     "markers": None,
     "legend": {
         "location": "bottom_left",
-        "labels": ["finetuned","frozen"] #,"supergold"]
+        "labels": ["End-to-end","Frozen encoder"] #,"supergold"]
     },
     "matplotlib": {
         "calc_xtics": False,
+        "ytics": [50,55,60,65,70,75,80,85,90,95,],
         "width": 9,
         "height": 6,
         "style": "seaborn-poster",

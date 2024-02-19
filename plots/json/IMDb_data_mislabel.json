@@ -4,19 +4,21 @@
     "xlabel": "Mislabel %",
     "ylabel": "Accuracy %",
     "title": "",
-    "fname": "IMDB_data_mislabel",
+    "fname": "IMDb_data_mislabel",
     "dirname": "./",
     "markers": null,
     "legend": {
         "location": "bottom_left",
-        "labels": ["finetuned","frozen"]
+        "labels": ["End-to-end","Frozen encoder"]
     },
     "matplotlib": {
         "calc_xtics": false,
+        "ytics": [50,55,60,65,70,75,80,85,90,95],
         "width": 9,
         "height": 6,
         "style": "seaborn-poster",
-        "png_dpi": 240
+        "png_dpi": 240,
+        "xtics": []
     },
     "colors": ["#1f77b4","#ff7f0e"],
     "dashes": ["solid","solid"],
