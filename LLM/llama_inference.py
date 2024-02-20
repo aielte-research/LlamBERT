@@ -75,7 +75,7 @@ def main(
                 user_prompt = "\n".join(f.readlines())
             user_prompts = [user_prompt]
         else:
-            assert False, f"Error: unrecognized Prompt file erxtension '{extension}'!"
+            assert False, f"Error: unrecognized Prompt file extension '{extension}'!"
 
     elif not sys.stdin.isatty():
         user_prompt = "\n".join(sys.stdin.readlines())
@@ -188,7 +188,7 @@ def main(
                 targets = json.load(f)
                 assert isinstance(targets, list), "JSON content is not a list"
         else:
-            assert False, f"Error: unrecognized target file erxtension '{extension}'!"
+            assert False, f"Error: unrecognized target file extension '{extension}'!"
         
         assert len(output_texts_answer_only_binary)==len(targets), f"Provided target file is not the sema lenght as the inputs"
 

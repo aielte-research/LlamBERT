@@ -1,8 +1,3 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# This software may be used and distributed according to the terms of the Llama 2 Community License Agreement.
-
-# from accelerate import init_empty_weights, load_checkpoint_and_dispatch
-
 import fire
 import os
 import sys
@@ -43,7 +38,7 @@ def main(
                 user_prompt = "\n".join(f.readlines())
             user_prompts = [user_prompt]
         else:
-            assert False, f"Error: unrecognized Prompt file erxtension '{extension}'!"
+            assert False, f"Error: unrecognized Prompt file extension '{extension}'!"
 
     elif not sys.stdin.isatty():
         user_prompt = "\n".join(sys.stdin.readlines())
@@ -138,7 +133,7 @@ def main(
                 targets = json.load(f)
                 assert isinstance(targets, list), "JSON content is not a list"
         else:
-            assert False, f"Error: unrecognized target file erxtension '{extension}'!"
+            assert False, f"Error: unrecognized target file extension '{extension}'!"
         
         correct=0
         misclassifed=[]
