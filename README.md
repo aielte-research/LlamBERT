@@ -1,8 +1,10 @@
-# DeepNeurOntology
+# LlamBERT
+
 Efficiently extracting subontologies from the UMLS graph using natural language queries.
 
 ## Project Description
-LlamBERT is a Python library that implements a semi-supervised approach for text classification using BERT-based models. This repository contains the code implementation for the method described in the research paper titled LlamBERT: Leveraging Semi-Supervised Learning for Text Classification.
+LlamBERT is a Python library that implements a semi-supervised approach for text classification using BERT-based models. 
+This repository contains the code implementation for the method described in the research paper titled LlamBERT: Leveraging Semi-Supervised Learning for Text Classification.
 
 Method Overview
 Given a large corpus of unlabeled natural language data, LlamBERT follows these steps:
