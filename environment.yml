@@ -1,4 +1,4 @@
-name: DNeurOn
+name: LlamBERT
 channels:
   - defaults
 dependencies:
