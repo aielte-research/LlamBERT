@@ -44,20 +44,18 @@ def main(
     output_path: str="model_inputs/IMDB",
     **kwargs
 ):
-    if prompt_file is not None:
-        assert os.path.exists(
-            prompt_file
-        ), f"Provided Prompt file does not exist {prompt_file}"
-        extension = os.path.splitext(prompt_file)[1].strip(".")
-        if extension.lower() in ["json"]:
-            with open(prompt_file, "r") as f:
-                user_prompts = json.load(f)
-            assert isinstance(user_prompts, list), "JSON content is not a list"
-        else:
-            assert False, f"Error: unrecognized Prompt file extension '{extension}'!"
-    else:
-        print("No user prompt provided. Exiting.")
+    if prompt_file is None:
+        print("No user prompt provided (option --promt-file). Exiting.")
         sys.exit(1)
+
+    assert os.path.exists(prompt_file), f"Provided Prompt file does not exist {prompt_file}"
+    extension = os.path.splitext(prompt_file)[1].strip(".")
+    if extension.lower() in ["json"]:
+        with open(prompt_file, "r") as f:
+            user_prompts = json.load(f)
+        assert isinstance(user_prompts, list), "JSON content is not a list"
+    else:
+        assert False, f"Error: unrecognized Prompt file extension '{extension}'!"
 
     for entry in tqdm(user_prompts):
         try:
@@ -78,9 +76,6 @@ def main(
                     print(error)
                     print(f"Inference failed again, terminating session...")
                     break
-
-    for entry in tqdm(user_prompts):
-        entry["embedding"]=client.embeddings.create(input = [entry["txt"]], model=model_name).data[0].embedding
         
     output_fpath = os.path.join(output_path,f'{os.path.splitext(os.path.basename(prompt_file))[0].strip(".")}_{os.path.basename(model_name.rstrip("/"))}.json')
     with my_open_w(output_fpath) as outfile:
