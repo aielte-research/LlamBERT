@@ -72,6 +72,8 @@ def main(META_path):
    cui_list_all = list(set(MRREL['CUI1'].unique().tolist() + MRREL['CUI2'].unique().tolist()))
    print(f"{len(cui_list_all)} uniquie CUIs found.")
 
+   export(cui_list_all, MRCONSO, "all_concepts.json")
+
    ### Samplig Data ###
    with open('test_regions_cui_list.txt') as f:
       test_cuis = f.read().splitlines()
