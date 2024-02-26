@@ -1,0 +1,31 @@
+name: LlamBERT_qwen
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - pyyaml
+  - tqdm
+  - networkx
+  - graphviz
+  - pygraphviz
+  - scikit-learn
+  - bokeh
+  - matplotlib=3.5.1
+  - plotly
+  - colorcet
+  - pip
+  - pip:
+    - neptune
+    - torch>=2.0.1
+    - transformers>=4.32.0
+    - accelerate
+    - optimum
+    - auto-gptq
+    - peft
+    - fire
+    - python-dotenv
+    - openai
+    - tiktoken
+    - einops
+    - transformers_stream_generator==0.0.4
+    - deepspeed
