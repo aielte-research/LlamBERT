@@ -13,12 +13,20 @@ import random
 import numpy as np
 from neptune.types import File
 from datetime import datetime
+from tqdm import tqdm
+from unittest.mock import MagicMock
 
 if torch.cuda.is_available():
     DEVICE = "cuda"
 else:
     DEVICE = "cpu"
 print(f"Using device={DEVICE}")
+
+def my_open(fpath,mode="w"):
+   dirname=os.path.dirname(fpath)
+   if len(dirname)>0 and not os.path.exists(dirname):
+      os.makedirs(dirname)
+   return open(fpath, mode)
 
 def to_cuda(var):
     if DEVICE=="cuda":
@@ -93,6 +101,8 @@ def main(cfg):
         run_id = run["sys/id"].fetch()
         print(run_id)
         run["cfg"] = neptune.utils.stringify_unsupported(cfg)
+    else:
+        run = MagicMock()
 
     default_params={
         "num_epochs": 5,
@@ -104,137 +114,159 @@ def main(cfg):
         "train_fpath": None,
         "dev_fpath": None,
         "test_fpath": None,
+        "inference_fpath": None,
+        "inference_results_savepath": None,
         "final_test_fpath": None,
     }
     for key in default_params:
         cfg[key] = cfg.get(key, default_params[key])
 
-    if run is not None:
-        run["device"] = DEVICE
+    run["device"] = DEVICE
 
     tokenizer = AutoTokenizer.from_pretrained(cfg["model_name"])
-
-    if cfg["reduce_lines_for_testing"]:
-        print("WARNING: Keeping only 100 sentences for test and train for tesing!")
-
-    train_data, train_dataset = load_dataset_from_file(cfg["train_fpath"], tokenizer, cfg)
-
-    eval_datasets = {}
-
-    if not cfg["dev_fpath"] is None:
-        dev_data, eval_datasets["dev"] = load_dataset_from_file(cfg["dev_fpath"], tokenizer, cfg)
-        
-    if not cfg["test_fpath"] is None:
-        test_data, eval_datasets["test"] = load_dataset_from_file(cfg["test_fpath"], tokenizer, cfg)
-    
-    final_test_dataset = None
-    if (cfg["final_test_fpath"] is None) and (not cfg["test_fpath"] is None):
-        final_test_data = test_data
-        final_test_dataset = eval_datasets["test"]
-    elif not cfg["final_test_fpath"] is None:
-        final_test_data, final_test_dataset = load_dataset_from_file(cfg["final_test_fpath"], tokenizer, cfg)
-
-    if int(cfg["mislabel_percent"]) != 0:
-        mislabel_data(train_data, cfg["mislabel_percent"])
-
-    print(f"Number of train samples loaded: {len(train_data)}")
-    if not cfg["dev_fpath"] is None:
-        print(f"Number of dev samples loaded: {len(eval_datasets['dev'])}")
-    if not cfg["test_fpath"] is None:
-        print(f"Number of test samples loaded: {len(eval_datasets['test'])}")
-    if not cfg["final_test_fpath"] is None:
-        print(f"Number of final test samples loaded: {len(final_test_dataset)}")
-
-    if cfg["dev_fpath"] or cfg["test_fpath"]:
-        evaluation_strategy = "steps"
-    else:
-        evaluation_strategy = "no"
-    print(f"Using evaluation strategy {evaluation_strategy}")
-
     model = to_cuda(AutoModelForSequenceClassification.from_pretrained(cfg["model_name"], num_labels=2))
 
-    if cfg["freeze_encoder"]:
-        for name, param in model.named_parameters():
-            if "embedding" in name or "encoder" in name:
-                param.requires_grad = False
-    
-    if cfg["reduce_lines_for_testing"]:
-        warmup_steps = 1
-        logging_steps = 1
-    else:
-        warmup_steps = int(1000/cfg["batch_size"])
-        #logging_steps = int(max(10,min(500, 0.25*len(train_dataset))/cfg["batch_size"])) # OR it was min(5000, this line)
-        logging_steps = int((cfg["num_epochs"]*len(train_dataset))/(cfg["batch_size"]*30)) # OR it was min(5000, this line)
-        print(f"logging_steps: {logging_steps}")
+    if cfg["train_fpath"] is not None:
+        if cfg["reduce_lines_for_testing"]:
+            print("WARNING: Keeping only 100 sentences for test and train for tesing!")
+
+        train_data, train_dataset = load_dataset_from_file(cfg["train_fpath"], tokenizer, cfg)
+
+        eval_datasets = {}
+
+        if not cfg["dev_fpath"] is None:
+            dev_data, eval_datasets["dev"] = load_dataset_from_file(cfg["dev_fpath"], tokenizer, cfg)
+            
+        if not cfg["test_fpath"] is None:
+            test_data, eval_datasets["test"] = load_dataset_from_file(cfg["test_fpath"], tokenizer, cfg)
         
-    training_args = TrainingArguments(
-        output_dir='./results',         
-        num_train_epochs=cfg["num_epochs"],             
-        per_device_train_batch_size=cfg["batch_size"], 
-        per_device_eval_batch_size=cfg["batch_size"],   # 1024 70 GB uses VRAM 
-        warmup_steps=warmup_steps,                
-        weight_decay=0.01,            
-        logging_dir='./logs',           
-        load_best_model_at_end=False,  # Too muxh space  
-        learning_rate=cfg["lr"],
-        logging_steps=logging_steps,   #  This is complicated for the testing with 100 samples    
-        save_strategy='no',
-        evaluation_strategy=evaluation_strategy,    
-        report_to="none",
-        seed=int(datetime.now().timestamp())
-    )
+        final_test_dataset = None
+        if (cfg["final_test_fpath"] is None) and (not cfg["test_fpath"] is None):
+            final_test_data = test_data
+            final_test_dataset = eval_datasets["test"]
+        elif not cfg["final_test_fpath"] is None:
+            final_test_data, final_test_dataset = load_dataset_from_file(cfg["final_test_fpath"], tokenizer, cfg)
 
-    neptune_callback = NeptuneCallback(run=run)
+        if int(cfg["mislabel_percent"]) != 0:
+            mislabel_data(train_data, cfg["mislabel_percent"])
 
-    trainer = Trainer(
-        model=model,                         # the instantiated Transformers model to be trained
-        args=training_args,                  # training arguments, defined above
-        train_dataset=train_dataset,         # training dataset
-        eval_dataset=eval_datasets,          # evaluation dataset
-        compute_metrics=compute_metrics,     # the callback that computes metrics of interest
-        callbacks=[neptune_callback],
-    )
+        print(f"Number of train samples loaded: {len(train_data)}")
+        if not cfg["dev_fpath"] is None:
+            print(f"Number of dev samples loaded: {len(eval_datasets['dev'])}")
+        if not cfg["test_fpath"] is None:
+            print(f"Number of test samples loaded: {len(eval_datasets['test'])}")
+        if not cfg["final_test_fpath"] is None:
+            print(f"Number of final test samples loaded: {len(final_test_dataset)}")
 
-    trainer.train()
+        if cfg["dev_fpath"] or cfg["test_fpath"]:
+            evaluation_strategy = "steps"
+        else:
+            evaluation_strategy = "no"
+        print(f"Using evaluation strategy {evaluation_strategy}")
 
-    #the trainer stops the neptune run, so we reopen it
-    run = neptune.Run(with_id=run_id)
-
-    if "dev" in eval_datasets:
-        val_predict_results = trainer.predict(
-            test_dataset=eval_datasets["dev"],
+        if cfg["freeze_encoder"]:
+            for name, param in model.named_parameters():
+                if "embedding" in name or "encoder" in name:
+                    param.requires_grad = False
+        
+        if cfg["reduce_lines_for_testing"]:
+            warmup_steps = 1
+            logging_steps = 1
+        else:
+            warmup_steps = int(1000/cfg["batch_size"])
+            #logging_steps = int(max(10,min(500, 0.25*len(train_dataset))/cfg["batch_size"])) # OR it was min(5000, this line)
+            logging_steps = int((cfg["num_epochs"]*len(train_dataset))/(cfg["batch_size"]*30)) # OR it was min(5000, this line)
+            print(f"logging_steps: {logging_steps}")
+            
+        training_args = TrainingArguments(
+            output_dir='./results',         
+            num_train_epochs=cfg["num_epochs"],             
+            per_device_train_batch_size=cfg["batch_size"], 
+            per_device_eval_batch_size=cfg["batch_size"],   # 1024 70 GB uses VRAM 
+            warmup_steps=warmup_steps,                
+            weight_decay=0.01,            
+            logging_dir='./logs',           
+            load_best_model_at_end=False,  # Too muxh space  
+            learning_rate=cfg["lr"],
+            logging_steps=logging_steps,   #  This is complicated for the testing with 100 samples    
+            save_strategy='no',
+            evaluation_strategy=evaluation_strategy,    
+            report_to="none",
+            seed=int(datetime.now().timestamp())
         )
-        log_mispredicted(data=dev_data, prediction_results=val_predict_results, log_name="mislabeled/dev", run=run)
 
-    if not final_test_dataset is None:
-        test_predict_results = trainer.predict(
-            test_dataset=final_test_dataset,
+        neptune_callback = NeptuneCallback(run=run)
+
+        trainer = Trainer(
+            model=model,                         # the instantiated Transformers model to be trained
+            args=training_args,                  # training arguments, defined above
+            train_dataset=train_dataset,         # training dataset
+            eval_dataset=eval_datasets,          # evaluation dataset
+            compute_metrics=compute_metrics,     # the callback that computes metrics of interest
+            callbacks=[neptune_callback],
         )
-        test_metrics = compute_metrics(test_predict_results)
-        for key, val in test_metrics.items():
-            run[f"final_test/{key}"] = val
-        log_mispredicted(data=final_test_data, prediction_results=test_predict_results, log_name="mislabeled/final_test", run=run)
 
-        if cfg["log_test_outputs"]:
-            print(f"Logging all test outputs...")
-            prediction_results = test_predict_results._asdict()
-            run["test/final_test_outputs"].upload(File.from_content("\n".join([str(np.argmax(x)) for x in prediction_results["predictions"]])))
+        trainer.train()
 
-    if "model_save_location" in cfg:
-        dirname = cfg["model_save_location"]
-        if dirname is not None:
-            print(f"Saving model to {dirname}")
-            if not os.path.exists(dirname):
-                os.makedirs(dirname)
-            trainer.save_model(dirname)
+        #the trainer stops the neptune run, so we reopen it
+        run = neptune.Run(with_id=run_id)
 
+        if "dev" in eval_datasets:
+            val_predict_results = trainer.predict(
+                test_dataset=eval_datasets["dev"],
+            )
+            log_mispredicted(data=dev_data, prediction_results=val_predict_results, log_name="mislabeled/dev", run=run)
+
+        if not final_test_dataset is None:
+            test_predict_results = trainer.predict(
+                test_dataset=final_test_dataset,
+            )
+            test_metrics = compute_metrics(test_predict_results)
+            for key, val in test_metrics.items():
+                run[f"final_test/{key}"] = val
+            log_mispredicted(data=final_test_data, prediction_results=test_predict_results, log_name="mislabeled/final_test", run=run)
+
+            if cfg["log_test_outputs"]:
+                print(f"Logging all test outputs...")
+                prediction_results = test_predict_results._asdict()
+                run["test/final_test_outputs"].upload(File.from_content("\n".join([str(np.argmax(x)) for x in prediction_results["predictions"]])))
+
+        if "model_save_location" in cfg:
+            dirname = cfg["model_save_location"]
+            if dirname is not None:
+                print(f"Saving model to {dirname}")
+                if not os.path.exists(dirname):
+                    os.makedirs(dirname)
+                trainer.save_model(dirname)
+    elif cfg["inference_fpath"] is not None:
+        with open(cfg["inference_fpath"], "r") as file:
+            data = json.load(file)
+        if cfg["reduce_lines_for_testing"]:
+            data = data[:100]
+        
+        results=[]
+        for i in tqdm(range(0, len(data), cfg["batch_size"]), desc="Inference"):
+            batch = data[i:i+cfg["batch_size"]]
+            encodings = tokenizer(batch, truncation=True, padding=True, max_length=cfg["max_len"], return_tensors="pt")
+            input_ids = to_cuda(encodings['input_ids'])
+            attention_mask = to_cuda(encodings['attention_mask'])
+            with torch.no_grad():
+                logits = model(input_ids, attention_mask=attention_mask).logits
+
+            results += torch.max(logits, dim=-1).indices.cpu().numpy().tolist()
+
+        output_fname = f'{os.path.basename(cfg["inference_fpath"]).split(".")[0]}_labels_{os.path.basename(os.path.normpath(cfg["model_name"]))}.json'
+        with my_open(os.path.join(cfg["inference_results_savepath"], output_fname), 'w') as outfile:
+            json.dump(results, outfile, indent=3)
+
+    else:
+        print("Either train_fpath or inference_fpath needs to be given. Doing nothing...")
+    
     run.stop()
 
-if __name__ == '__main__':    
+if __name__ == '__main__':
     load_dotenv()
-    parser = argparse.ArgumentParser(
-                    prog='Bert finetuning',
-                    description='This program finetunes a BERT model')
+    parser = argparse.ArgumentParser(prog='Bert finetuning', description='This program finetunes a BERT model')
     parser.add_argument('-c', '--config_path', required=True)
     args = parser.parse_args()
 
