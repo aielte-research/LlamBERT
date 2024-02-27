@@ -1,5 +1,7 @@
 import argparse, os
 import json
+from typing import Union
+import fire
 
 def my_open(fpath,mode="w"):
    dirname=os.path.dirname(fpath)
@@ -7,28 +9,77 @@ def my_open(fpath,mode="w"):
       os.makedirs(dirname)
    return open(fpath, mode)
 
-def main(reiviews_fpath, output_folder, output_fname):
-   with open(reiviews_fpath) as f:
+def get_sys_prompt_plain():
+   return "Please answer with a 'yes' or a 'no' only!"
+
+def get_sys_prompt():
+   return {
+      "role": "system",
+      "content": get_sys_prompt_plain()
+   }
+
+def get_user_prompt_plain(cui, syns):
+   return f"Decide if the term: {'; '.join([x.replace('&#x7C;', 'XXXYYYZZZ') for x in syns])} is related to the human nervous system. Exclude the only vascular structures, even if connected to the nervous system. If multiple examples or terms with multiple words are given, treat them all as a whole and make your decision based on that."
+
+def get_user_prompt(cui, syns):
+   return {
+      "role": "user",
+      "content": get_user_prompt_plain(cui, syns)
+   }
+
+def get_assistant_prompt(content):
+   return {
+      "role": "assistant",
+      "content": content
+   }
+
+def main(
+      input_fpath: str="../UMLS/regions/train_concepts.json",
+      output_folder: str="model_inputs/UMLS/",
+      output_fname: Union[str, None]=None,
+      shots: int=1,
+      plain_format: bool=False,
+      llama_format: bool=False
+   ):
+   with open(input_fpath) as f:
       concepts = json.loads(f.read())
+
+   if output_fname is None:
+      output_fname = f'{os.path.basename(input_fpath).split(".")[0]}_prompts.json'
    
    prompts=[]
-   for cui, syns in concepts.items():
-      prompts.append(f"[INST] <<SYS>>\nPlease answer with a 'yes' or a 'no' only!\n<</SYS>>\nDecide if the term: C4 branch to right iliocostalis cervicis is related to the human nervous system. Exclude the only vascular structures, even if connected to the nervous system. If multiple examples or terms with multiple words are given, treat them all as a whole and make your decision based on that. [/INST]\nyes\n[INST] <<SYS>>\nPlease answer with a 'yes' or a 'no' only!\n<</SYS>>\nDecide if the term: {'; '.join([x.replace('&#x7C;', 'XXXYYYZZZ') for x in syns])} is related to the human nervous system. Exclude the only vascular structures, even if connected to the nervous system. If multiple examples or terms with multiple words are given, treat them all as a whole and make your decision based on that. [/INST]")
-      #prompts.append(f"[INST] <<SYS>>\nPlease answer with a 'yes' or a 'no' only!\n<</SYS>>\nDecide if the term: C4 branch to right iliocostalis cervicis is related to the human nervous system. Exclude the only vascular structures, even if connected to the nervous system. If multiple examples or terms with multiple words are given, treat them all as a whole and make your decision based on that. [/INST]\nyes\n[INST] <<SYS>>\nPlease answer with a 'yes' or a 'no' only!\n<</SYS>>\nDecide if the term: Neoplastic Neuroepithelial Cell and Neoplastic Perineural Cell is related to the human nervous system. Exclude the only vascular structures, even if connected to the nervous system. If multiple examples or terms with multiple words are given, treat them all as a whole and make your decision based on that. [/INST]\nno\n[INST] <<SYS>>\nPlease answer with a 'yes' or a 'no' only!\n<</SYS>>\nDecide if the term: {'; '.join([x.replace('&#x7C;', 'XXXYYYZZZ') for x in syns])} is related to the human nervous system. Exclude the only vascular structures, even if connected to the nervous system. If multiple examples or terms with multiple words are given, treat them all as a whole and make your decision based on that. [/INST]")
-      #prompts.append(f"[INST] <<SYS>>\nPlease answer with a 'yes' or a 'no' only!\n<</SYS>>\nDecide if the term: {'; '.join(syns)} is related to the human nervous system. Exclude the only vascular structures, even if connected to the nervous system. If multiple examples or terms with multiple words are given, treat them all as a whole and make your decision based on that. [/INST]")
+   if plain_format:
+      prompts=[get_user_prompt_plain(cui, syns) for cui, syns in concepts.items()]
+   elif llama_format:
+      for cui, syns in concepts.items():
+         prompt = ""
+         if shots>=1:
+            prompt += f"[INST] <<SYS>>\n{get_sys_prompt_plain()}\n<</SYS>>\n{get_user_prompt_plain('C2328354', ['C4 branch to right iliocostalis cervicis'])}[/INST]\nyes\n"
+         if shots>=2:
+            prompt += f"[INST] <<SYS>>\n{get_sys_prompt_plain()}\n<</SYS>>\n{get_user_prompt_plain('C1514049', ['Neoplastic Neuroepithelial Cell and Neoplastic Perineural Cell'])}[/INST]\nno\n"
+         if shots>=3:
+            print("Only options 0, 1 and 2 shot are implemented.")
+         prompt += f"[INST] <<SYS>>\n{get_sys_prompt_plain()}\n<</SYS>>\n{get_user_prompt_plain(cui, syns)}[/INST]"
+         prompts.append(prompt)
+   else:
+      for cui, syns in concepts.items():
+         prompt = []
+         if shots>=1:
+            prompt.append(get_sys_prompt())
+            prompt.append(get_user_prompt('C2328354', ['C4 branch to right iliocostalis cervicis']))
+            prompt.append(get_assistant_prompt("yes"))
+         if shots>=2:
+            prompt.append(get_sys_prompt())
+            prompt.append(get_user_prompt('C1514049', ['Neoplastic Neuroepithelial Cell and Neoplastic Perineural Cell']))
+            prompt.append(get_assistant_prompt("no"))
+         if shots>=3:
+            print("Only options 0, 1 and 2 shot are implemented.")
+         prompt.append(get_sys_prompt())
+         prompt.append(get_user_prompt(cui, syns))
+         prompts.append(prompt)
          
-   with my_open(os.path.join(output_folder, f"{output_fname}_prompts.json"), 'w') as outfile:
+   with my_open(os.path.join(output_folder, output_fname), 'w') as outfile:
       json.dump(prompts, outfile, indent=3)
 
 if __name__ == '__main__':
-   parser = argparse.ArgumentParser(prog='Sentiment promt maker', description='This script prepares a promts for sentiment analysis for Llama 2')
-   parser.add_argument('-i', '--input_fpath', required=False, default="../UMLS/train_concepts.json")
-   parser.add_argument('-o', '--output_folder', required=False, default="model_inputs/UMLS/")
-   parser.add_argument('-f', '--output_fname', required=False, default=None)
-   args = parser.parse_args()
-   
-   output_fname = args.output_fname
-   if output_fname is None:
-      output_fname = os.path.basename(args.input_fpath).split(".")[0]
-   
-   main(reiviews_fpath=args.input_fpath, output_folder = args.output_folder, output_fname = output_fname)
+   fire.Fire(main)
