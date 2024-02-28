@@ -78,7 +78,7 @@ def main(
     output_texts_binary=[]
     # Process prompts in batches
     for prompt in tqdm(user_prompts):
-        if isinstance(prompt,dict):
+        if isinstance(prompt,list):
             if prompt[0]["role"] == "system":
                 sys_prompt=prompt[0]["content"]+" Answer only with one word!"
             else:
