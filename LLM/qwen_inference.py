@@ -73,6 +73,7 @@ def main(
 
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True, pad_token='<|endoftext|>')
     
+    outputs_full=[]
     output_texts=[]
     output_texts_cleaned=[]
     output_texts_binary=[]
@@ -84,27 +85,23 @@ def main(
             else:
                 sys_prompt=""
 
-            with torch.no_grad():
-                output_text, _ = model.chat(
-                    tokenizer,
-                    prompt[-1]["content"],
-                    history=None,
-                    system=sys_prompt,
-                    max_new_tokens=max_new_tokens,
-                )
+            prompt_text = prompt[-1]["content"]
         else:
             sys_prompt=" Answer only with one word!"
+            prompt_text=prompt
 
-            with torch.no_grad():
-                output_text, _ = model.chat(
-                    tokenizer,
-                    prompt,
-                    history=None,
-                    system=sys_prompt,
-                    max_new_tokens=max_new_tokens,
-                )
-        
+        with torch.no_grad():
+            output_text, _ = model.chat(
+                tokenizer,
+                prompt_text,
+                history=None,
+                system=sys_prompt,
+                max_new_tokens=max_new_tokens,
+            )
+            
+        outputs_full.append(prompt_text+output_text)
         output_texts.append(output_text)
+        
         output_cleaned = output_text.strip().strip(".,!?;'\"").strip().strip(".,!?;'\"").lower()
         output_texts_cleaned.append(output_cleaned)
         if output_cleaned == "no":
@@ -130,7 +127,7 @@ def main(
         }
     }
     if include_full_outputs:
-        output_data["outputs_full"] = output_texts
+        output_data["outputs_full"] = outputs_full
 
     if target_file is not None:
         assert os.path.exists(
@@ -148,7 +145,7 @@ def main(
 
         correct=0
         misclassifed=[]
-        for target, output, output_full in zip(targets, output_texts_binary, output_texts):
+        for target, output, output_full in zip(targets, output_texts_binary, outputs_full):
             if target == output:
                 correct+=1
             else:
