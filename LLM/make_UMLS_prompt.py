@@ -1,13 +1,10 @@
-import argparse, os
+import os
 import json
 from typing import Union
 import fire
-
-def my_open(fpath,mode="w"):
-   dirname=os.path.dirname(fpath)
-   if len(dirname)>0 and not os.path.exists(dirname):
-      os.makedirs(dirname)
-   return open(fpath, mode)
+import sys
+sys.path.append("..")
+from utils import my_open
 
 def get_sys_prompt_plain():
    return "Please answer with a 'yes' or a 'no' only!"

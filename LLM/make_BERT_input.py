@@ -1,12 +1,9 @@
 import argparse, os
 import json
 import random
-
-def my_open(fpath,mode="w"):
-   dirname=os.path.dirname(fpath)
-   if len(dirname)>0 and not os.path.exists(dirname):
-      os.makedirs(dirname)
-   return open(fpath, mode)
+import sys
+sys.path.append("..")
+from utils import my_open
 
 def main(prompt_fpath, LLM_output_fpath, target_labels_fpath, output_fpath, a_pos, b_pos, shuffle=True):
    with open(prompt_fpath) as f:

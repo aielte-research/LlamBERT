@@ -7,16 +7,15 @@ import fire
 import os
 import sys
 import time
-
 import torch
 from transformers import LlamaTokenizer
-
-import json
-
-from peft import PeftModel
 from transformers import LlamaForCausalLM
-
+from peft import PeftModel
+import json
 from tqdm import trange
+import sys
+sys.path.append("..")
+from utils import my_open
 
 # Function to load the main model for text generation
 def load_model(model_name, quantization):
@@ -33,11 +32,6 @@ def load_model(model_name, quantization):
 def load_peft_model(model, peft_model):
     peft_model = PeftModel.from_pretrained(model, peft_model)
     return peft_model
-
-def my_open_w(fpath):
-    if not os.path.exists(os.path.dirname(fpath)):
-        os.makedirs(os.path.dirname(fpath))
-    return open(fpath, 'w')
 
 def main(
     model_name,
@@ -204,7 +198,7 @@ def main(
         output_data["misclassifed"]=misclassifed
     
     output_fpath = os.path.join("model_outputs",f'{os.path.splitext(os.path.basename(prompt_file))[0].strip(".")}_{os.path.basename(model_name.rstrip("/"))}.json')
-    with my_open_w(output_fpath) as file:
+    with my_open(output_fpath) as file:
         json.dump(output_data, file, indent=4)
              
 

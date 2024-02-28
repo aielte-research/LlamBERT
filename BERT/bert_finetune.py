@@ -15,18 +15,15 @@ from neptune.types import File
 from datetime import datetime
 from tqdm import tqdm
 from unittest.mock import MagicMock
+import sys
+sys.path.append("..")
+from utils import my_open
 
 if torch.cuda.is_available():
     DEVICE = "cuda"
 else:
     DEVICE = "cpu"
 print(f"Using device={DEVICE}")
-
-def my_open(fpath,mode="w"):
-   dirname=os.path.dirname(fpath)
-   if len(dirname)>0 and not os.path.exists(dirname):
-      os.makedirs(dirname)
-   return open(fpath, mode)
 
 def to_cuda(var):
     if DEVICE=="cuda":

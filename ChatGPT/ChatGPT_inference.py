@@ -2,22 +2,18 @@ import fire
 import os
 import sys
 import time
-
+from typing import Union
 import json
-
 from openai import OpenAI
-
 from tqdm import trange
-
-def my_open_w(fpath):
-    if not os.path.exists(os.path.dirname(fpath)):
-        os.makedirs(os.path.dirname(fpath))
-    return open(fpath, 'w')
+import sys
+sys.path.append("..")
+from utils import my_open
 
 def main(
     model_name: str="gpt-4",
-    prompt_file: str=None,
-    target_file: str=None,
+    prompt_file: Union[str, None]=None,
+    target_file: Union[str, None]=None,
     **kwargs
 ):
     args = dict(locals())
@@ -147,7 +143,7 @@ def main(
         output_data["misclassifed"]=misclassifed
     
     output_fpath = os.path.join("model_outputs",f'{os.path.splitext(os.path.basename(prompt_file))[0].strip(".")}_{os.path.basename(model_name.rstrip("/"))}.json')
-    with my_open_w(output_fpath) as file:
+    with my_open(output_fpath) as file:
         json.dump(output_data, file, indent=4)
              
 

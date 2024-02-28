@@ -1,12 +1,8 @@
-import argparse, os
 import json
 import random
-
-def my_open(fpath,mode="w"):
-   dirname=os.path.dirname(fpath)
-   if len(dirname)>0 and not os.path.exists(dirname):
-      os.makedirs(dirname)
-   return open(fpath, mode)
+import sys
+sys.path.append("..")
+from utils import my_open
 
 def make_data(name="train", makelarge=False, balanced=True):
    with open(f"/home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/DEV/Gold/{name}.json") as f:

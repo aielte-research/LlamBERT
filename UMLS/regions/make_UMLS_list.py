@@ -3,12 +3,9 @@ import argparse, os
 import random
 import json
 from tqdm import tqdm
-
-def my_open(fpath,mode="w"):
-   dirname=os.path.dirname(fpath)
-   if len(dirname)>0 and not os.path.exists(dirname):
-      os.makedirs(dirname)
-   return open(fpath, mode)
+import sys
+sys.path.append("..")
+from utils import my_open
 
 def export(cuis, MRCONSO, output_fpath):
    MRCONSO_sampled = MRCONSO[MRCONSO['CUI'].isin(cuis)].copy()

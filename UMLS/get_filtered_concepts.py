@@ -1,27 +1,9 @@
-import pandas as pd
 import os
-import random
 import json
-from tqdm import tqdm
 import fire
-
-def my_open(fpath,mode="w"):
-   dirname=os.path.dirname(fpath)
-   if len(dirname)>0 and not os.path.exists(dirname):
-      os.makedirs(dirname)
-   return open(fpath, mode)
-
-def export(cuis, MRCONSO, output_fpath):
-   MRCONSO_sampled = MRCONSO[MRCONSO['CUI'].isin(cuis)].copy()
-   abv_tty = ['AA', 'AB', 'ACR', 'AM', 'CA2', 'CA3', 'CDA', 'CS', 'DEV', 'DS', 'DSV', 'ES', 'HS', 'ID', 'MTH_ACR', 'NS', 'OAM', 'OA', 'OSN', 'PS', 'QAB', 'QEV', 'QSV', 'RAB', 'SSN', 'SS', 'VAB']
-   MRCONSO_sampled = MRCONSO_sampled[~MRCONSO_sampled['TTY'].isin(abv_tty)]
-   ret = {}
-   for cui in tqdm(cuis):
-      synonyms = sorted(sorted(list(set(MRCONSO_sampled.loc[MRCONSO_sampled['CUI'] == cui]["STR"].str.lower().tolist()))), key=len)
-      ret[cui] = synonyms
-
-   with my_open(output_fpath,mode="w") as f:
-      f.write(json.dumps(ret, indent=3).replace("&#x7c;", "|"))
+import sys
+sys.path.append("..")
+from utils import my_open
 
 def main(
       concepts_fpath: str="/home/projects/DeepNeurOntology/UMLS/regions/all_concepts.json",

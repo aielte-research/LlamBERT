@@ -1,11 +1,8 @@
 import argparse, os
 import json
-
-def my_open(fpath,mode="w"):
-   dirname=os.path.dirname(fpath)
-   if len(dirname)>0 and not os.path.exists(dirname):
-      os.makedirs(dirname)
-   return open(fpath, mode)
+import sys
+sys.path.append("..")
+from utils import my_open
 
 def main(reiviews_fpath, output_folder, output_fname, shots=0):
    with open(reiviews_fpath) as f:

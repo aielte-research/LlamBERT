@@ -3,14 +3,13 @@ import json
 from tqdm import tqdm
 import fire
 import time
+from typing import Union
 
 from openai import OpenAI
 client = OpenAI()
-
-def my_open_w(fpath):
-    if not os.path.exists(os.path.dirname(fpath)):
-        os.makedirs(os.path.dirname(fpath))
-    return open(fpath, 'w')
+import sys
+sys.path.append("..")
+from utils import my_open
 
 def json_pretty_print(text, indent=4):
     level = 0
@@ -42,6 +41,7 @@ def main(
     prompt_file: str,
     model_name: str="text-embedding-3-small",
     output_path: str="model_inputs/IMDB",
+    dim: Union[None, int]=None,
     **kwargs
 ):
     if prompt_file is None:
@@ -57,28 +57,32 @@ def main(
     else:
         assert False, f"Error: unrecognized Prompt file extension '{extension}'!"
 
+    if dim is None:
+        get_emb = lambda entry: client.embeddings.create(input = [entry["txt"]], model=model_name).data[0].embedding
+    else:
+        get_emb = lambda entry: client.embeddings.create(input = [entry["txt"]], model=model_name, dimensions=dim).data[0].embedding
     for entry in tqdm(user_prompts):
         try:
-            entry["embedding"]=client.embeddings.create(input = [entry["txt"]], model=model_name).data[0].embedding
+            entry["embedding"] = get_emb(entry)
         except Exception as error:
             print(error)
             print("Inference failed, will try again in a minute...")
             time.sleep(60)
             try:
-                entry["embedding"]=client.embeddings.create(input = [entry["txt"]], model=model_name).data[0].embedding
+                entry["embedding"] = get_emb(entry)
             except Exception as error:
                 print(error)
                 print("Inference failed, will try again in a 10 minutes...")
                 time.sleep(600)
                 try:
-                    entry["embedding"]=client.embeddings.create(input = [entry["txt"]], model=model_name).data[0].embedding
+                    entry["embedding"] = get_emb(entry)
                 except Exception as error:
                     print(error)
                     print(f"Inference failed again, terminating session...")
                     break
         
-    output_fpath = os.path.join(output_path,f'{os.path.splitext(os.path.basename(prompt_file))[0].strip(".")}_{os.path.basename(model_name.rstrip("/"))}.json')
-    with my_open_w(output_fpath) as outfile:
+    output_fpath = os.path.join(output_path,f'{os.path.splitext(os.path.basename(prompt_file))[0].strip(".")}_{os.path.basename(model_name.rstrip("/"))}_dim-{dim}.json')
+    with my_open(output_fpath) as outfile:
         outfile.write(json_pretty_print(json.dumps(user_prompts,separators=(',', ': '))))
         #json.dump(user_prompts, file, indent=4)
 
