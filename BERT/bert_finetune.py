@@ -235,6 +235,8 @@ def main(cfg):
                 if not os.path.exists(dirname):
                     os.makedirs(dirname)
                 trainer.save_model(dirname)
+                tokenizer.save_pretrained(dirname)
+
     elif cfg["inference_fpath"] is not None:
         with open(cfg["inference_fpath"], "r") as file:
             data = json.load(file)
