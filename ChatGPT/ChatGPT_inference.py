@@ -8,41 +8,25 @@ from openai import OpenAI
 from tqdm import trange
 import sys
 sys.path.append("..")
-from utils import my_open
+from utils import my_open, read_json_list
 
 def main(
-    model_name: str="gpt-4",
-    prompt_file: Union[str, None]=None,
+    prompt_file: str,
+    model_name: str="gpt-4",    
     target_file: Union[str, None]=None,
     **kwargs
 ):
+    if len(kwargs) > 0:
+        raise ValueError(f"Unknown argument(s): {kwargs}")
+    
     args = dict(locals())
-
     client = OpenAI()
     
-    if prompt_file is not None:
-        assert os.path.exists(
-            prompt_file
-        ), f"Provided Prompt file does not exist {prompt_file}"
-        extension = os.path.splitext(prompt_file)[1].strip(".")
-        if extension.lower() in ["json"]:
-            with open(prompt_file, "r") as f:
-                user_prompts = json.load(f)
-                assert isinstance(user_prompts, list), "JSON content is not a list"
-        elif extension.lower()=="txt":
-            with open(prompt_file, "r") as f:
-                user_prompt = "\n".join(f.readlines())
-            user_prompts = [user_prompt]
-        else:
-            assert False, f"Error: unrecognized Prompt file extension '{extension}'!"
+    user_prompts = read_json_list(prompt_file)
 
-    elif not sys.stdin.isatty():
-        user_prompt = "\n".join(sys.stdin.readlines())
-        user_prompts = [user_prompt]
-    else:
-        print("No user prompt provided. Exiting.")
-        sys.exit(1)
-    
+    if target_file is not None:
+        targets = read_json_list(target_file)
+
     questions=[]
     answers=[]
     answers_cleaned=[]
@@ -50,42 +34,33 @@ def main(
     # Process prompts in batches
     for i in trange(len(user_prompts)):
         if isinstance(user_prompts[i], list):
-            messages = user_prompts[i]
+            messages:list[dict] = user_prompts[i]
         else:
             messages=[
                 {"role": "user", "content": user_prompts[i]}
             ]
 
-        #print(messages)
+        get_answer = lambda messages: client.chat.completions.create(model=model_name, messages = messages, stream=False).choices[0].message.content
         try:
-            response = client.chat.completions.create(
-                model = model_name,
-                messages = messages,
-                stream=False,
-            )
-            answer = response.choices[0].message.content
+            answer = get_answer(messages)
+            if answer is None:
+                raise
         except Exception as error:
             print(error)
             print("Inference failed, will try again in a minute...")
             time.sleep(60)
             try:
-                response = client.chat.completions.create(
-                    model = model_name,
-                    messages = messages,
-                    stream=False,
-                )
-                answer = response.choices[0].message.content
+                answer = get_answer(messages)
+                if answer is None:
+                    raise
             except Exception as error:
                 print(error)
                 print("Inference failed, will try again in a 10 minutes...")
                 time.sleep(600)
                 try:
-                    response = client.chat.completions.create(
-                        model = model_name,
-                        messages = messages,
-                        stream=False,
-                    )
-                    answer = response.choices[0].message.content
+                    answer = get_answer(messages)
+                    if answer is None:
+                        raise
                 except Exception as error:
                     print(error)
                     print(f"Inference failed again, terminating session at prompt {i}...")
@@ -119,18 +94,7 @@ def main(
         }
     }
 
-    if target_file is not None:
-        assert os.path.exists(
-            target_file
-        ), f"Provided target file does not exist {target_file}"
-        extension = os.path.splitext(target_file)[1].strip(".")
-        if extension.lower() in ["json"]:
-            with open(target_file, "r") as f:
-                targets = json.load(f)
-                assert isinstance(targets, list), "JSON content is not a list"
-        else:
-            assert False, f"Error: unrecognized target file extension '{extension}'!"
-        
+    if target_file is not None:        
         correct=0
         misclassifed=[]
         for target, output, question in zip(targets[:len(answers_binary)], answers_binary, questions):
