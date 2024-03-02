@@ -21,22 +21,21 @@ def filter_by_lang(lang,df):
     logger.info(f"{human_format(len(ret))} abstracts kept, {human_format(df_len_save - len(ret))} discarded. {getTime(time() - start_time)}")
     return ret
 
-def filter_by_kw_aho_(df,automaton,concepts,strict=True):
+def filter_by_kw_aho_fast(df,automaton,concepts):
     found=[]
     for abst in tqdm(df['Abstract']):
-        found_match=True
-        while found_match:
-            found_match=False
-            for end_index, (cui, original_value) in automaton.iter(abst):
-                if not strict or re.search(r'\b' + re.escape(original_value) + r'\b',abst):
-                    found_match=True  # found a match
-                    for syn in concepts[cui]:
-                        automaton.remove_word(syn)
-                    automaton.make_automaton()
-                    found.append(cui)
-                    print(f"Found '{original_value}' (cui:{cui}). Found in chunk: {len(found)}")
-                    #input()
-                    break
+        found_cuis=[]
+        for _, (cui, original_value) in automaton.iter(abst):
+            if re.search(r'\b' + re.escape(original_value) + r'\b',abst) and not cui in found_cuis:
+                found_cuis.append(cui)
+                print(f"Found '{original_value}' (cui:{cui})")
+        if len(found_cuis)>0:
+            for cui in found_cuis:
+                for syn in concepts[cui]:
+                    automaton.remove_word(syn)
+            automaton.make_automaton()
+            found+=found_cuis
+            print(f"Found in chunk: {len(found)}")
 
     return found,automaton
 
