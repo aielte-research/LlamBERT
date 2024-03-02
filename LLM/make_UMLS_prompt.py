@@ -31,13 +31,16 @@ def get_assistant_prompt(content):
    }
 
 def main(
-      input_fpath: str="../UMLS/regions/train_concepts.json",
-      output_folder: str="model_inputs/UMLS/",
-      output_fname: Union[str, None]=None,
-      shots: int=1,
-      plain_format: bool=False,
-      llama_format: bool=False
-   ):
+   input_fpath: str="../UMLS/regions/train_concepts.json",
+   output_folder: str="model_inputs/UMLS/",
+   output_fname: Union[str, None]=None,
+   shots: int=1,
+   plain_format: bool=False,
+   llama_format: bool=False,
+   **kwargs
+):
+   if len(kwargs) > 0:
+      raise ValueError(f"Unknown argument(s): {kwargs}")
    with open(input_fpath) as f:
       concepts = json.loads(f.read())
 
