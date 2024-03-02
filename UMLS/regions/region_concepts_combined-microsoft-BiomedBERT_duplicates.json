@@ -1,0 +1,3157 @@
+{
+   "facial nerve": [
+      "C0015462",
+      "C1305734"
+   ],
+   "cranial nerve vii": [
+      "C0015462",
+      "C1305734"
+   ],
+   "facial nerve (vii)": [
+      "C0015462",
+      "C1305734"
+   ],
+   "area 46": [
+      "C2331826",
+      "C4085603"
+   ],
+   "upper extremity nerve": [
+      "C1282341",
+      "C1268156"
+   ],
+   "lobule viii of larsell": [
+      "C0228488",
+      "C0262324"
+   ],
+   "acoustic nerve": [
+      "C0001162",
+      "C0009201"
+   ],
+   "auditory nerve": [
+      "C0001162",
+      "C0009201"
+   ],
+   "cochlear-vestibular nerve": [
+      "C0001162",
+      "C0175451"
+   ],
+   "brainstem": [
+      "C0006121",
+      "C1306665"
+   ],
+   "area claustralis amygdalae": [
+      "C3498201",
+      "C0262214"
+   ],
+   "ec 2.7.10.1": [
+      "C1333410",
+      "C1333408",
+      "C3853571",
+      "C1333409",
+      "C0211525",
+      "C3853572",
+      "C0211526",
+      "C0294276",
+      "C1452792",
+      "C0206364",
+      "C1435808",
+      "C3853764",
+      "C3853697",
+      "C3853696",
+      "C3810533",
+      "C5575288",
+      "C0381678",
+      "C0252032",
+      "C1259418"
+   ],
+   "ec 2.7.1.112": [
+      "C1333410",
+      "C1333408",
+      "C1333409",
+      "C3853572",
+      "C3853764"
+   ],
+   "spine lumbar": [
+      "C4299162",
+      "C0024091"
+   ],
+   "entopeduncular nucleus": [
+      "C1744544",
+      "C0228359"
+   ],
+   "dopamine d1 receptor": [
+      "C3711530",
+      "C0058697"
+   ],
+   "dopamine receptor d1": [
+      "C3711530",
+      "C0058697"
+   ],
+   "area 14c": [
+      "C3499205",
+      "C4085591"
+   ],
+   "transverse temporal gyri": [
+      "C2326109",
+      "C1744621"
+   ],
+   "gyri temporales transversi": [
+      "C2326109",
+      "C1744621"
+   ],
+   "anterior cingulate": [
+      "C0175190",
+      "C5700070"
+   ],
+   "gyrus cinguli anterior": [
+      "C0175190",
+      "C5700070"
+   ],
+   "gyrus limbicus anterior": [
+      "C0175190",
+      "C2334367"
+   ],
+   "anterior cingulate gyrus": [
+      "C0175190",
+      "C5700070"
+   ],
+   "area hypothalamica posterior": [
+      "C0228385",
+      "C0020670"
+   ],
+   "cerebral gyrus": [
+      "C0228178",
+      "C0458308"
+   ],
+   "lutropin alpha": [
+      "C0065261",
+      "C1271607"
+   ],
+   "endocrine gland": [
+      "C1305733",
+      "C0014133"
+   ],
+   "right optic foramen": [
+      "C0926661",
+      "C0947156"
+   ],
+   "acth": [
+      "C3539087",
+      "C3818725",
+      "C0001655"
+   ],
+   "ear": [
+      "C0013443",
+      "C0521421"
+   ],
+   "ears": [
+      "C0013443",
+      "C0521421"
+   ],
+   "melatonin": [
+      "C1527137",
+      "C0025219"
+   ],
+   "adrenomedullin receptor": [
+      "C0296735",
+      "C4318400"
+   ],
+   "pomc": [
+      "C3889630",
+      "C0033195"
+   ],
+   "proopiomelanocortin": [
+      "C3889630",
+      "C0033195"
+   ],
+   "pro-opiomelanocortin": [
+      "C3889630",
+      "C0033195"
+   ],
+   "peripheral nervous system": [
+      "C1305921",
+      "C0206417"
+   ],
+   "pns - peripheral nervous system": [
+      "C1305921",
+      "C0206417"
+   ],
+   "oculomotor nerve": [
+      "C1305767",
+      "C0028864"
+   ],
+   "cranial nerve iii": [
+      "C1305767",
+      "C0028864"
+   ],
+   "aldosterone receptor": [
+      "C3254418",
+      "C0051133"
+   ],
+   "mineralocorticoid receptor": [
+      "C3254418",
+      "C0066563"
+   ],
+   "receptors, mineralocorticoid": [
+      "C3254418",
+      "C0066563"
+   ],
+   "lutropin": [
+      "C1704298",
+      "C0023607"
+   ],
+   "luteinizing hormone": [
+      "C1704298",
+      "C0023607"
+   ],
+   "leuteinizing hormone": [
+      "C1704298",
+      "C0023607"
+   ],
+   "interstitial cell-stimulating hormone": [
+      "C1704298",
+      "C0023607"
+   ],
+   "nucleus intercalatus": [
+      "C0152398",
+      "C2328571"
+   ],
+   "dorsal spinal nerve root": [
+      "C0446731",
+      "C0205955"
+   ],
+   "grh": [
+      "C0037668",
+      "C0023610"
+   ],
+   "ghrh": [
+      "C0037668",
+      "C5197619"
+   ],
+   "somatocrinin": [
+      "C0037668",
+      "C5197619"
+   ],
+   "somatoliberin": [
+      "C0037668",
+      "C5197619"
+   ],
+   "growth hormone releasing factor": [
+      "C0037668",
+      "C5197619"
+   ],
+   "growth hormone-releasing factor": [
+      "C0037668",
+      "C5197619"
+   ],
+   "growth hormone releasing hormone": [
+      "C0037668",
+      "C5197619"
+   ],
+   "growth hormone-releasing hormone": [
+      "C0037668",
+      "C5197619"
+   ],
+   "dorsal motor nucleus": [
+      "C0596458",
+      "C0152401"
+   ],
+   "presynaptic terminal": [
+      "C4236732",
+      "C0206181"
+   ],
+   "oliva": [
+      "C0262254",
+      "C0228539",
+      "C0228540"
+   ],
+   "olive": [
+      "C0262254",
+      "C0228539"
+   ],
+   "inferior olive": [
+      "C0262254",
+      "C0228540"
+   ],
+   "olive (brain structure)": [
+      "C0262254",
+      "C0228539"
+   ],
+   "lissauer's tract": [
+      "C0228587",
+      "C3495330"
+   ],
+   "zone of lissauer": [
+      "C0228587",
+      "C3495330"
+   ],
+   "tract of lissauer": [
+      "C0228587",
+      "C3495330"
+   ],
+   "dorsolateral tract": [
+      "C0228587",
+      "C3495330"
+   ],
+   "posterolateral tract": [
+      "C0228587",
+      "C3495330"
+   ],
+   "fasciculus dorsolateralis": [
+      "C0228587",
+      "C3495330"
+   ],
+   "sensory neuron": [
+      "C0034837",
+      "C0027883"
+   ],
+   "sensory neurons": [
+      "C0034837",
+      "C0027883"
+   ],
+   "ghrelin": [
+      "C1870739",
+      "C0911014"
+   ],
+   "growth hormone secretagogue": [
+      "C1870739",
+      "C3537207"
+   ],
+   "avp": [
+      "C1568204",
+      "C0138318"
+   ],
+   "cerebral lobe": [
+      "C0458332",
+      "C1281952"
+   ],
+   "serotonin 2a receptor": [
+      "C0289174",
+      "C1531433"
+   ],
+   "brodmann area 20": [
+      "C2326706",
+      "C0152311"
+   ],
+   "brodmann's area 20": [
+      "C2326706",
+      "C0152311"
+   ],
+   "griseum centrale": [
+      "C0228398",
+      "C2331300"
+   ],
+   "substantia grisea centralis": [
+      "C0228398",
+      "C0262208",
+      "C0262207",
+      "C2331300"
+   ],
+   "pallium": [
+      "C3495430",
+      "C0007776"
+   ],
+   "nervus cardiacus cervicalis inferior": [
+      "C1186198",
+      "C0228993"
+   ],
+   "olfactory pathway": [
+      "C1744711",
+      "C0028939"
+   ],
+   "central tegmental tract": [
+      "C0228423",
+      "C0228443",
+      "C0152364"
+   ],
+   "tractus tegmentalis centralis": [
+      "C0228423",
+      "C0228443"
+   ],
+   "vestibular nucleus": [
+      "C0042600",
+      "C1305911"
+   ],
+   "c1/c2 facet joint": [
+      "C0004168",
+      "C0224585"
+   ],
+   "c1/c2 zygapophysial joint": [
+      "C0004168",
+      "C0224585"
+   ],
+   "inferior occipital gyrus": [
+      "C1110643",
+      "C0228231"
+   ],
+   "gyrus brevis insulae": [
+      "C0228259",
+      "C0262329"
+   ],
+   "gp80-lngfr": [
+      "C0254837",
+      "C1435659"
+   ],
+   "ngf receptor": [
+      "C0254837",
+      "C1435659"
+   ],
+   "glucocorticoid receptor": [
+      "C1370369",
+      "C0034809"
+   ],
+   "area 9": [
+      "C4085306",
+      "C3495481"
+   ],
+   "lamina i": [
+      "C2337074",
+      "C1709063"
+   ],
+   "posteromarginal nucleus": [
+      "C2337074",
+      "C2340490"
+   ],
+   "marginal nucleus of spinal cord": [
+      "C2337074",
+      "C2324756"
+   ],
+   "orbital gyri": [
+      "C2332077",
+      "C2331062",
+      "C0152301"
+   ],
+   "gyri orbitales": [
+      "C2332077",
+      "C0152301"
+   ],
+   "cuneate fasciculus": [
+      "C0228521",
+      "C0228578"
+   ],
+   "testosterone": [
+      "C0039601",
+      "C4721537"
+   ],
+   "trans-testosterone": [
+      "C0039601",
+      "C4721537"
+   ],
+   "delta4-androsten-17beta-ol-3-one": [
+      "C0039601",
+      "C4721537"
+   ],
+   "(17beta)-17-hydroxyandrost-4-en-3-one": [
+      "C0039601",
+      "C4721537"
+   ],
+   "cochlear nuclei": [
+      "C0152411",
+      "C2324217"
+   ],
+   "cochlear nucleus": [
+      "C0152411",
+      "C1305919"
+   ],
+   "nuclei cochleares": [
+      "C0152411",
+      "C2324217"
+   ],
+   "histamine h2 receptor": [
+      "C1531432",
+      "C0034815"
+   ],
+   "autonomic nerves": [
+      "C0206250",
+      "C0004388"
+   ],
+   "autonomic neuron": [
+      "C0206250",
+      "C0682693"
+   ],
+   "glucagon receptor": [
+      "C0061352",
+      "C4761329"
+   ],
+   "sensory trigeminal nucleus": [
+      "C0459229",
+      "C0228701"
+   ],
+   "beta 1 adrenergic receptor": [
+      "C2932458",
+      "C0001642"
+   ],
+   "beta-1 adrenergic receptor": [
+      "C2932458",
+      "C0001642"
+   ],
+   "neurogenic locus notch homolog protein 3": [
+      "C1452875",
+      "C4255519"
+   ],
+   "neurotrophin 3 receptor": [
+      "C0132300",
+      "C3853696"
+   ],
+   "neurotrophic tyrosine kinase receptor type 3": [
+      "C0132300",
+      "C3853696"
+   ],
+   "temporal cortex": [
+      "C0228235",
+      "C0039485"
+   ],
+   "neurotrophic tyrosine kinase receptor type 2": [
+      "C0084873",
+      "C3853697"
+   ],
+   "area 13l": [
+      "C3499202",
+      "C4018961"
+   ],
+   "fovea": [
+      "C0450290",
+      "C0016622"
+   ],
+   "fovea centralis of retina": [
+      "C0450290",
+      "C0016622"
+   ],
+   "cerebellar lobe": [
+      "C0458396",
+      "C0444574"
+   ],
+   "fsh-beta": [
+      "C3266859",
+      "C4082585"
+   ],
+   "adrenal tissue": [
+      "C5203367",
+      "C0586608"
+   ],
+   "endocrine cells of gut": [
+      "C3899265",
+      "C0524979"
+   ],
+   "gastrointestinal endocrine cell": [
+      "C3899265",
+      "C0524979"
+   ],
+   "gastrointestinal endocrine cells": [
+      "C3899265",
+      "C0524979"
+   ],
+   "subcostal nerve": [
+      "C0501590",
+      "C0228896"
+   ],
+   "pyy": [
+      "C4721556",
+      "C0070358"
+   ],
+   "peptide yy": [
+      "C4721556",
+      "C0070358"
+   ],
+   "autonomic nervous system": [
+      "C1305381",
+      "C0004388"
+   ],
+   "adora2": [
+      "C1527412",
+      "C1527413"
+   ],
+   "adenosine a2 receptor": [
+      "C1527412",
+      "C0001452"
+   ],
+   "adenosine a2a receptor": [
+      "C1527412",
+      "C0255998"
+   ],
+   "medial occipitotemporal gyrus": [
+      "C0152308",
+      "C0228244"
+   ],
+   "gyrus occipitotemporalis medialis": [
+      "C0152308",
+      "C0228244"
+   ],
+   "gastrin-releasing peptide receptor": [
+      "C5441747",
+      "C0053917"
+   ],
+   "pituitary": [
+      "C0032005",
+      "C0304812"
+   ],
+   "luteinizing hormone receptor": [
+      "C5203041",
+      "C0034823"
+   ],
+   "adenosine a2b receptor": [
+      "C0667931",
+      "C1527413"
+   ],
+   "intercostal nerves": [
+      "C1285089",
+      "C1963694"
+   ],
+   "accessory nerve": [
+      "C1305777",
+      "C0000905"
+   ],
+   "cranial nerve xi": [
+      "C1305777",
+      "C0000905"
+   ],
+   "accessory nerve (xi)": [
+      "C1305777",
+      "C0000905"
+   ],
+   "posterior tibial nerve": [
+      "C0936237",
+      "C0040186"
+   ],
+   "lobule vi of vermis": [
+      "C2335199",
+      "C0228484"
+   ],
+   "brodmann area 40": [
+      "C0228214",
+      "C2330060"
+   ],
+   "brodmann's area 40": [
+      "C0228214",
+      "C2330060"
+   ],
+   "lamina vi": [
+      "C2322607",
+      "C2322689"
+   ],
+   "cochlear aqueduct": [
+      "C4082369",
+      "C0009196"
+   ],
+   "dopamine d2 receptor": [
+      "C3659270",
+      "C0058698"
+   ],
+   "melanocortin 4 receptor": [
+      "C0527721",
+      "C0668289"
+   ],
+   "melanocortin receptor 4": [
+      "C0527721",
+      "C0668289"
+   ],
+   "griseum periventriculare": [
+      "C0262208",
+      "C0262207",
+      "C2331300"
+   ],
+   "nucleus anteromedialis": [
+      "C0228319",
+      "C3495327"
+   ],
+   "subnucleus rostralis": [
+      "C0175280",
+      "C0175417"
+   ],
+   "pituitary posterior": [
+      "C0032017",
+      "C0032009",
+      "C0447640"
+   ],
+   "posterior pituitary": [
+      "C0032017",
+      "C0032009",
+      "C0447640"
+   ],
+   "ec 4.6.1.2": [
+      "C1529723",
+      "C1529727"
+   ],
+   "brodmann area 21": [
+      "C2328516",
+      "C0152310"
+   ],
+   "brodmann's area 21": [
+      "C2328516",
+      "C0152310"
+   ],
+   "uvula vermis": [
+      "C0228490",
+      "C0546037"
+   ],
+   "area 13a": [
+      "C4019015",
+      "C3496442"
+   ],
+   "visual pathway": [
+      "C3536733",
+      "C1305913",
+      "C0042829"
+   ],
+   "vestibule": [
+      "C1735318",
+      "C1321513",
+      "C0042606"
+   ],
+   "vestibular apparatus": [
+      "C1735318",
+      "C0042606"
+   ],
+   "purinergic receptor": [
+      "C2745815",
+      "C0034836"
+   ],
+   "circle of willis": [
+      "C4071876",
+      "C0008812"
+   ],
+   "medial supraclavicular nerve": [
+      "C0228834",
+      "C4759667"
+   ],
+   "pontine gray": [
+      "C3496293",
+      "C0228448"
+   ],
+   "fsh receptor": [
+      "C4742434",
+      "C0034806"
+   ],
+   "follicle stimulating hormone receptor": [
+      "C4742434",
+      "C0034806"
+   ],
+   "follicle-stimulating hormone receptor": [
+      "C4742434",
+      "C0034806"
+   ],
+   "paramedian reticular nucleus": [
+      "C0175510",
+      "C0682738"
+   ],
+   "nucleus reticularis paramedianus myelencephali": [
+      "C0175510",
+      "C0175511"
+   ],
+   "paleocerebellum": [
+      "C0228483",
+      "C0228474"
+   ],
+   "nuclear hormone receptor nor-1": [
+      "C1453685",
+      "C2720339"
+   ],
+   "neuron-derived orphan receptor 1": [
+      "C1453685",
+      "C2720339"
+   ],
+   "short gyri of insula": [
+      "C2324509",
+      "C0262329"
+   ],
+   "magnocellular reticular nucleus, ventral part (cajal)": [
+      "C0262242",
+      "C3496408"
+   ],
+   "forel's field h2": [
+      "C0152353",
+      "C0228360"
+   ],
+   "lenticular fasciculus": [
+      "C0152353",
+      "C0228360"
+   ],
+   "structure of lenticular fasciculus": [
+      "C0152353",
+      "C0228360"
+   ],
+   "dorsal division of ansa lenticularis": [
+      "C0152353",
+      "C0228360"
+   ],
+   "pth-like protein": [
+      "C0070099",
+      "C3887570"
+   ],
+   "parathyroid hormone-related peptide": [
+      "C0070099",
+      "C3887570"
+   ],
+   "parathyroid hormone-related protein": [
+      "C0070099",
+      "C3887570"
+   ],
+   "parathyroid hormone like tumor factor": [
+      "C0070099",
+      "C3887570"
+   ],
+   "nerve xi": [
+      "C0000905",
+      "C0228793"
+   ],
+   "eleventh cranial nerve": [
+      "C0000905",
+      "C0228793"
+   ],
+   "spinal part of accessory nerve": [
+      "C0000905",
+      "C0228798"
+   ],
+   "spinal root of accessory nerve": [
+      "C0000905",
+      "C0228798"
+   ],
+   "cerebrum": [
+      "C0242202",
+      "C0228174",
+      "C0039452"
+   ],
+   "lateral orbital area": [
+      "C2327741",
+      "C3496407"
+   ],
+   "arachnoidea mater encephali": [
+      "C0003707",
+      "C2338611"
+   ],
+   "grey commissure": [
+      "C2338155",
+      "C0228563"
+   ],
+   "glycoprotein hormones alpha chain": [
+      "C0017963",
+      "C0018664"
+   ],
+   "glycoprotein hormones, alpha chain": [
+      "C0017963",
+      "C0018664"
+   ],
+   "glycoprotein hormones, alpha polypeptide": [
+      "C0017963",
+      "C0018664"
+   ],
+   "posterior lobe of pituitary": [
+      "C0032009",
+      "C0447640"
+   ],
+   "pars nervosa of pituitary gland": [
+      "C0032009",
+      "C0447640"
+   ],
+   "orbital area": [
+      "C2331062",
+      "C3495411",
+      "C0152301",
+      "C3853915"
+   ],
+   "orbital areas": [
+      "C2331062",
+      "C3853915"
+   ],
+   "orbital gyrus": [
+      "C2331062",
+      "C0152301"
+   ],
+   "orbital cortex": [
+      "C2331062",
+      "C3495411",
+      "C0152301"
+   ],
+   "gyrus orbitalis": [
+      "C2331062",
+      "C0152301"
+   ],
+   "orbitofrontal gyri": [
+      "C2331062",
+      "C0152301"
+   ],
+   "orbitofrontal gyrus": [
+      "C2331062",
+      "C0152301"
+   ],
+   "orbitofrontal cortex": [
+      "C2331062",
+      "C0152301"
+   ],
+   "orbitofrontal region": [
+      "C2331062",
+      "C0152301"
+   ],
+   "beta 3 adrenergic receptor": [
+      "C0248722",
+      "C3252518"
+   ],
+   "incretin hormone": [
+      "C4721528",
+      "C1562292"
+   ],
+   "gastric inhibitory polypeptide": [
+      "C4721528",
+      "C0017132"
+   ],
+   "glucose-dependent insulinotropic polypeptide": [
+      "C4721528",
+      "C0017132"
+   ],
+   "dorsolateral prefrontal cortex": [
+      "C4019080",
+      "C4019110"
+   ],
+   "nk-1 receptor": [
+      "C0164209",
+      "C4281804"
+   ],
+   "substance p receptor": [
+      "C0164209",
+      "C4281804"
+   ],
+   "substance-p receptor": [
+      "C0164209",
+      "C4281804"
+   ],
+   "neurokinin 1 receptor": [
+      "C0164209",
+      "C4281804"
+   ],
+   "tachykinin receptor 1": [
+      "C0164209",
+      "C4281804"
+   ],
+   "superior precentral sulcus": [
+      "C0262338",
+      "C3887464"
+   ],
+   "sulcus praecentralis superior": [
+      "C0262338",
+      "C3887464"
+   ],
+   "superior part of precentral fissure": [
+      "C0262338",
+      "C3887464"
+   ],
+   "meninges": [
+      "C2332324",
+      "C0025285"
+   ],
+   "corticotropin": [
+      "C3818725",
+      "C1523997",
+      "C0001655"
+   ],
+   "adrenocorticotropin": [
+      "C3818725",
+      "C1523997",
+      "C0001655"
+   ],
+   "adrenocorticotropic hormone": [
+      "C3818725",
+      "C1523997",
+      "C0001655"
+   ],
+   "olfactory epithelium": [
+      "C0599332",
+      "C0028937"
+   ],
+   "eralpha": [
+      "C0665341",
+      "C1521863"
+   ],
+   "estrogen receptor alpha": [
+      "C0665341",
+      "C1521863"
+   ],
+   "basomedial amygdaloid nucleus": [
+      "C1134422",
+      "C0175223"
+   ],
+   "posterior column": [
+      "C0228288",
+      "C0228576"
+   ],
+   "cell hair": [
+      "C0018496",
+      "C2678510"
+   ],
+   "periamygdaloid cortex": [
+      "C0458328",
+      "C3495326"
+   ],
+   "para-amygdaloid cortex": [
+      "C0458328",
+      "C3495326"
+   ],
+   "cortex periamygdaloideus": [
+      "C0458328",
+      "C3495326"
+   ],
+   "adrenal gland": [
+      "C4037990",
+      "C0001625"
+   ],
+   "lumbosacral spinal cord lateral column": [
+      "C0228653",
+      "C0228649"
+   ],
+   "retrosplenial dysgranular area": [
+      "C4085301",
+      "C3499298"
+   ],
+   "gyrus fornicatus": [
+      "C0228290",
+      "C0458337"
+   ],
+   "parietal lobe gyrus": [
+      "C0228290",
+      "C0228209"
+   ],
+   "myelin": [
+      "C0026969",
+      "C0026973"
+   ],
+   "early response protein nak1": [
+      "C1700524",
+      "C0083740"
+   ],
+   "orphan nuclear receptor hmr": [
+      "C1700524",
+      "C0083740"
+   ],
+   "orphan nuclear receptor tr3": [
+      "C1700524",
+      "C0083740"
+   ],
+   "nuclear receptor subfamily 4, group a, member 1": [
+      "C1700524",
+      "C0083740"
+   ],
+   "brain tissue": [
+      "C0440746",
+      "C0459385"
+   ],
+   "cortex": [
+      "C1176472",
+      "C0007776"
+   ],
+   "nk-3 receptor": [
+      "C1368102",
+      "C0068603"
+   ],
+   "neurokinin 3 receptor": [
+      "C1368102",
+      "C0068603"
+   ],
+   "neuromedin k receptor": [
+      "C1368102",
+      "C0068603"
+   ],
+   "retrosplenial area": [
+      "C3498962",
+      "C4085586"
+   ],
+   "melanocortin 1 receptor": [
+      "C0753910",
+      "C4082292"
+   ],
+   "melanocortin receptor 1": [
+      "C0753910",
+      "C4082292"
+   ],
+   "nerve of wrisberg": [
+      "C0228743",
+      "C1744554"
+   ],
+   "ventricle of brain": [
+      "C0007799",
+      "C0446681"
+   ],
+   "nucleus ventralis intermedius": [
+      "C0228339",
+      "C0175286"
+   ],
+   "nucleus ventrolateralis thalami": [
+      "C0228339",
+      "C0262292"
+   ],
+   "foramen transversarium of atlas": [
+      "C1305619",
+      "C0223106"
+   ],
+   "brodmann area 44": [
+      "C2325767",
+      "C0262296"
+   ],
+   "brodmann's area 44": [
+      "C2325767",
+      "C0262296"
+   ],
+   "hippocampal region": [
+      "C3496510",
+      "C3496509"
+   ],
+   "dorsomedial nucleus": [
+      "C0228329",
+      "C0013055"
+   ],
+   "nucleus medialis dorsalis": [
+      "C0228329",
+      "C1284630"
+   ],
+   "gyrus frontalis medius": [
+      "C0458310",
+      "C0152297"
+   ],
+   "gyrus frontalis medialis": [
+      "C0458310",
+      "C0152297"
+   ],
+   "medial mammillary nucleus, lateral part": [
+      "C0694606",
+      "C3498178"
+   ],
+   "lamina iv": [
+      "C2332702",
+      "C1512872"
+   ],
+   "nerve to right inferior oblique": [
+      "C0932899",
+      "C0925238"
+   ],
+   "tectum": [
+      "C1820369",
+      "C0039433"
+   ],
+   "metabotropic glutamate receptor 5": [
+      "C3711735",
+      "C0530778"
+   ],
+   "catecholamine receptor": [
+      "C0034783",
+      "C0054861",
+      "C2976741"
+   ],
+   "olfactory receptor": [
+      "C1518565",
+      "C0164313"
+   ],
+   "olfactory receptors": [
+      "C1518565",
+      "C0164313"
+   ],
+   "posterolateral fissure of cerebellum": [
+      "C0228502",
+      "C5234871"
+   ],
+   "limbus of cochlear duct": [
+      "C1281722",
+      "C0229479"
+   ],
+   "nmb": [
+      "C4553912",
+      "C4553911"
+   ],
+   "neuromedin-b": [
+      "C4553912",
+      "C4553911"
+   ],
+   "cajal's interstitial nucleus": [
+      "C0926500",
+      "C0228418"
+   ],
+   "hippocampus": [
+      "C0175202",
+      "C0019564",
+      "C3887642",
+      "C0598598"
+   ],
+   "posterior semicircular canal": [
+      "C0229454",
+      "C1288300"
+   ],
+   "axon terminal": [
+      "C0027747",
+      "C0206181"
+   ],
+   "corpora quadrigemina": [
+      "C0010087",
+      "C2332857"
+   ],
+   "thoracic spinal cord": [
+      "C0581620",
+      "C0457847"
+   ],
+   "afterbrain": [
+      "C0376353",
+      "C0025148"
+   ],
+   "metencephalon": [
+      "C0376353",
+      "C0032639"
+   ],
+   "area 11l": [
+      "C4019224",
+      "C3499197"
+   ],
+   "alpha-msh": [
+      "C0002302",
+      "C0050600"
+   ],
+   "alpha-melanotropin": [
+      "C0002302",
+      "C0050600"
+   ],
+   "alpha-melanocyte-stimulating hormone": [
+      "C0002302",
+      "C0050600"
+   ],
+   "5-ht1a receptor": [
+      "C0379900",
+      "C3712806"
+   ],
+   "olfactory lobe": [
+      "C0178780",
+      "C0162434",
+      "C0035454"
+   ],
+   "callosum corpus": [
+      "C0010090",
+      "C0152320"
+   ],
+   "galanin receptor 2": [
+      "C4082588",
+      "C0630195"
+   ],
+   "muscarinic acetylcholine receptor m3": [
+      "C4473358",
+      "C4045009"
+   ],
+   "glomus vagale": [
+      "C1510461",
+      "C0030378"
+   ],
+   "grf": [
+      "C0023610",
+      "C5197619"
+   ],
+   "brodmann area 18": [
+      "C5240034",
+      "C2337740"
+   ],
+   "brodmann's area 18": [
+      "C5240034",
+      "C2337740"
+   ],
+   "fornix cerebri": [
+      "C0152334",
+      "C0458370"
+   ],
+   "cervical spinal nerve root": [
+      "C0228621",
+      "C0581631"
+   ],
+   "area hypothalamica rostralis": [
+      "C0020653",
+      "C2830016"
+   ],
+   "paleopallium": [
+      "C0162434",
+      "C0035454"
+   ],
+   "rhinencephalon": [
+      "C0162434",
+      "C0035454"
+   ],
+   "olfactory brain": [
+      "C0162434",
+      "C0035454"
+   ],
+   "spinal cord posterior horn": [
+      "C0228575",
+      "C0228564"
+   ],
+   "ventral reticulospinal tract": [
+      "C0546040",
+      "C0228593"
+   ],
+   "dorsal longitudinal fasciculus": [
+      "C2323189",
+      "C0262221"
+   ],
+   "operculum orbitale": [
+      "C0694580",
+      "C0262300"
+   ],
+   "subdural space of brain": [
+      "C0228135",
+      "C1284568"
+   ],
+   "frontal cortex": [
+      "C0016733",
+      "C0228196"
+   ],
+   "frontal region": [
+      "C0016733",
+      "C0549224",
+      "C0162783"
+   ],
+   "frontal regions": [
+      "C0016733",
+      "C0549224"
+   ],
+   "regio frontalis": [
+      "C0016733",
+      "C0162783"
+   ],
+   "medial eminence": [
+      "C0025056",
+      "C0262282"
+   ],
+   "posterior subcentral sulcus": [
+      "C3887463",
+      "C0262318"
+   ],
+   "sulcus subcentralis posterior": [
+      "C3887463",
+      "C0262318"
+   ],
+   "cck-b receptor": [
+      "C0248266",
+      "C4082288"
+   ],
+   "gastrin receptor": [
+      "C0248266",
+      "C4082288"
+   ],
+   "cholecystokinin b receptor": [
+      "C0248266",
+      "C4082288"
+   ],
+   "cholecystokinin-2 receptor": [
+      "C0248266",
+      "C4082288"
+   ],
+   "ventrolateral sulcus": [
+      "C0228526",
+      "C0228597"
+   ],
+   "brodmann's area 28": [
+      "C2324624",
+      "C0175196"
+   ],
+   "uncinate fasciculus": [
+      "C0228271",
+      "C0175449"
+   ],
+   "fasciculus uncinatus": [
+      "C0228271",
+      "C0175449"
+   ],
+   "ventral spinocerebellar tract": [
+      "C0175561",
+      "C0228454"
+   ],
+   "anterior spinocerebellar tract": [
+      "C0175561",
+      "C0228454"
+   ],
+   "internal arcuate fibers": [
+      "C2331989",
+      "C0228533"
+   ],
+   "fibrae arcuatae internae": [
+      "C2331989",
+      "C0228533"
+   ],
+   "oculomotor nerve fibers": [
+      "C4082143",
+      "C0175408"
+   ],
+   "root of oculomotor nerve": [
+      "C4082143",
+      "C0175408"
+   ],
+   "fibrae nervi oculomotorii": [
+      "C4082143",
+      "C0175408"
+   ],
+   "central part of oculomotor nerve": [
+      "C4082143",
+      "C0175408"
+   ],
+   "mamillary body": [
+      "C1305759",
+      "C0024670"
+   ],
+   "mammillary body": [
+      "C1305759",
+      "C0024670"
+   ],
+   "olfactory striae": [
+      "C2326982",
+      "C1283316"
+   ],
+   "cisterna ambiens": [
+      "C0228149",
+      "C0228150"
+   ],
+   "cisterna venae magnae cerebri": [
+      "C0228149",
+      "C0228150"
+   ],
+   "obex": [
+      "C0262294",
+      "C3496513"
+   ],
+   "brain": [
+      "C0006104",
+      "C4266577"
+   ],
+   "cerebral": [
+      "C0006104",
+      "C0228174"
+   ],
+   "pontoreticulospinal tract": [
+      "C3495367",
+      "C0228593"
+   ],
+   "pontine reticulospinal tract": [
+      "C3495367",
+      "C0228429",
+      "C0228593"
+   ],
+   "tractus pontoreticulospinalis": [
+      "C3495367",
+      "C0228593"
+   ],
+   "mu opioid receptor": [
+      "C1436808",
+      "C0066908"
+   ],
+   "dorsal branch of ulnar nerve": [
+      "C4082195",
+      "C0228855"
+   ],
+   "medulla": [
+      "C1305694",
+      "C0025148"
+   ],
+   "cck": [
+      "C0008328",
+      "C4520829"
+   ],
+   "cck-pz": [
+      "C0008328",
+      "C4520829"
+   ],
+   "pancreozymin": [
+      "C0008328",
+      "C4520829"
+   ],
+   "cholecystokinin": [
+      "C0008328",
+      "C4520829"
+   ],
+   "cholecystokinin, human": [
+      "C0008328",
+      "C4520829"
+   ],
+   "dorsolateral sulcus": [
+      "C2332180",
+      "C0228527"
+   ],
+   "sulcus dorsolateralis": [
+      "C2332180",
+      "C0228527"
+   ],
+   "sulcus posterolateralis": [
+      "C2332180",
+      "C0228527"
+   ],
+   "sulcus lateralis posterior": [
+      "C2332180",
+      "C0228527"
+   ],
+   "bulboreticulospinal tract": [
+      "C0228594",
+      "C2329739"
+   ],
+   "tractus bulboreticulospinalis": [
+      "C0228594",
+      "C2329739"
+   ],
+   "medullary reticulospinal tract": [
+      "C0228594",
+      "C2339169"
+   ],
+   "medullary reticulospinal fibers": [
+      "C0228594",
+      "C2339169",
+      "C1184599"
+   ],
+   "cornu anterius": [
+      "C0228615",
+      "C0228590"
+   ],
+   "ventral horn of the spinal cord": [
+      "C0228615",
+      "C0228590"
+   ],
+   "oliva superior": [
+      "C0175427",
+      "C0228444"
+   ],
+   "superior olive": [
+      "C0175427",
+      "C0228444"
+   ],
+   "superior olivary nuclei": [
+      "C0175427",
+      "C0228444"
+   ],
+   "superior olivary nucleus": [
+      "C0175427",
+      "C0228444"
+   ],
+   "nucleus olivaris superior": [
+      "C0175427",
+      "C0228444"
+   ],
+   "nucleus olivaris rostralis": [
+      "C0175427",
+      "C0228444"
+   ],
+   "nucleus olivaris superioris": [
+      "C0175427",
+      "C0228444"
+   ],
+   "nucleus olivaris metencephali": [
+      "C0175427",
+      "C0228444"
+   ],
+   "lateral orbital cortex": [
+      "C4018801",
+      "C3496407"
+   ],
+   "tentorial notch": [
+      "C3495329",
+      "C0262188"
+   ],
+   "adenosine a3 receptor": [
+      "C4048326",
+      "C0664494"
+   ],
+   "lateral olfactory stria": [
+      "C0152330",
+      "C0162435"
+   ],
+   "lateral olfactory tract": [
+      "C0152330",
+      "C0162435"
+   ],
+   "lateral olfactory striae": [
+      "C0152330",
+      "C0162435"
+   ],
+   "stria olfactoria lateralis": [
+      "C0152330",
+      "C0162435"
+   ],
+   "tractus olfactorius lateralis": [
+      "C0152330",
+      "C0162435"
+   ],
+   "left optic canal": [
+      "C0947155",
+      "C0926662"
+   ],
+   "bony labyrinth": [
+      "C0458699",
+      "C0229494"
+   ],
+   "central gray matter": [
+      "C0262207",
+      "C2331300"
+   ],
+   "griseum periventriculare hypothalami": [
+      "C2328985",
+      "C0262317"
+   ],
+   "ventral reticular nucleus": [
+      "C0175509",
+      "C3498605"
+   ],
+   "lumbar intervertebral foramen": [
+      "C0223487",
+      "C1305352"
+   ],
+   "superficial branch of radial nerve": [
+      "C4082196",
+      "C0228875"
+   ],
+   "superficial terminal branch of radial nerve": [
+      "C4082196",
+      "C0228875"
+   ],
+   "region iv of hippocampus proper": [
+      "C1134421",
+      "C2328406"
+   ],
+   "g protein-coupled receptor 54": [
+      "C1097812",
+      "C4318433"
+   ],
+   "nucleus alaris": [
+      "C0152401",
+      "C0926535"
+   ],
+   "nucleus vagalis dorsalis": [
+      "C0152401",
+      "C0926535"
+   ],
+   "nucleus dorsalis nervi vagi": [
+      "C0152401",
+      "C0926535"
+   ],
+   "dorsal nucleus of vagus nerve": [
+      "C0152401",
+      "C0926535"
+   ],
+   "plexus gastrici": [
+      "C0501952",
+      "C0229033"
+   ],
+   "ob receptor": [
+      "C0385463",
+      "C1144168"
+   ],
+   "lepr protein": [
+      "C0385463",
+      "C1144168"
+   ],
+   "leptin receptor": [
+      "C0385463",
+      "C1144168"
+   ],
+   "bundle of turck": [
+      "C0152403",
+      "C1184621"
+   ],
+   "anterior tract of turck": [
+      "C0152403",
+      "C3496081"
+   ],
+   "anterior pyramidal tract": [
+      "C0152403",
+      "C3496081"
+   ],
+   "ventral corticospinal tract": [
+      "C0152403",
+      "C3496081"
+   ],
+   "tractus corticospinalis anterior": [
+      "C0152403",
+      "C3496081"
+   ],
+   "tractus corticospinalis ventralis": [
+      "C0152403",
+      "C3496081"
+   ],
+   "lumbosacral spinal cord posterior column": [
+      "C0228646",
+      "C0228652"
+   ],
+   "er-alpha": [
+      "C0034804",
+      "C1521863"
+   ],
+   "estrogen receptor": [
+      "C0034804",
+      "C1521863",
+      "C5441529"
+   ],
+   "nuclear receptor subfamily 3 group a member 1": [
+      "C0034804",
+      "C1521863"
+   ],
+   "premotor area": [
+      "C0228202",
+      "C0458359"
+   ],
+   "part of vermal region": [
+      "C0175479",
+      "C0175470"
+   ],
+   "area 13b": [
+      "C3499203",
+      "C4019222"
+   ],
+   "tuberomammillary nucleus": [
+      "C0228377",
+      "C3497016"
+   ],
+   "dorsal striatum": [
+      "C2333957",
+      "C0162512"
+   ],
+   "posterior cerebellar lobe": [
+      "C0228491",
+      "C1305725"
+   ],
+   "neuromedin b receptor": [
+      "C5234938",
+      "C0053917"
+   ],
+   "fasciculus longitudinalis medialis": [
+      "C0152373",
+      "C2337355"
+   ],
+   "retro-olivary sulcus": [
+      "C0262325",
+      "C2333183"
+   ],
+   "sulcus post-olivaris": [
+      "C0262325",
+      "C2333183"
+   ],
+   "sulcus retro-olivaris": [
+      "C0262325",
+      "C2333183"
+   ],
+   "enterochromaffin cell": [
+      "C0524979",
+      "C0014355"
+   ],
+   "glp-1 receptor agonist": [
+      "C1562104",
+      "C2917359"
+   ],
+   "glucagon-like peptide 1 receptor agonist": [
+      "C1562104",
+      "C2917359"
+   ],
+   "tsh-beta": [
+      "C5552914",
+      "C0076641"
+   ],
+   "cerebellar dentate nucleus": [
+      "C0086120",
+      "C0228509"
+   ],
+   "lateral cerebellar nucleus": [
+      "C0086120",
+      "C3498677"
+   ],
+   "paravertebral ganglion": [
+      "C0228973",
+      "C3273702"
+   ],
+   "raphe nuclei": [
+      "C0034671",
+      "C2333022"
+   ],
+   "nuclei raphes": [
+      "C0034671",
+      "C2333022"
+   ],
+   "secretin": [
+      "C0036534",
+      "C1659046"
+   ],
+   "supracommissural hippocampus": [
+      "C0175199",
+      "C0152333"
+   ],
+   "thalamencephalon": [
+      "C1515341",
+      "C0039729"
+   ],
+   "stratum moleculare": [
+      "C1709063",
+      "C2333870"
+   ],
+   "stratum plexiforme": [
+      "C1709063",
+      "C0228469"
+   ],
+   "posterior cranial fossa": [
+      "C1305393",
+      "C0010265"
+   ],
+   "nuclear receptor ror-alpha": [
+      "C0284080",
+      "C0388745"
+   ],
+   "rar-related orphan receptor a": [
+      "C0284080",
+      "C0388745"
+   ],
+   "retinoid-related orphan receptor-alpha": [
+      "C0284080",
+      "C0388745"
+   ],
+   "epidural space": [
+      "C0228134",
+      "C0228133",
+      "C0014537"
+   ],
+   "epidural spaces": [
+      "C0228134",
+      "C0014537"
+   ],
+   "lateral pyramidal tract": [
+      "C3496917",
+      "C0152402"
+   ],
+   "lateral corticospinal tract": [
+      "C3496917",
+      "C0152402"
+   ],
+   "tractus corticospinalis lateralis": [
+      "C3496917",
+      "C0152402"
+   ],
+   "tractus corticospinalis (pyramidalis) lateralis": [
+      "C3496917",
+      "C0152402"
+   ],
+   "spine": [
+      "C0037949",
+      "C2752558"
+   ],
+   "caliculus gustatorius": [
+      "C1180350",
+      "C0039337"
+   ],
+   "lobule h ix of larsell": [
+      "C0152386",
+      "C4238148"
+   ],
+   "lumbar spinal cord": [
+      "C0457848",
+      "C0581621"
+   ],
+   "5ht3r": [
+      "C1700654",
+      "C0295352"
+   ],
+   "5-ht3r": [
+      "C1700654",
+      "C0295352"
+   ],
+   "serotonin 5-ht-3 receptor": [
+      "C1700654",
+      "C0295352"
+   ],
+   "5-hydroxytryptamine 3 receptor": [
+      "C1700654",
+      "C0295352"
+   ],
+   "both adrenal glands": [
+      "C0001625",
+      "C1621382"
+   ],
+   "bilateral adrenal glands": [
+      "C0001625",
+      "C1621382"
+   ],
+   "thyrotropin": [
+      "C1535531",
+      "C0040160"
+   ],
+   "thyroid stimulating hormone": [
+      "C1535531",
+      "C0040160"
+   ],
+   "olfactory tract": [
+      "C2335775",
+      "C0162435"
+   ],
+   "tractus olfactorius": [
+      "C2335775",
+      "C0162435"
+   ],
+   "bulb": [
+      "C1947952",
+      "C0025148"
+   ],
+   "corpus cerebelli": [
+      "C0007765",
+      "C0458404"
+   ],
+   "lamina ii": [
+      "C1517039",
+      "C0038588"
+   ],
+   "cuneus": [
+      "C3811911",
+      "C0152307"
+   ],
+   "occipital cortex": [
+      "C3811911",
+      "C0228221",
+      "C0028785"
+   ],
+   "internal capsule": [
+      "C1744709",
+      "C0152341"
+   ],
+   "ic - internal capsule": [
+      "C1744709",
+      "C0152341"
+   ],
+   "brodmann's area 16": [
+      "C3496078",
+      "C2330774"
+   ],
+   "area 16 of brodmann": [
+      "C3496078",
+      "C2330774"
+   ],
+   "external ramus of accessory nerve": [
+      "C0228799",
+      "C0228798"
+   ],
+   "external branch of accessory nerve": [
+      "C0228799",
+      "C0228798"
+   ],
+   "brachial plexus": [
+      "C0006090",
+      "C4266501"
+   ],
+   "tractus hypothalamohypophysialis": [
+      "C0228368",
+      "C2339326"
+   ],
+   "myenteric plexus": [
+      "C0027028",
+      "C0038564"
+   ],
+   "submucous plexus": [
+      "C0027028",
+      "C0038564"
+   ],
+   "meissner's plexus": [
+      "C0027028",
+      "C0038564"
+   ],
+   "submucous nerve plexus": [
+      "C0027028",
+      "C0038564"
+   ],
+   "supplementary motor area": [
+      "C3496173",
+      "C3496174"
+   ],
+   "fields of forel": [
+      "C3497465",
+      "C0152351"
+   ],
+   "outer hair cell": [
+      "C0206513",
+      "C1518683"
+   ],
+   "outer hair cells": [
+      "C0206513",
+      "C1518683"
+   ],
+   "nerve to left inferior oblique": [
+      "C0934293",
+      "C0932900"
+   ],
+   "dopamine d4 receptor": [
+      "C1529457",
+      "C0114835"
+   ],
+   "eminentia teres": [
+      "C0262247",
+      "C0262282"
+   ],
+   "cortical amygdaloid nucleus": [
+      "C3495326",
+      "C0175216"
+   ],
+   "nucleus amygdalae corticalis": [
+      "C3495326",
+      "C0175216"
+   ],
+   "nucleus corticalis amygdalae": [
+      "C3495326",
+      "C0175216"
+   ],
+   "onuf's nucleus": [
+      "C2340148",
+      "C2326112"
+   ],
+   "dopamine d5 receptor": [
+      "C1529472",
+      "C0114836"
+   ],
+   "estradiol receptor": [
+      "C0034803",
+      "C1521863",
+      "C5441529"
+   ],
+   "brain-specific kinase": [
+      "C0290255",
+      "C1435808"
+   ],
+   "lobule h viib of larsell": [
+      "C2329723",
+      "C0228498"
+   ],
+   "estrogen receptor beta": [
+      "C1523984",
+      "C0529099"
+   ],
+   "fibular nerve": [
+      "C0031173",
+      "C4316912"
+   ],
+   "peroneal nerve": [
+      "C0031173",
+      "C4316912"
+   ],
+   "peroneal nerves": [
+      "C0031173",
+      "C4316912"
+   ],
+   "cell body": [
+      "C2752549",
+      "C0599444"
+   ],
+   "macula": [
+      "C0450295",
+      "C0227662"
+   ],
+   "plexus intraparotideus": [
+      "C0228756",
+      "C1186165"
+   ],
+   "gnrh receptor": [
+      "C0034811",
+      "C1451074"
+   ],
+   "gonadotropin-releasing hormone receptor": [
+      "C0034811",
+      "C1451074"
+   ],
+   "cranial nerve ix": [
+      "C0017679",
+      "C1305752"
+   ],
+   "glossopharyngeal nerve": [
+      "C0017679",
+      "C1305752"
+   ],
+   "glossopharyngeal nerve (ix)": [
+      "C0017679",
+      "C1305752"
+   ],
+   "t4": [
+      "C0228243",
+      "C0040165",
+      "C1235738"
+   ],
+   "deep branch of radial nerve": [
+      "C0228873",
+      "C0446768"
+   ],
+   "pontine reticulospinal fibers": [
+      "C0228429",
+      "C0228593"
+   ],
+   "lateral prefrontal cortex": [
+      "C4019110",
+      "C0162783"
+   ],
+   "piriform lobe": [
+      "C2949944",
+      "C0228286"
+   ],
+   "vp": [
+      "C0228336",
+      "C0138318"
+   ],
+   "brodmann area 27": [
+      "C5441645",
+      "C0175194"
+   ],
+   "brodmann area 22": [
+      "C2322884",
+      "C0152309"
+   ],
+   "brodmann's area 22": [
+      "C2322884",
+      "C0152309"
+   ],
+   "substantia alba": [
+      "C3497612",
+      "C0682708"
+   ],
+   "part of folium-tuber vermis": [
+      "C0228487",
+      "C1305397"
+   ],
+   "superior cerebellar peduncle": [
+      "C0152391",
+      "C3497629"
+   ],
+   "folium": [
+      "C0228467",
+      "C1305397"
+   ],
+   "lumbar region of central canal of spinal cord": [
+      "C0223491",
+      "C4238496"
+   ],
+   "posterior interosseous nerve": [
+      "C0446768",
+      "C0446769"
+   ],
+   "habenular nuclei": [
+      "C0152362",
+      "C0349718"
+   ],
+   "lateral supraclavicular nerve": [
+      "C0228836",
+      "C0926904"
+   ],
+   "prefrontal cortex": [
+      "C0162783",
+      "C3496544"
+   ],
+   "prefrontal region": [
+      "C0162783",
+      "C3496544"
+   ],
+   "cranial nerve v": [
+      "C1305908",
+      "C0040996"
+   ],
+   "trigeminal nerve": [
+      "C1305908",
+      "C0040996"
+   ],
+   "pacap type iii receptor": [
+      "C1527495",
+      "C1531322"
+   ],
+   "vasoactive intestinal peptide receptor 2": [
+      "C1527495",
+      "C1531322"
+   ],
+   "middle temporal sulcus": [
+      "C0228241",
+      "C1110644"
+   ],
+   "ventral thalamic nucleus": [
+      "C4323305",
+      "C0228333"
+   ],
+   "paraganglia": [
+      "C5551384",
+      "C0030419",
+      "C1305329"
+   ],
+   "g protein-coupled receptor 15": [
+      "C1135700",
+      "C1447488"
+   ],
+   "cervical region of central canal of spinal cord": [
+      "C0223104",
+      "C4084953"
+   ],
+   "spinothalamic tract": [
+      "C0037953",
+      "C1283383"
+   ],
+   "convolution of broca": [
+      "C1517756",
+      "C0006208"
+   ],
+   "striatum": [
+      "C0010097",
+      "C0162512"
+   ],
+   "striate nucleus": [
+      "C0010097",
+      "C0162512"
+   ],
+   "lamina x": [
+      "C2330466",
+      "C2952328"
+   ],
+   "rexed's lamina x": [
+      "C2330466",
+      "C2952328"
+   ],
+   "lamina spinalis x": [
+      "C2330466",
+      "C2952328"
+   ],
+   "substantia gelatinosa centralis": [
+      "C2330466",
+      "C2952328"
+   ],
+   "simplex": [
+      "C0228492",
+      "C2338991"
+   ],
+   "lobulus simplex": [
+      "C0228492",
+      "C2338991"
+   ],
+   "lobule h vi of larsell": [
+      "C0228492",
+      "C2338991"
+   ],
+   "semilunar lobule-1 (posterior)": [
+      "C0228492",
+      "C2338991"
+   ],
+   "posterior crescentic lobule of cerebellum": [
+      "C0228492",
+      "C2338991"
+   ],
+   "lobulus quadrangularis pars inferoposterior": [
+      "C0228492",
+      "C2338991"
+   ],
+   "lobulus quadrangularis pars caudalis/posterior": [
+      "C0228492",
+      "C2338991"
+   ],
+   "gustatory cortex": [
+      "C3853660",
+      "C0682660"
+   ],
+   "area 14": [
+      "C4018962",
+      "C3496443"
+   ],
+   "spine cervical": [
+      "C0728985",
+      "C4299085"
+   ],
+   "subcallosal gyrus": [
+      "C0228282",
+      "C0175231"
+   ],
+   "thyrotropin receptor": [
+      "C0034844",
+      "C4281796"
+   ],
+   "thyroid stimulating hormone receptor": [
+      "C0034844",
+      "C4281796"
+   ],
+   "gyrus ambiens": [
+      "C0228263",
+      "C0694597"
+   ],
+   "extradural space": [
+      "C0228133",
+      "C0014537"
+   ],
+   "lateral geniculate nucleus": [
+      "C0086526",
+      "C0175292"
+   ],
+   "nucleus geniculatus lateralis": [
+      "C0086526",
+      "C0175292"
+   ],
+   "nucleus geniculatus lateralis dorsalis": [
+      "C0086526",
+      "C0175292"
+   ],
+   "nucleus geniculatus lateralis pars dorsalis": [
+      "C0086526",
+      "C0175292"
+   ],
+   "prelimbic area": [
+      "C3496545",
+      "C2330169"
+   ],
+   "adenosine a1 receptor": [
+      "C0001451",
+      "C5441600"
+   ],
+   "cervical spinal cord": [
+      "C0457846",
+      "C0581619"
+   ],
+   "corticobulbar tract": [
+      "C0751459",
+      "C1184617"
+   ],
+   "brodmann area 11": [
+      "C2328758",
+      "C0152300"
+   ],
+   "brodmann's area 11": [
+      "C2328758",
+      "C0152300"
+   ],
+   "medial orbital area": [
+      "C2328758",
+      "C3496484"
+   ],
+   "ephrin receptor ephb1": [
+      "C3853572",
+      "C0907648"
+   ],
+   "neuronally expressed eph-related tyrosine kinase": [
+      "C3853572",
+      "C0907648"
+   ],
+   "pia-arachnoid": [
+      "C0228126",
+      "C2951843"
+   ],
+   "arachnoid mater and pia mater": [
+      "C0228126",
+      "C2951843"
+   ],
+   "ependymoglial cell": [
+      "C3542977",
+      "C2330982"
+   ],
+   "basal nuclei": [
+      "C1321510",
+      "C0004781"
+   ],
+   "basal ganglia": [
+      "C1321510",
+      "C0004781"
+   ],
+   "middle cranial fossa": [
+      "C1305582",
+      "C0230045"
+   ],
+   "vagus nerve": [
+      "C0042276",
+      "C1305910"
+   ],
+   "cranial nerve x": [
+      "C0042276",
+      "C1305910"
+   ],
+   "lamina spinalis ii": [
+      "C0038588",
+      "C2326758"
+   ],
+   "medullary": [
+      "C0001629",
+      "C0025148"
+   ],
+   "fsh-alpha": [
+      "C4759809",
+      "C0018664"
+   ],
+   "follitropin alpha chain": [
+      "C4759809",
+      "C0018664"
+   ],
+   "follicle-stimulating hormone alpha chain": [
+      "C4759809",
+      "C0018664"
+   ],
+   "suprageniculate nucleus": [
+      "C0175293",
+      "C0152346"
+   ],
+   "sulcus medianus dorsalis": [
+      "C0228598",
+      "C0228525"
+   ],
+   "sulcus medianus posterior": [
+      "C0228598",
+      "C0228525"
+   ],
+   "medial prefrontal cortex": [
+      "C3498368",
+      "C2954192"
+   ],
+   "operculum frontale": [
+      "C0149547",
+      "C0262350"
+   ],
+   "lateral gray column": [
+      "C2335187",
+      "C0228582"
+   ],
+   "intermediolateral cell column": [
+      "C2335187",
+      "C0228582"
+   ],
+   "anterior parietal cortex": [
+      "C3496281",
+      "C0152302"
+   ],
+   "superior central nucleus raphe": [
+      "C0228432",
+      "C3497565"
+   ],
+   "insular gyrus": [
+      "C0458313",
+      "C0021640"
+   ],
+   "cervical intervertebral foramen": [
+      "C0223099",
+      "C1305330"
+   ],
+   "fmlp receptor": [
+      "C0118022",
+      "C1256801"
+   ],
+   "fmet-leu-phe receptor": [
+      "C0118022",
+      "C1256801"
+   ],
+   "special sense organ": [
+      "C0228069",
+      "C0935626"
+   ],
+   "organs sense special": [
+      "C0228069",
+      "C0935626"
+   ],
+   "nucleus originis": [
+      "C2336324",
+      "C0926501"
+   ],
+   "area iam": [
+      "C3499152",
+      "C4018967"
+   ],
+   "brodmann area 39": [
+      "C2336719",
+      "C0152305"
+   ],
+   "brodmann's area 39": [
+      "C2336719",
+      "C0152305"
+   ],
+   "crus cerebri": [
+      "C0007793",
+      "C3495416"
+   ],
+   "basis pedunculi": [
+      "C0007793",
+      "C2334552"
+   ],
+   "cerebral peduncle": [
+      "C0007793",
+      "C3495416"
+   ],
+   "ocytocin": [
+      "C0030095",
+      "C4082165"
+   ],
+   "oxytocin": [
+      "C0030095",
+      "C4082165",
+      "C1704206"
+   ],
+   "presubiculum": [
+      "C0175194",
+      "C5441644"
+   ],
+   "area 27 of brodmann": [
+      "C0175194",
+      "C5441644"
+   ],
+   "area praesubicularis": [
+      "C0175194",
+      "C5441644"
+   ],
+   "intralimbic gyrus": [
+      "C0598598",
+      "C0228253"
+   ],
+   "er": [
+      "C1521863",
+      "C5441529"
+   ],
+   "extrapyramidal system": [
+      "C0015372",
+      "C0228061"
+   ],
+   "area 47/12r": [
+      "C4020531",
+      "C3496175"
+   ],
+   "angiotensin ii receptor, type 2": [
+      "C0390423",
+      "C5226670"
+   ],
+   "gonadotropins": [
+      "C1522385",
+      "C0018061"
+   ],
+   "gonadotropic hormone": [
+      "C1522385",
+      "C0018061"
+   ],
+   "formatio reticularis": [
+      "C0035284",
+      "C0228568"
+   ],
+   "pacap type ii receptor": [
+      "C0534281",
+      "C1527494"
+   ],
+   "vasoactive intestinal peptide receptor 1": [
+      "C0534281",
+      "C1527494"
+   ],
+   "somatotropin": [
+      "C0384570",
+      "C0037663",
+      "C0169964",
+      "C3714500"
+   ],
+   "recombinant human growth hormone": [
+      "C0384570",
+      "C0169964"
+   ],
+   "fsh": [
+      "C0733758",
+      "C0016774"
+   ],
+   "follicle stimulating hormone": [
+      "C0733758",
+      "C0016774"
+   ],
+   "follicle-stimulating hormone": [
+      "C0733758",
+      "C0016774"
+   ],
+   "central lobule": [
+      "C0175469",
+      "C0228477"
+   ],
+   "arcuate fasciculus": [
+      "C0228270",
+      "C2329633"
+   ],
+   "brodmann area 4": [
+      "C2323328",
+      "C3495441"
+   ],
+   "brodmann's area 4": [
+      "C2323328",
+      "C3495441"
+   ],
+   "arcuate nucleus": [
+      "C0752056",
+      "C0228544",
+      "C0003741"
+   ],
+   "crf": [
+      "C0772289",
+      "C0010132"
+   ],
+   "crh": [
+      "C0772289",
+      "C0010132"
+   ],
+   "corticorelin": [
+      "C0772289",
+      "C0010132"
+   ],
+   "corticoliberin": [
+      "C0772289",
+      "C0010132"
+   ],
+   "corticotropin releasing factor": [
+      "C0772289",
+      "C0010132"
+   ],
+   "corticotropin-releasing factor": [
+      "C0772289",
+      "C0010132"
+   ],
+   "corticotropin releasing hormone": [
+      "C0772289",
+      "C0010132"
+   ],
+   "corticotropin-releasing hormone": [
+      "C0772289",
+      "C0010132"
+   ],
+   "spinal cord gray matter": [
+      "C0228562",
+      "C0475853"
+   ],
+   "spinal cord grey matter": [
+      "C0228562",
+      "C0475853"
+   ],
+   "rostral area 12": [
+      "C2336809",
+      "C3496175"
+   ],
+   "synaptic ribbon": [
+      "C4318927",
+      "C1179874"
+   ],
+   "area 19": [
+      "C3496342",
+      "C2336698"
+   ],
+   "estrogens": [
+      "C0014939",
+      "C3537250"
+   ],
+   "epha8 protein": [
+      "C3853764",
+      "C0915156"
+   ],
+   "ephrin receptor epha8": [
+      "C3853764",
+      "C0915156"
+   ],
+   "eph- and elk-related kinase": [
+      "C3853764",
+      "C0915156"
+   ],
+   "nucleus circularis": [
+      "C0752053",
+      "C3498638"
+   ],
+   "brodmann area 45": [
+      "C2328710",
+      "C0262350"
+   ],
+   "brodmann's area 45": [
+      "C2328710",
+      "C0262350"
+   ],
+   "grey matter": [
+      "C0018220",
+      "C0007776"
+   ],
+   "central grey substance": [
+      "C0475853",
+      "C2331300"
+   ],
+   "cingulate regions": [
+      "C0598179",
+      "C0018427"
+   ],
+   "median nerve component of superior trunk of brachial plexus": [
+      "C4225451",
+      "C4224121"
+   ],
+   "myelencephalon": [
+      "C1959627",
+      "C0025148"
+   ],
+   "posterior cingulate": [
+      "C5200901",
+      "C0175191"
+   ],
+   "posterior cingulate gyrus": [
+      "C5200901",
+      "C0175191"
+   ],
+   "visual cortex": [
+      "C3853641",
+      "C0042817"
+   ],
+   "motoneuron": [
+      "C0027884",
+      "C0026609"
+   ],
+   "motor neurons": [
+      "C0027884",
+      "C0026609"
+   ],
+   "retrosplenial granular area": [
+      "C3498609",
+      "C4085300"
+   ],
+   "parietal region": [
+      "C0230004",
+      "C0030560"
+   ],
+   "gastrin": [
+      "C0376180",
+      "C0017151",
+      "C4520797"
+   ],
+   "gastrins": [
+      "C0376180",
+      "C0017151"
+   ],
+   "luteotropin": [
+      "C0023607",
+      "C0033371"
+   ],
+   "luteotropic hormone": [
+      "C0023607",
+      "C0033371"
+   ],
+   "tuberculum cinereum": [
+      "C3495332",
+      "C0458369"
+   ],
+   "area 11m": [
+      "C3499196",
+      "C4019219"
+   ],
+   "area ial": [
+      "C3499193",
+      "C4018896"
+   ],
+   "chorionic gonadotropin": [
+      "C1141639",
+      "C1527152",
+      "C0018062"
+   ],
+   "chorionic gonadotrophin": [
+      "C1141639",
+      "C0018062"
+   ],
+   "gonadotropin, chorionic": [
+      "C1141639",
+      "C0018062"
+   ],
+   "human chorionic gonadotropin": [
+      "C1141639",
+      "C1527152"
+   ],
+   "corticomedial nuclear group": [
+      "C0175214",
+      "C0175216"
+   ],
+   "pars corticomedialis (corpus amygdaloideum)": [
+      "C0175214",
+      "C0175216"
+   ],
+   "area iai": [
+      "C3496576",
+      "C4018966"
+   ],
+   "posterior cingulate cortex": [
+      "C2951429",
+      "C0175191"
+   ],
+   "intermediate ganglion": [
+      "C1186187",
+      "C0229001"
+   ],
+   "beta-2 adrenergic receptor": [
+      "C0001643",
+      "C2976741"
+   ],
+   "anterior cingulate cortex": [
+      "C5700070",
+      "C2954192"
+   ],
+   "commissural nucleus": [
+      "C0175528",
+      "C3498675"
+   ],
+   "root of accessory nerve": [
+      "C0459237",
+      "C0175549"
+   ],
+   "choroid plexus": [
+      "C2326827",
+      "C0008524"
+   ],
+   "chorioid plexus": [
+      "C2326827",
+      "C0008524"
+   ],
+   "plexus choroidae": [
+      "C2326827",
+      "C0008524"
+   ],
+   "plexus choroideus": [
+      "C2326827",
+      "C0008524"
+   ],
+   "serotonin 1d beta receptor": [
+      "C0535025",
+      "C0248161"
+   ],
+   "pars triangularis": [
+      "C0262350",
+      "C1513295"
+   ],
+   "adrenal cortex": [
+      "C0001617",
+      "C0001613"
+   ],
+   "perineuronal satellite cell": [
+      "C0205868",
+      "C0949376"
+   ],
+   "cranial nerve xii": [
+      "C1305753",
+      "C0020614"
+   ],
+   "hypoglossal nerve": [
+      "C1305753",
+      "C0020614"
+   ],
+   "hypoglossal nerve (xii)": [
+      "C1305753",
+      "C0020614"
+   ],
+   "lutropin alpha chain": [
+      "C4759808",
+      "C0018664"
+   ],
+   "luteinizing hormone alpha chain": [
+      "C4759808",
+      "C0018664"
+   ],
+   "cortical": [
+      "C0007776",
+      "C0001613"
+   ],
+   "septal area": [
+      "C0936188",
+      "C0598032"
+   ],
+   "paraterminal body": [
+      "C0936188",
+      "C0598032"
+   ],
+   "chiasma": [
+      "C1384314",
+      "C0029126"
+   ],
+   "piriform area": [
+      "C0228286",
+      "C0228280"
+   ],
+   "pyriform area": [
+      "C0228286",
+      "C0228280"
+   ],
+   "piriform cortex": [
+      "C0228286",
+      "C0228280"
+   ],
+   "pyriform cortex": [
+      "C0228286",
+      "C0228280"
+   ],
+   "motor cortex": [
+      "C3495441",
+      "C0026607"
+   ],
+   "occipital gyrus": [
+      "C1110642",
+      "C0228220"
+   ],
+   "tract of gall": [
+      "C0228522",
+      "C0228577"
+   ],
+   "column of goll": [
+      "C0228522",
+      "C0228577"
+   ],
+   "fasciculus of goll": [
+      "C0228522",
+      "C0228577"
+   ],
+   "funiculus gracilis": [
+      "C0228522",
+      "C0228577"
+   ],
+   "gracile fasciculus": [
+      "C0228522",
+      "C0228577"
+   ],
+   "pars medialis fasciculi dorsalis (goll)": [
+      "C0228522",
+      "C0228577"
+   ],
+   "tractus spinobulbaris partis medialis (goll)": [
+      "C0228522",
+      "C0228577"
+   ],
+   "paralemniscal nucleus": [
+      "C2338266",
+      "C3495368"
+   ],
+   "gh": [
+      "C0037663",
+      "C3714500"
+   ],
+   "sth": [
+      "C0037663",
+      "C3714500"
+   ],
+   "somatotrophin": [
+      "C0037663",
+      "C3714500"
+   ],
+   "growth hormone": [
+      "C0037663",
+      "C0169964",
+      "C3714500"
+   ],
+   "somatotropic hormone": [
+      "C0037663",
+      "C0169964",
+      "C3714500"
+   ],
+   "pituitary growth hormone": [
+      "C0037663",
+      "C3714500"
+   ],
+   "inner hair cell": [
+      "C2328961",
+      "C0018497"
+   ],
+   "inner hair cells": [
+      "C2328961",
+      "C0018497"
+   ],
+   "gyrus rectus": [
+      "C3496443",
+      "C0152300"
+   ],
+   "pyramidal cell": [
+      "C0206441",
+      "C2334588"
+   ],
+   "prolactin": [
+      "C0033371",
+      "C5441683"
+   ],
+   "area 11": [
+      "C4019456",
+      "C3496364"
+   ],
+   "oxt": [
+      "C4082165",
+      "C4283944"
+   ],
+   "medial prefrontal cortex of ongur": [
+      "C3853912",
+      "C2954192"
+   ],
+   "basal nucleus": [
+      "C0004781",
+      "C0004788"
+   ],
+   "roller's nucleus": [
+      "C2335016",
+      "C0228552"
+   ],
+   "area 14r": [
+      "C3499204",
+      "C4018963"
+   ],
+   "basal magnocellular nucleus": [
+      "C0004788",
+      "C0302831"
+   ],
+   "nucleus of substantia innominata": [
+      "C0004788",
+      "C0038589"
+   ],
+   "lumbosacral plexus": [
+      "C0024093",
+      "C0205826"
+   ],
+   "lamina v": [
+      "C2326458",
+      "C1517447"
+   ],
+   "area 13": [
+      "C3890032",
+      "C3496441"
+   ],
+   "hgh": [
+      "C0169964",
+      "C3714500"
+   ],
+   "somatropin": [
+      "C0169964",
+      "C3714500"
+   ],
+   "human growth hormone": [
+      "C0169964",
+      "C3714500"
+   ],
+   "somatotropin (human)": [
+      "C0169964",
+      "C3714500"
+   ],
+   "growth hormone, human": [
+      "C0169964",
+      "C3714500"
+   ],
+   "staderini's nucleus": [
+      "C2328571",
+      "C2332362"
+   ],
+   "intercalated nucleus": [
+      "C2328571",
+      "C4018870"
+   ],
+   "auditory radiation": [
+      "C1455736",
+      "C0228278"
+   ],
+   "internal spiral sulcus": [
+      "C0458773",
+      "C1186300"
+   ],
+   "infundibulum of neurohypophysis": [
+      "C1744525",
+      "C0175325"
+   ],
+   "infundibular stem of neurohypophysis": [
+      "C1744525",
+      "C0175325"
+   ],
+   "fibrae arcuatae cerebri": [
+      "C1184637",
+      "C2329633"
+   ],
+   "adh": [
+      "C0138318",
+      "C1705480"
+   ],
+   "medial mammillary nucleus, median part": [
+      "C3498080",
+      "C0694605"
+   ],
+   "parasympathetic nervous system": [
+      "C1305770",
+      "C0030510"
+   ],
+   "efferent cochlear bundle": [
+      "C0228447",
+      "C0175436"
+   ],
+   "orbitomedial prefrontal cortex": [
+      "C3499149",
+      "C4019302"
+   ],
+   "orbital and medial prefrontal cortex": [
+      "C3499149",
+      "C4019302"
+   ],
+   "glycoprotein hormones alpha polypeptide": [
+      "C0018664",
+      "C5441904"
+   ],
+   "estraldine": [
+      "C4721525",
+      "C0014912"
+   ],
+   "17 beta-estradiol": [
+      "C4721525",
+      "C0014912"
+   ],
+   "therapeutic estradiol": [
+      "C4721525",
+      "C0014912"
+   ],
+   "(17beta)-estra-1,3,5(10)-triene-3,17-diol": [
+      "C4721525",
+      "C0014912"
+   ],
+   "pars orbitalis": [
+      "C1510908",
+      "C0262300"
+   ],
+   "infundibulum": [
+      "C0751440",
+      "C0175325"
+   ],
+   "infundibular stem": [
+      "C0751440",
+      "C0175325"
+   ],
+   "infundibular stalk": [
+      "C0751440",
+      "C0175325"
+   ],
+   "pituitary pars distalis": [
+      "C0032008",
+      "C0229533"
+   ],
+   "falciform lobe": [
+      "C0018427",
+      "C0458337"
+   ],
+   "calcitonin": [
+      "C0006668",
+      "C0770558"
+   ],
+   "tractus vestibulospinalis medialis": [
+      "C2339608",
+      "C2337355"
+   ],
+   "anterior subcentral sulcus": [
+      "C0262197",
+      "C1110638"
+   ],
+   "sulcus subcentralis anterior": [
+      "C0262197",
+      "C1110638"
+   ],
+   "prolactin receptor": [
+      "C0034834",
+      "C4551684"
+   ],
+   "anterior tegmental nucleus": [
+      "C0175394",
+      "C3498079"
+   ],
+   "tractus spinocerebellaris ventralis": [
+      "C0228454",
+      "C3496385"
+   ],
+   "corticospinal fibers": [
+      "C0936236",
+      "C1184595"
+   ],
+   "fibrae corticospinales": [
+      "C0936236",
+      "C1184595"
+   ],
+   "area 8": [
+      "C3496472",
+      "C4085305"
+   ],
+   "beta-adrenergic receptor": [
+      "C0034785",
+      "C2976741"
+   ],
+   "glucagon": [
+      "C0876232",
+      "C0017687"
+   ],
+   "posterior nerve of lesser curvature of stomach": [
+      "C0501976",
+      "C1186170"
+   ],
+   "ghrf analog": [
+      "C3537207",
+      "C2697525"
+   ],
+   "ghrh analogue": [
+      "C3537207",
+      "C2697525"
+   ]
+}
