@@ -1,11 +1,25 @@
-import argparse, os
+import fire
+import os
 import json
 import sys
 sys.path.append("..")
 from utils import my_open
+from typing import Union
 
-def main(reiviews_fpath, output_folder, output_fname, shots=0):
-   with open(reiviews_fpath) as f:
+def main(
+   input_fpath: str="/home/projects/DeepNeurOntology/IMDB_data/promt_eng.json",
+   output_folder: str="model_inputs/IMDB/",
+   output_fname: Union[str,None]=None,
+   shots: int=0,
+   **kwargs
+):
+   if len(kwargs) > 0:
+      raise ValueError(f"Unknown argument(s): {kwargs}")
+   
+   if output_fname is None:
+      output_fname = os.path.basename(input_fpath).split(".")[0]
+
+   with open(input_fpath) as f:
       reviews = json.loads(f.read())
    
    prompts=[]
@@ -54,15 +68,4 @@ def main(reiviews_fpath, output_folder, output_fname, shots=0):
          json.dump(labels, outfile, indent=3)
 
 if __name__ == '__main__':
-   parser = argparse.ArgumentParser(prog='Sentiment promt maker', description='This script prepares a promts for sentiment analysis for Llama 2')
-   parser.add_argument('-i', '--input_fpath', required=False, default="/home/projects/DeepNeurOntology/IMDB_data/promt_eng.json")
-   parser.add_argument('-o', '--output_folder', required=False, default="model_inputs/IMDB/")
-   parser.add_argument('-f', '--output_fname', required=False, default=None)
-   parser.add_argument('-s', '--shots', required=False, type=int, default=0)
-   args = parser.parse_args()
-   
-   output_fname = args.output_fname
-   if output_fname is None:
-      output_fname = os.path.basename(args.input_fpath).split(".")[0]
-   
-   main(reiviews_fpath=args.input_fpath, output_folder = args.output_folder, output_fname = output_fname, shots = args.shots)
+   fire.Fire(main)
