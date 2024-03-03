@@ -142,7 +142,10 @@ def main(
    for i, csv_fpath in enumerate(csv_fpaths):
       concepts, automaton = load_chunk(csv_fpath, automaton, concepts, syn2cui, index=i+1, language=language)
    
-   concepts_res = {cui:entry for cui,entry in concepts.items() if entry["count"]>0}
+   concepts_res = {cui:entry for cui,entry in sorted(concepts.items(), key=lambda item: -item[1]["count"]) if entry["count"]>0}
+   for entry in concepts_res.values():
+      entry["synonyms"] = {key:val for key,val in sorted(entry["synonyms"].items(), key=lambda item: -item[1])}
+   
    logger.info(f"{len(concepts_res)} concepts kept out of {len(concepts)}.")
    output_fname = f'{os.path.basename(concepts_fpath).split(".")[0]}_PubMed-filtered-counts.json'
    with my_open(os.path.join(output_path,output_fname), 'w') as outfile:
