@@ -7,10 +7,9 @@
     "title": "",
     "fname": "IMDb_data_size",
     "dirname": "./",
-    "markers": null,
     "legend": {
         "location": "bottom_right",
-        "labels": ["roberta-large finetuned on gold labels","LlamBERT with Llama-2-70b-chat and roberta-large"]
+        "labels": ["gold labels","LlamBERT"]
     },
     "matplotlib": {
         "calc_xtics": false,
@@ -18,29 +17,5 @@
         "height": 6,
         "style": "seaborn-poster",
         "png_dpi": 240
-    },
-    "colors": ["#1f77b4","#ff7f0e"],
-    "dashes": ["solid","solid"],
-    "line45_color": null,
-    "baselines": {
-        "labels": [],
-        "values": [],
-        "colors": ["grey"],
-        "dashes": ["dotted"]
-    },
-    "histogram": {
-        "labels": [],
-        "Xs": [],
-        "colors": null,
-        "bins": 100,
-        "density": true,
-        "alpha": 0.5
-    },
-    "bokeh": {
-        "width": null,
-        "height": null
-    },
-    "Xs": null,
-    "xscale": "linear",
-    "yscale": "linear"
+    }
 }

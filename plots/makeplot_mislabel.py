@@ -1,5 +1,4 @@
-from plotters import GeneralPlotter
-import bokeh
+from plotters import general_plot
 
 gp_params={
     "Ys": [
@@ -10,10 +9,8 @@ gp_params={
     "x": [0,1,2,5,10,20,30,40,45,48,48.5,48.8,49,50],
     "xlabel": "Mislabel %",
     "ylabel": "Accuracy %",
-    "title": "",
     "fname": "IMDb_data_mislabel",
     "dirname": "./",
-    "markers": None,
     "legend": {
         "location": "bottom_left",
         "labels": ["End-to-end","Frozen encoder"] #,"supergold"]
@@ -25,28 +22,6 @@ gp_params={
         "height": 6,
         "style": "seaborn-poster",
         "png_dpi": 240
-    },
-    "colors": [bokeh.palettes.Category10[10][0], bokeh.palettes.Category10[10][1]], #, bokeh.palettes.Category10[10][2]],
-    "dashes": ["solid","solid"],
-    "line45_color": None,
-    "baselines": {
-        "labels": [],
-        "values": [],
-        "colors": ["grey"],
-        "dashes": ["dotted"]
-    },
-    "histogram": {
-        "labels": [],
-        "Xs": [],
-        "colors": None
-    },
-    "bokeh": {
-        "width": None,
-        "height": None
     }
 }
-#GeneralPlotter(gp_params).export_all()
-# gp_params["xscale"]="log"
-# gp_params["yscale"]="log"
-# gp_params["fname"]+="_loglog"
-GeneralPlotter(gp_params).export_all()
+general_plot(gp_params)

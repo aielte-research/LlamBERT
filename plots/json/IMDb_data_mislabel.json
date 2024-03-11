@@ -3,10 +3,8 @@
     "x": [0,1,2,5,10,20,30,40,45,48,48.5,48.8,49,50],
     "xlabel": "Mislabel %",
     "ylabel": "Accuracy %",
-    "title": "",
     "fname": "IMDb_data_mislabel",
     "dirname": "./",
-    "markers": null,
     "legend": {
         "location": "bottom_left",
         "labels": ["End-to-end","Frozen encoder"]
@@ -17,32 +15,6 @@
         "width": 9,
         "height": 6,
         "style": "seaborn-poster",
-        "png_dpi": 240,
-        "xtics": []
-    },
-    "colors": ["#1f77b4","#ff7f0e"],
-    "dashes": ["solid","solid"],
-    "line45_color": null,
-    "baselines": {
-        "labels": [],
-        "values": [],
-        "colors": ["grey"],
-        "dashes": ["dotted"]
-    },
-    "histogram": {
-        "labels": [],
-        "Xs": [],
-        "colors": null,
-        "bins": 100,
-        "density": true,
-        "alpha": 0.5
-    },
-    "bokeh": {
-        "width": null,
-        "height": null
-    },
-    "Xs": null,
-    "errorbars": null,
-    "xscale": "linear",
-    "yscale": "linear"
+        "png_dpi": 240
+    }
 }
