@@ -1,4 +1,7 @@
 # LlamBERT
+<p align="center">
+  <img src="./plots/LlamBERT_DALL-E-3.png" alt="Model Architecture">
+</p>
 
 Efficiently extracting subontologies from the UMLS graph using natural language queries.
 
