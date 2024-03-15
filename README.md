@@ -3,10 +3,9 @@
   <img src="./plots/LlamBERT_DALL-E-3.png" alt="Model Architecture">
 </p>
 
-Efficiently extracting subontologies from the UMLS graph using natural language queries.
-
 ## Project Description
-LlamBERT is a Python library that implements a semi-supervised approach for text classification using BERT-based models. 
+LlamBERT implements a semi-supervised approach for text classification using BERT-based models. 
+We use it for efficiently extracting subontologies from the UMLS graph using natural language queries.
 This repository contains the code implementation for the method described in the research paper titled LlamBERT: Leveraging Semi-Supervised Learning for Text Classification.
 
 Method Overview
