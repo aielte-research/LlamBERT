@@ -6,9 +6,13 @@ sys.path.append("..")
 from utils import my_open
 
 def main(
-      concepts_fpath: str="/home/projects/DeepNeurOntology/UMLS/regions/all_concepts.json",
-      labels_fpath: str="/home/projects/DeepNeurOntology/UMLS/regions/all_concepts_labels_combined-microsoft-BiomedBERT.json"
-   ):
+   concepts_fpath: str="/home/projects/DeepNeurOntology/UMLS/regions/all_concepts.json",
+   labels_fpath: str="/home/projects/DeepNeurOntology/UMLS/regions/all_concepts_labels_combined-microsoft-BiomedBERT.json",
+   **kwargs
+):
+   if len(kwargs) > 0:
+      raise ValueError(f"Unknown argument(s): {kwargs}")
+   
    with open(concepts_fpath) as f:
       concepts = json.loads(f.read())
    
