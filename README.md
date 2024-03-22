@@ -1,6 +1,6 @@
 # LlamBERT
 <p align="left">
-  <img src="./plots/LlamBERT_DALL-E-3.png" alt="LlamBERT Logo" width="400">
+  <img src="./plots/DALL·E 2024-03-14 18.29.30 - Visualize a llama in a similar artistic style to the reference image provided, but with the distinct and recognizable head of Bert from Sesame Street .png" alt="LlamBERT Logo" width="400">
 </p>
 
 
