@@ -47,6 +47,12 @@ Given a large corpus of unlabeled natural language data, LlamBERT follows these 
 conda env create --file=environment.yml
 ```
 
+## General script usage
+```
+CUDA_VISIBLE_DEVICES=0 python <script-name>.py <options>
+```
+`-h` for help, `q` for exit help.
+
 ## Citation
 If you use this code in your research, please cite the corresponding paper:
 
