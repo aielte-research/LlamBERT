@@ -1,0 +1,16 @@
+name: UMLS_regions_10k_quicktest
+name_fields: !!python/tuple [model_name]
+neptune_logging: false
+train_fpath: null
+dev_fpath: null
+test_fpath: null
+inference_fpath: /home/projects/DeepNeurOntology/UMLS/regions/all_concepts_prompts.json
+inference_results_savepath: /home/projects/DeepNeurOntology/UMLS/regions/
+model_name: /home/projects/DeepNeurOntology/model_checkpoints/UMLS/combined-microsoft-BiomedBERT/
+batch_size: 150
+num_epochs: 5
+max_len: 512
+model_save_location: null
+reduce_lines_for_testing: false # uses only 100 sentences to train model
+lr: 0.000001
+mislabel_percent: 0  # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on

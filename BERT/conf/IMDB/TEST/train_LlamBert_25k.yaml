@@ -3,13 +3,14 @@ name_fields: !!python/tuple [model_name]
 neptune_logging: True
 train_fpath: /home/projects/DeepNeurOntology/IMDB_data/BERT_inputs/TEST/Llama_output_train/train.json
 dev_fpath: null
-test_fpath: /home/projects/DeepNeurOntology/IMDB_data/test.json
+test_fpath: /home/projects/DeepNeurOntology/IMDB_data/test_1000.json
+final_test_fpath: /home/projects/DeepNeurOntology/IMDB_data/test.json
 model_name: 
-  - distilbert-base-uncased
-  - bert-base-uncased
-  - bert-large-uncased
+  # - distilbert-base-uncased
+  # - bert-base-uncased
+  # - bert-large-uncased
   # - roberta-base
-  # - roberta-large
+  - roberta-large
 batch_size: 16
 num_epochs: 5
 max_len: 512
