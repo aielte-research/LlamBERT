@@ -4,18 +4,19 @@
 </p>
 
 ## Project Description
-LlamBERT implements a semi-supervised approach for text classification using BERT-based models. 
+LlamBERT implements a hybrid approach approach for text classification that leverages LLMs to annotate a small subset of large, unlabeled databases and uses the results for fine-tuning transformer encoders like BERT and RoBERTa. 
+This strategy is evaluated on two diverse datasets: the IMDb review dataset and the UMLS Meta-Thesaurus.
 We use it for efficiently extracting subontologies from the UMLS graph using natural language queries.
-This repository contains the code implementation for the method described in the research paper titled LlamBERT: Leveraging Semi-Supervised Learning for Text Classification.
+This repository implements the method described in the research paper titled LlamBERT: Leveraging Semi-Supervised Learning for Text Classification.
 
 Method Overview
 Given a large corpus of unlabeled natural language data, LlamBERT follows these steps:
 
-1. Annotation: Annotate a subset of the corpus using Llama,2 and a natural language prompt.
-2. Parsing: Parse Llama,2 responses into desired categories.
-3. Data Filtering: Discard data not classifiable into specified categories.
-4. Fine-tuning: Perform supervised fine-tuning on a BERT classifier using resulting labels.
-5. Annotation: Apply the fine-tuned BERT classifier to annotate the original unlabeled corpus.
+1. Annotate a reasonably sized, randomly selected subset of the corpus utilizing Llama 2 and a natural language prompt reflecting the labeling criteria;
+2. Parse the Llama 2 responses into the desired categories;
+3. Discard any data that fails to classify into any of the specified categories;
+4. Employ the resulting labels to perform supervised fine-tuning on a BERT classifier;
+5. Apply the fine-tuned BERT classifier to annotate the original unlabeled corpus.
 
 ### Comparison BERT test accuracies on the IMDb data.
 
@@ -27,7 +28,16 @@ Given a large corpus of unlabeled natural language data, LlamBERT follows these 
 | roberta-base    | 94.74         | 93.53         | 94.28               | **95.23**           |
 | roberta-large   | 96.54         | 94.83         | 94.98               | **96.68**           |
 
-## Hardware Dependencies
+### Accuracy comparison of different training data for the UMLS classification
+95th percentile confidence interval measured on 5 different random seeds.
+
+| Model            | Baseline         | LlamBERT        | Combined        |
+|------------------|------------------|-----------------|-----------------|
+| bert-large       | 94.84 (±0.25)    | 95.70 (±0.21)   | 96.14 (±0.42)   |
+| roberta-large    | 95.00 (±0.18)    | 96.02 (±0.12)   | 96.64 (±0.14)   |
+| BiomedBERT-large | 96.72 (±0.17)    | 96.66 (±0.13)   | 96.92 (±0.10)   |
+
+## Hardware Requirements
 + **Llama-2-7b-chat:** Requires a single A100 40GB GPU.
 + **Llama-2-70b-chat:** Requires four A100 80GB GPUs
 + **gpt-4-0613:** Requires no OpenAI API access.
