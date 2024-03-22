@@ -1,4 +1,4 @@
-Code for generating Google form a `json` file.
+Code for generating Google Form from a `json` file.
 
 In order to work a `token.json` and a `credentials.json` file is needed.
 
