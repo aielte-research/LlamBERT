@@ -40,7 +40,7 @@ Given a large corpus of unlabeled natural language data, LlamBERT follows these 
 ## Hardware Requirements
 + **Llama-2-7b-chat:** Requires a single A100 40GB GPU.
 + **Llama-2-70b-chat:** Requires four A100 80GB GPUs
-+ **gpt-4-0613:** Requires no OpenAI API access.
++ **gpt-4-0613:** Requires OpenAI API access.
 
 ## Installation
 ```
