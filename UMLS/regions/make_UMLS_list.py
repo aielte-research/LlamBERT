@@ -1,10 +1,12 @@
 import pandas as pd
-import argparse, os
+import os
 import random
 import json
 from tqdm import tqdm
+import fire
+
 import sys
-sys.path.append("..")
+sys.path.append("../..")
 from utils import my_open
 
 def export(cuis, MRCONSO, output_fpath):
@@ -19,7 +21,15 @@ def export(cuis, MRCONSO, output_fpath):
    with my_open(output_fpath,mode="w") as f:
       f.write(json.dumps(ret, indent=3).replace("&#x7c;", "|"))
 
-def main(META_path):
+def main(
+   META_path: str = "/home/projects/DeepNeurOntology/UMLS/2023AA/META/",
+   seed: int = 42,
+   **kwargs
+):
+   if len(kwargs) > 0:
+      raise ValueError(f"Unknown argument(s): {kwargs}")
+   random.seed(seed)
+   
    ### MRCONSO ###
    MRCONSO_fpath = os.path.join(META_path, "MRCONSO.RRF")
    print(f"Reading '{MRCONSO_fpath}'...")
@@ -93,11 +103,4 @@ def main(META_path):
    export(sampled_cuis, MRCONSO, "train_concepts.json")
  
 if __name__ == '__main__':
-   parser = argparse.ArgumentParser(prog='Sentiment promt maker', description='This script prepares a promts for sentiment analysis for Llama 2')
-   parser.add_argument('-i', '--META_path', required=False, default="/home/projects/DeepNeurOntology/UMLS/2023AA/META/")
-   parser.add_argument('-s', '--seed', required=False, type=int, default=42)
-   args = parser.parse_args()
-
-   random.seed(args.seed)
-
-   main(META_path=args.META_path)
+   fire.Fire(main)
