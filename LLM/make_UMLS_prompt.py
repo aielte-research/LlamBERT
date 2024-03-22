@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Union
+from typing import Optional
 import fire
 import sys
 sys.path.append("..")
@@ -33,14 +33,15 @@ def get_assistant_prompt(content):
 def main(
    input_fpath: str="../UMLS/regions/train_concepts.json",
    output_folder: str="model_inputs/UMLS/",
-   output_fname: Union[str, None]=None,
+   output_fname: Optional[str]=None,
    shots: int=1,
    plain_format: bool=False,
-   llama_format: bool=False,
+   openai_format: bool=False,
    **kwargs
 ):
    if len(kwargs) > 0:
       raise ValueError(f"Unknown argument(s): {kwargs}")
+   
    with open(input_fpath) as f:
       concepts = json.loads(f.read())
 
@@ -50,18 +51,7 @@ def main(
    prompts=[]
    if plain_format:
       prompts=[get_user_prompt_plain(cui, syns) for cui, syns in concepts.items()]
-   elif llama_format:
-      for cui, syns in concepts.items():
-         prompt = ""
-         if shots>=1:
-            prompt += f"[INST] <<SYS>>\n{get_sys_prompt_plain()}\n<</SYS>>\n{get_user_prompt_plain('C2328354', ['C4 branch to right iliocostalis cervicis'])}[/INST]\nyes\n"
-         if shots>=2:
-            prompt += f"[INST] <<SYS>>\n{get_sys_prompt_plain()}\n<</SYS>>\n{get_user_prompt_plain('C1514049', ['Neoplastic Neuroepithelial Cell and Neoplastic Perineural Cell'])}[/INST]\nno\n"
-         if shots>=3:
-            print("Only options 0, 1 and 2 shot are implemented.")
-         prompt += f"[INST] <<SYS>>\n{get_sys_prompt_plain()}\n<</SYS>>\n{get_user_prompt_plain(cui, syns)}[/INST]"
-         prompts.append(prompt)
-   else:
+   elif openai_format:
       for cui, syns in concepts.items():
          prompt = []
          if shots>=1:
@@ -76,6 +66,17 @@ def main(
             print("Only options 0, 1 and 2 shot are implemented.")
          prompt.append(get_sys_prompt())
          prompt.append(get_user_prompt(cui, syns))
+         prompts.append(prompt)
+   else:
+      for cui, syns in concepts.items():
+         prompt = ""
+         if shots>=1:
+            prompt += f"[INST] <<SYS>>\n{get_sys_prompt_plain()}\n<</SYS>>\n{get_user_prompt_plain('C2328354', ['C4 branch to right iliocostalis cervicis'])}[/INST]\nyes\n"
+         if shots>=2:
+            prompt += f"[INST] <<SYS>>\n{get_sys_prompt_plain()}\n<</SYS>>\n{get_user_prompt_plain('C1514049', ['Neoplastic Neuroepithelial Cell and Neoplastic Perineural Cell'])}[/INST]\nno\n"
+         if shots>=3:
+            print("Only options 0, 1 and 2 shot are implemented.")
+         prompt += f"[INST] <<SYS>>\n{get_sys_prompt_plain()}\n<</SYS>>\n{get_user_prompt_plain(cui, syns)}[/INST]"
          prompts.append(prompt)
          
    with my_open(os.path.join(output_folder, output_fname), 'w') as outfile:
