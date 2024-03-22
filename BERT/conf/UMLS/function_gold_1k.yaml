@@ -1,0 +1,17 @@
+name: UMLS_functions_gold_1k
+name_fields: !!python/tuple [model_name]
+neptune_logging: True
+train_fpath: data/UMLS_functions_gold/train.json
+dev_fpath: null
+test_fpath: data/UMLS_functions_gold/test.json 
+model_name: 
+  - microsoft/BiomedNLP-BiomedBERT-large-uncased-abstract
+  - microsoft/BiomedNLP-BiomedBERT-large-uncased-abstract
+  - microsoft/BiomedNLP-BiomedBERT-large-uncased-abstract
+batch_size: 16
+num_epochs: 10
+max_len: 512
+reduce_lines_for_testing: false # uses only 100 sentences to train model
+model_save_location: null
+lr: 0.000005
+mislabel_percent: 0  # 0 if you don't want mislabeled data in the train set (not in val or test) 1 -> 1%, 2 -> 2% so on

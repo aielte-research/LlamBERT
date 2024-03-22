@@ -17,11 +17,20 @@ Given a large corpus of unlabeled natural language data, LlamBERT follows these 
 4. Fine-tuning: Perform supervised fine-tuning on a BERT classifier using resulting labels.
 5. Annotation: Apply the fine-tuned BERT classifier to annotate the original unlabeled corpus.
 
+### Comparison BERT test accuracies on the IMDb data.
+
+| BERT model    | Baseline train | LlamBERT train | LlamBERT train&extra | Combined extra+train |
+|---------------|----------------|----------------|----------------------|----------------------|
+| distilbert-base | 91.23         | 90.77         | 92.12               | **92.53**           |
+| bert-base       | 92.35         | 91.58         | 92.76               | **93.47**           |
+| bert-large      | 94.29         | 93.31         | 94.07               | **95.03**           |
+| roberta-base    | 94.74         | 93.53         | 94.28               | **95.23**           |
+| roberta-large   | 96.54         | 94.83         | 94.98               | **96.68**           |
 
 ## Hardware Dependencies
 + **Llama-2-7b-chat:** Requires a single A100 40GB GPU.
 + **Llama-2-70b-chat:** Requires four A100 80GB GPUs
-+ **gpt-4-0613:** Requires no GPU.
++ **gpt-4-0613:** Requires no OpenAI API access.
 
 ## How to use LLamBERT
 
