@@ -1,12 +1,15 @@
+`llama_inference.py`:
+
 <!-- USAGE EXAMPLES -->
 
 ## Downloading weigths
 
 ```sh
-bash <(curl -sSL https://g.bodaay.io/hfd) -m TheBloke/Platypus2-70B-Instruct-GPTQ
+bash <(curl -sSL https://g.bodaay.io/hfd) -m "MODEL PATH ON HUGGINGFACE"
 ```
 
 ## Usage
+Assuming downloaded Llama 2 weights.
 
 Full llama-2
 ```sh

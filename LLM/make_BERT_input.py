@@ -1,11 +1,27 @@
-import argparse, os
+import os
 import json
 import random
+from typing import Optional
+import fire
+
 import sys
 sys.path.append("..")
 from utils import my_open
 
-def main(prompt_fpath, LLM_output_fpath, target_labels_fpath, output_fpath, a_pos, b_pos, shuffle=True):
+def main(
+   prompt_fpath: str = "model_inputs/UMLS/train_concepts_prompts.json",
+   LLM_output_fpath: str = "model_outputs/UMLS/train_concepts_prompts_meta-llama_Llama-2-70b-chat-hf.json",
+   target_labels_fpath: Optional[str]=None,
+   output_folder: str = "../BERT/data/UMLS_regions_10k/short_prompt",
+   output_fname: str = "train",
+   a_pos: Optional[int]=None,
+   b_pos: Optional[int]=None,
+   shuffle: bool = False,
+   **kwargs
+):
+   if len(kwargs) > 0:
+      raise ValueError(f"Unknown argument(s): {kwargs}")
+
    with open(prompt_fpath) as f:
       prompts = json.loads(f.read())
    if isinstance(prompts[0], dict):
@@ -26,37 +42,9 @@ def main(prompt_fpath, LLM_output_fpath, target_labels_fpath, output_fpath, a_po
    if shuffle:
       random.shuffle(data)
 
+   output_fpath = f"{os.path.join(output_folder, output_fname)}.json"
    with my_open(output_fpath, 'w') as outfile:
       json.dump(data, outfile, indent=3)
 
 if __name__ == '__main__':
-   parser = argparse.ArgumentParser(prog='Sentiment promt maker', description='This script prepares a promts for sentiment analysis for Llama 2')
-   parser.add_argument('-p', '--prompt_fpath', required=False, default="model_inputs/UMLS/train_concepts_prompts.json")
-   parser.add_argument('-l', '--LLM_output_fpath', required=False, default="model_outputs/UMLS/train_concepts_prompts_meta-llama_Llama-2-70b-chat-hf.json")
-   parser.add_argument('-t', '--target_labels_fpath', required=False, default=None)
-   parser.add_argument('-o', '--output_folder', required=False, default="../BERT/data/UMLS_regions_10k/short_prompt")
-   parser.add_argument('-f', '--output_fname', required=False, default="train.json")
-   parser.add_argument('-a', '--a_pos', required=False, default=None) #451 for UMLS
-   parser.add_argument('-b', '--b_pos', required=False, default=None) #-8 for UMLS
-   parser.add_argument('-s', '--shuffle', action=argparse.BooleanOptionalAction)
-   args = parser.parse_args()
-      
-   output_fpath = os.path.join(args.output_folder, args.output_fname)
-   
-   a_pos = args.a_pos
-   if args.a_pos is not None:
-      a_pos = int(a_pos)
-
-   b_pos = args.b_pos
-   if args.b_pos is not None:
-      b_pos = int(b_pos)
-
-   main(
-      prompt_fpath = args.prompt_fpath,
-      LLM_output_fpath = args.LLM_output_fpath,
-      target_labels_fpath = args.target_labels_fpath,
-      output_fpath = output_fpath,
-      a_pos = a_pos,
-      b_pos = b_pos,
-      shuffle = args.shuffle
-   )
+   fire.Fire(main)
