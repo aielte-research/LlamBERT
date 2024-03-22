@@ -1,4 +1,4 @@
-Code for preparing UMLS data for LlamBERT, and filtering the concepts with LlamBERT, and appearance in PubMed abstracts.
+Code for preparing UMLS data for LlamBERT, and filtering the concepts with LlamBERT and appearance in PubMed abstracts.
 
 ## Requirements
 `regions\make_UMLS_list.py`:
