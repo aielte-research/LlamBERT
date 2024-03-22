@@ -25,3 +25,5 @@ dependencies:
     - fire
     - python-dotenv
     - openai
+    - pathos
+    - pyahocorasick
