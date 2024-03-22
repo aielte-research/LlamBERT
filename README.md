@@ -12,7 +12,7 @@ This repository implements the method described in the research paper titled Lla
 Method Overview
 Given a large corpus of unlabeled natural language data, LlamBERT follows these steps:
 
-1. Annotate a reasonably sized, randomly selected subset of the corpus utilizing Llama 2 and a natural language prompt reflecting the labeling criteria;
+1. Annotate a reasonably sized, randomly selected subset of the corpus utilizing an LLM and a prompt reflecting the labeling criteria;
 2. Parse the Llama 2 responses into the desired categories;
 3. Discard any data that fails to classify into any of the specified categories;
 4. Employ the resulting labels to perform supervised fine-tuning on a BERT classifier;
