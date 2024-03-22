@@ -6,8 +6,7 @@
 
 ## Project Description
 LlamBERT implements a hybrid approach approach for text classification that leverages LLMs to annotate a small subset of large, unlabeled databases and uses the results for fine-tuning transformer encoders like BERT and RoBERTa. 
-This strategy is evaluated on two diverse datasets: the IMDb review dataset and the UMLS Meta-Thesaurus.
-We use it for efficiently extracting subontologies from the UMLS graph using natural language queries.
+This strategy is evaluated on two diverse datasets: the IMDb review dataset and the UMLS Meta-Thesaurus where we use it for efficiently extracting subontologies from the UMLS graph using natural language queries.
 This repository implements the method described in the research paper titled LlamBERT: Leveraging Semi-Supervised Learning for Text Classification.
 
 Method Overview
