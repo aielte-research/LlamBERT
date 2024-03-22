@@ -42,21 +42,9 @@ Given a large corpus of unlabeled natural language data, LlamBERT follows these 
 + **Llama-2-70b-chat:** Requires four A100 80GB GPUs
 + **gpt-4-0613:** Requires no OpenAI API access.
 
-## How to use LLamBERT
-
-### Install environment
+## Installation
 ```
 conda env create --file=environment.yml
-```
-
-### Generating labels with LLamBERT
-```
-insert code here
-```
-
-### Generating labels with ChatGPT
-```
-insert code here
 ```
 
 ## Citation
