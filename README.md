@@ -1,7 +1,8 @@
 # LlamBERT
-<p align="center">
-  <img src="./plots/LlamBERT_DALL-E-3.png" alt="Model Architecture">
+<p align="left">
+  <img src="./plots/LlamBERT_DALL-E-3.png" alt="LlamBERT Logo" width="400">
 </p>
+
 
 ## Project Description
 LlamBERT implements a hybrid approach approach for text classification that leverages LLMs to annotate a small subset of large, unlabeled databases and uses the results for fine-tuning transformer encoders like BERT and RoBERTa. 
