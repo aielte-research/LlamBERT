@@ -6,7 +6,7 @@ from tqdm import tqdm
 import fire
 
 import sys
-sys.path.append("../..")
+sys.path.append("..")
 from utils import my_open
 
 def export(cuis, MRCONSO, output_fpath):
@@ -24,7 +24,7 @@ def export(cuis, MRCONSO, output_fpath):
 def main(
    META_path: str = "/home/projects/DeepNeurOntology/UMLS/2023AA/META/", # Path of the UMLS data
    seed: int = 42,
-   tuis: str = "T017|T021|T022|T023|T024|T025|T026|T029|T030|T031|T125|T192", # For functions: "T053|T070|T055|T054|T041|T038|T039|T020|T042|T040|T190|T048|T019|T184|T046|T191|T047"]
+   tuis: str = "T017|T021|T022|T023|T024|T025|T026|T029|T030|T031|T125|T192", # For functions: "T053|T070|T055|T054|T041|T038|T039|T020|T042|T040|T190|T048|T019|T184|T046|T191|T047"
    folder: str = "regions",
    **kwargs
 ):
