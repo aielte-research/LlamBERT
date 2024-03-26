@@ -22,8 +22,10 @@ def export(cuis, MRCONSO, output_fpath):
       f.write(json.dumps(ret, indent=3).replace("&#x7c;", "|"))
 
 def main(
-   META_path: str = "/home/projects/DeepNeurOntology/UMLS/2023AA/META/",
+   META_path: str = "/home/projects/DeepNeurOntology/UMLS/2023AA/META/", # Path of the UMLS data
    seed: int = 42,
+   tuis: str = "T017|T021|T022|T023|T024|T025|T026|T029|T030|T031|T125|T192", # For functions: "T053|T070|T055|T054|T041|T038|T039|T020|T042|T040|T190|T048|T019|T184|T046|T191|T047"]
+   folder: str = "regions",
    **kwargs
 ):
    if len(kwargs) > 0:
@@ -50,10 +52,7 @@ def main(
    MRSTY = MRSTY[MRSTY['CUI'].isin(cui_list)]
    print(MRSTY)
 
-   desired_tui_values = [
-      'T017', 'T021', 'T022', 'T023', 'T024', 'T025',
-      'T026', 'T029', 'T030', 'T031', 'T125', 'T192'
-   ]
+   desired_tui_values = "|".split(tuis)
 
    print(f"Filtering MRSTY using TUI list {desired_tui_values}...")
    MRSTY = MRSTY[MRSTY['TUI'].isin(desired_tui_values)]
@@ -79,18 +78,18 @@ def main(
    cui_list_all = list(set(MRREL['CUI1'].unique().tolist() + MRREL['CUI2'].unique().tolist()))
    print(f"{len(cui_list_all)} uniquie CUIs found.")
 
-   export(cui_list_all, MRCONSO, "all_concepts.json")
+   export(cui_list_all, MRCONSO, os.path.join(folder,"all_concepts.json"))
 
    ### Samplig Data ###
-   with open('test_regions_cui_list.txt') as f:
+   with open(os.path.join(folder,'test_regions_cui_list.txt')) as f:
       test_cuis = f.read().splitlines()
    
-   export(test_cuis, MRCONSO, "test_concepts.json")
+   export(test_cuis, MRCONSO, os.path.join(folder,"test_concepts.json"))
 
-   with open('train_gold_regions_cui_list.txt') as f:
+   with open(os.path.join(folder,'train_gold_regions_cui_list.txt')) as f:
       train_gold_cuis = f.read().splitlines()
    
-   export(train_gold_cuis, MRCONSO, "train_gold_concepts.json")
+   export(train_gold_cuis, MRCONSO, os.path.join(folder,"train_gold_concepts.json"))
 
    print("Discarding test and train_gold CUIs...")
    cui_list_non_test = list(set(cui_list_all)-set(test_cuis)-set(train_gold_cuis))
@@ -100,7 +99,7 @@ def main(
    random.shuffle(cui_list_non_test)
    sampled_cuis = cui_list_non_test[:10000]
 
-   export(sampled_cuis, MRCONSO, "train_concepts.json")
+   export(sampled_cuis, MRCONSO, os.path.join(folder,"train_concepts.json"))
  
 if __name__ == '__main__':
    fire.Fire(main)
