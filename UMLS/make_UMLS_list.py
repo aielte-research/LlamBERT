@@ -52,7 +52,7 @@ def main(
    MRSTY = MRSTY[MRSTY['CUI'].isin(cui_list)]
    print(MRSTY)
 
-   desired_tui_values = "|".split(tuis)
+   desired_tui_values = tuis.split("|")
 
    print(f"Filtering MRSTY using TUI list {desired_tui_values}...")
    MRSTY = MRSTY[MRSTY['TUI'].isin(desired_tui_values)]
@@ -81,12 +81,12 @@ def main(
    export(cui_list_all, MRCONSO, os.path.join(folder,"all_concepts.json"))
 
    ### Samplig Data ###
-   with open(os.path.join(folder,'test_regions_cui_list.txt')) as f:
+   with open(os.path.join(folder,'test_cui_list.txt')) as f:
       test_cuis = f.read().splitlines()
    
    export(test_cuis, MRCONSO, os.path.join(folder,"test_concepts.json"))
 
-   with open(os.path.join(folder,'train_gold_regions_cui_list.txt')) as f:
+   with open(os.path.join(folder,'train_gold_cui_list.txt')) as f:
       train_gold_cuis = f.read().splitlines()
    
    export(train_gold_cuis, MRCONSO, os.path.join(folder,"train_gold_concepts.json"))
