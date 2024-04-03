@@ -51,7 +51,7 @@ conda env create --file=environment.yml
 ```
 CUDA_VISIBLE_DEVICES=0 python <script-name>.py <options>
 ```
-`-h` for help, `q` for exit help.
+`-- -h` for help, `q` for exit help.
 
 ## Citation
 If you use this code in your research, please cite the corresponding paper:

@@ -1,7 +1,7 @@
 Code for preparing UMLS data for LlamBERT, and filtering the concepts with LlamBERT and appearance in PubMed abstracts.
 
 ## Requirements
-`regions\make_UMLS_list.py`:
+`make_UMLS_list.py`:
 
 - Downloaded UMLS archive: https://www.nlm.nih.gov/research/umls/licensedcontent/umlsarchives04.html
 
