@@ -9,7 +9,7 @@ LlamBERT implements a hybrid approach approach for text classification that leve
 This strategy is evaluated on two diverse datasets: the IMDb review dataset and the UMLS Meta-Thesaurus where we use it for efficiently extracting subontologies from the UMLS graph using natural language queries.
 This repository implements the method described in the research paper titled LlamBERT: Leveraging Semi-Supervised Learning for Text Classification.
 
-Method Overview
+### Method Overview
 Given a large corpus of unlabeled natural language data, LlamBERT follows these steps:
 
 1. Annotate a reasonably sized, randomly selected subset of the corpus utilizing an LLM and a prompt reflecting the labeling criteria;
@@ -17,6 +17,10 @@ Given a large corpus of unlabeled natural language data, LlamBERT follows these 
 3. Discard any data that fails to classify into any of the specified categories;
 4. Employ the resulting labels to perform supervised fine-tuning on a BERT classifier;
 5. Apply the fine-tuned BERT classifier to annotate the original unlabeled corpus.
+
+<p align="left">
+  <img src="./plots/diagram.png" alt="LlamBERT diagram" width="800">
+</p>
 
 ### Comparison BERT test accuracies on the IMDb data.
 
