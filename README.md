@@ -57,10 +57,17 @@ CUDA_VISIBLE_DEVICES=0 python <script-name>.py <options>
 ```
 `-- -h` for help, `q` for exit help.
 
-## Citation
+## How to Cite
 If you use this code in your research, please cite the corresponding paper:
 
-InsertCitationHere
+```bibtex
+@article{csanady2024llambert,
+  title={LlamBERT: Large-scale low-cost data annotation in NLP},
+  author={Csan{\'a}dy, B{\'a}lint and Muzsai, Lajos and Vedres, P{\'e}ter and N{\'a}dasdy, Zolt{\'a}n and Luk{\'a}cs, Andr{\'a}s},
+  journal={arXiv preprint arXiv:2403.15938},
+  year={2024}
+}
+```
 
 ### Contributors
 - Bálint Csanády (csbalint@protonmail.ch)
